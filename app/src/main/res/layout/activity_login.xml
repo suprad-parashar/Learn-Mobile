@@ -51,6 +51,7 @@
         android:layout_margin="8dp"
         android:background="@drawable/outline_button"
         android:text="@string/sign_up"
+        android:id="@+id/sign_up_button"
         android:textColor="@color/colorAccent" />
 
     <com.google.android.gms.common.SignInButton
