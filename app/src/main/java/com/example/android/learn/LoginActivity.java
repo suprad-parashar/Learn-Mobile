@@ -1,16 +1,14 @@
 package com.example.android.learn;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,7 +22,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import java.util.Objects;
 
@@ -33,7 +33,9 @@ import java.util.Objects;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    //Constants
     private static final int GOOGLE_SIGN_IN_RC = 474;
+
     //Declare Firebase Variables
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -42,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton, signUpButton;
     SignInButton googleSignInButton;
     GoogleSignInClient client;
+    TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +59,12 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login_button);
         signUpButton = findViewById(R.id.sign_up_button);
         googleSignInButton = findViewById(R.id.google_sign_in_button);
+        forgotPassword = findViewById(R.id.forgot_password);
 
         //Get Intent to check if a user returned after registration.
         boolean wasRegistering = getIntent().getBooleanExtra("registration", false);
         if (wasRegistering)
             Toast.makeText(this, "Successfully Registered. Check your email for verification.", Toast.LENGTH_LONG).show();
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        client = GoogleSignIn.getClient(this, gso);
-
 
         //Handle Click on Login Button.
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +86,8 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         if (Objects.requireNonNull(auth.getCurrentUser()).isEmailVerified()) {
-                                            Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_LONG).show();
+                                            FirebaseUser user = auth.getCurrentUser();
+                                            Toast.makeText(LoginActivity.this, "Logged In - " + user.getDisplayName(), Toast.LENGTH_LONG).show();
                                             auth.signOut();
                                             //TODO: Update UI.
                                         } else {
@@ -106,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Handle Sign Up Button Clicks.
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +112,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Google Sign In Options for Google Sign In Authentication.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        client = GoogleSignIn.getClient(this, gso);
+
+        //Sign In Using Google.
         googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,9 +127,41 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(signInIntent, GOOGLE_SIGN_IN_RC);
             }
         });
+
+        //Handle Forgot Password Clicks.
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String email = emailEditText.getText().toString().trim();
+                //Check if email address is valid.
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    emailEditText.setError("Invalid Email Address");
+                    emailEditText.requestFocus();
+                } else {
+                    //Check if email exists.
+                    auth.fetchSignInMethodsForEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                    if (Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getSignInMethods()).size() == 0) {
+                                        emailEditText.setError("Email Address not Registered! Register now.");
+                                        emailEditText.requestFocus();
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Reset Link sent to mail.", Toast.LENGTH_LONG).show();
+                                        auth.sendPasswordResetEmail(email);
+                                    }
+                                }
+                            });
+                }
+            }
+        });
     }
 
-    //TODO: Not Working
+    /**
+     * Authenticate user using Firebase with a Google Account.
+     *
+     * @param acct The GoogleSignInAccount object which stores the User Data.
+     */
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential)
@@ -130,11 +169,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_LONG).show();
+                            FirebaseUser user = auth.getCurrentUser();
+                            assert user != null;
+                            Toast.makeText(LoginActivity.this, "Logged In - " + user.getDisplayName(), Toast.LENGTH_LONG).show();
                             auth.signOut();
                             //TODO: Update UI.
                         } else {
-                            Toast.makeText(LoginActivity.this, "Alpha Beta Gamma", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -143,8 +184,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GOOGLE_SIGN_IN_RC) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {

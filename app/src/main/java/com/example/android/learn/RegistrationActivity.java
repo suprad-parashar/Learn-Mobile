@@ -6,14 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +21,9 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Objects;
 
+/**
+ * Activity to Register new Users.
+ */
 public class RegistrationActivity extends AppCompatActivity {
 
     //Declare Firebase Variables
@@ -52,13 +53,14 @@ public class RegistrationActivity extends AppCompatActivity {
         confirmPasswordEditText = findViewById(R.id.registration_confirm_password);
         registerButton = findViewById(R.id.register_button);
 
+        //Handle Register Button Clicks
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String firstName = firstNameEditText.getText().toString().trim();
                 final String lastName = lastNameEditText.getText().toString().trim();
-                String email = emailEditText.getText().toString().trim();
-                String password = passwordEditText.getText().toString();
+                final String email = emailEditText.getText().toString().trim();
+                final String password = passwordEditText.getText().toString();
                 String confirmPassword = confirmPasswordEditText.getText().toString();
                 int value;
                 if (firstName.equals("")) {
@@ -69,9 +71,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     lastNameEditText.requestFocus();
                 } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     emailEditText.setError("Invalid Email Address");
-                    emailEditText.requestFocus();
-                } else if (emailAlreadyExists(email)) {
-                    emailEditText.setError("Email Address already Registered.");
                     emailEditText.requestFocus();
                 } else if ((value = isValidPassword(password)) != 0) {
                     switch (value) {
@@ -104,31 +103,45 @@ public class RegistrationActivity extends AppCompatActivity {
                     confirmPasswordEditText.setError("Passwords do not match");
                     confirmPasswordEditText.requestFocus();
                 } else {
-                    auth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+                    //Check if email is already registered.
+                    auth.fetchSignInMethodsForEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                                 @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = auth.getCurrentUser();
-                                        assert user != null;
-                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                .setDisplayName(firstName + " " + lastName).build();
-                                        user.updateProfile(profileUpdates);
-                                        user.sendEmailVerification()
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                    if (Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getSignInMethods()).size() != 0) {
+                                        emailEditText.setError("Email Address already Registered.");
+                                        emailEditText.requestFocus();
+                                    } else {
+                                        //Create new user using Email and Password.
+                                        auth.createUserWithEmailAndPassword(email, password)
+                                                .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                                                     @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                    public void onComplete(@NonNull Task<AuthResult> task) {
                                                         if (task.isSuccessful()) {
-                                                            auth.signOut();
-                                                            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                                                            intent.putExtra("registration", true);
-                                                            startActivity(intent);
-                                                            finish();
+                                                            FirebaseUser user = auth.getCurrentUser();
+                                                            assert user != null;
+                                                            //Update User's Name.
+                                                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                                    .setDisplayName(firstName + " " + lastName).build();
+                                                            user.updateProfile(profileUpdates);
+                                                            user.sendEmailVerification()
+                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                auth.signOut();
+                                                                                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                                                                intent.putExtra("registration", true);
+                                                                                startActivity(intent);
+                                                                                finish();
+                                                                            }
+                                                                        }
+                                                                    });
+                                                        } else {
+                                                            Toast.makeText(RegistrationActivity.this, "An Error Occurred", Toast.LENGTH_LONG).show();
                                                         }
                                                     }
                                                 });
-                                    } else {
-                                        Toast.makeText(RegistrationActivity.this, "An Error Occurred", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -137,6 +150,12 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if Password meets conditions.
+     *
+     * @param password The password to be checked.
+     * @return True if password satisfies all conditions else False.
+     */
     private int isValidPassword(String password) {
         if (password.equals(""))
             return 1;
@@ -164,17 +183,5 @@ public class RegistrationActivity extends AppCompatActivity {
                 return 6;
         }
         return 0;
-    }
-
-    private boolean emailAlreadyExists(String email) {
-        final boolean[] exists = new boolean[1];
-        auth.fetchSignInMethodsForEmail(email)
-                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                        exists[0] = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getSignInMethods()).size() != 0;
-                    }
-                });
-        return exists[0];
     }
 }
