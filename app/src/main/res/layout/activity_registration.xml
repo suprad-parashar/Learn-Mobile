@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/registration_first_name"
@@ -18,9 +18,9 @@
             android:layout_margin="8dp"
             android:background="@drawable/edit_text_box_border"
             android:hint="@string/first_name"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:padding="12dp"
-            android:importantForAutofill="no" />
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/registration_last_name"
@@ -29,9 +29,9 @@
             android:layout_margin="8dp"
             android:background="@drawable/edit_text_box_border"
             android:hint="@string/last_name"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:padding="12dp"
-            android:importantForAutofill="no" />
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/registration_email"
@@ -40,9 +40,9 @@
             android:layout_margin="8dp"
             android:background="@drawable/edit_text_box_border"
             android:hint="@string/email"
+            android:importantForAutofill="no"
             android:inputType="textEmailAddress"
-            android:padding="12dp"
-            android:importantForAutofill="no" />
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/registration_password"
@@ -51,9 +51,9 @@
             android:layout_margin="8dp"
             android:background="@drawable/edit_text_box_border"
             android:hint="@string/password"
+            android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:padding="12dp"
-            android:importantForAutofill="no" />
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/registration_confirm_password"
@@ -62,17 +62,17 @@
             android:layout_margin="8dp"
             android:background="@drawable/edit_text_box_border"
             android:hint="@string/confirm_password"
+            android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:padding="12dp"
-            android:importantForAutofill="no" />
+            android:padding="12dp" />
 
         <Button
+            android:id="@+id/register_button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/sign_up"
-            android:id="@+id/register_button"
-            style="@style/Widget.AppCompat.Button.Colored"/>
+            android:text="@string/sign_up" />
 
     </LinearLayout>
 
