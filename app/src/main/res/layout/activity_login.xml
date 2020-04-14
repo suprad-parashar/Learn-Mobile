@@ -46,12 +46,12 @@
         android:text="@string/login" />
 
     <Button
+        android:id="@+id/sign_up_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/outline_button"
         android:text="@string/sign_up"
-        android:id="@+id/sign_up_button"
         android:textColor="@color/colorAccent" />
 
     <com.google.android.gms.common.SignInButton
@@ -61,10 +61,10 @@
         android:layout_margin="8dp" />
 
     <TextView
+        android:id="@+id/forgot_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/forgot_password"
-        android:id="@+id/forgot_password"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorAccent" />
 </LinearLayout>
