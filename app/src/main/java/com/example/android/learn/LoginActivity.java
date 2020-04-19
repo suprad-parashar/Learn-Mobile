@@ -22,7 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
@@ -32,6 +31,14 @@ import java.util.Objects;
  * Activity to Log in users. The First activity of the App.
  */
 public class LoginActivity extends AppCompatActivity {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+        }
+    }
 
     //Constants
     private static final int GOOGLE_SIGN_IN_RC = 474;
@@ -86,10 +93,10 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         if (Objects.requireNonNull(auth.getCurrentUser()).isEmailVerified()) {
-                                            FirebaseUser user = auth.getCurrentUser();
-                                            Toast.makeText(LoginActivity.this, "Logged In - " + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                                            auth.signOut();
-                                            //TODO: Update UI.
+                                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                            intent.putExtra("signIn", true);
+                                            startActivity(intent);
+                                            finish();
                                         } else {
                                             Toast.makeText(LoginActivity.this, "Verify your email before logging in", Toast.LENGTH_LONG).show();
                                             auth.signOut();
@@ -169,11 +176,10 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = auth.getCurrentUser();
-                            assert user != null;
-                            Toast.makeText(LoginActivity.this, "Logged In - " + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                            auth.signOut();
-                            //TODO: Update UI.
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.putExtra("signIn", true);
+                            startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_LONG).show();
                         }

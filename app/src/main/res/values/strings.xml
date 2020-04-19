@@ -9,4 +9,10 @@
     <string name="last_name">Last Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_learn">Learn</string>
+    <string name="title_social">Social</string>
+    <string name="title_tools">Tools</string>
+    <string name="title_profile">Profile</string>
 </resources>
