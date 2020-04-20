@@ -17,8 +17,6 @@ import com.example.android.learn.LoginActivity;
 import com.example.android.learn.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Objects;
-
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -34,7 +32,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
-                Objects.requireNonNull(getActivity()).finish();
+                requireActivity().finish();
             }
         });
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
