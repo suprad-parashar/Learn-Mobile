@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -120,23 +126,20 @@ public class RegistrationActivity extends AppCompatActivity {
                                                         if (task.isSuccessful()) {
                                                             FirebaseUser user = auth.getCurrentUser();
                                                             assert user != null;
-                                                            //Update User's Name.
+
+                                                            //Update Name
                                                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                                                     .setDisplayName(firstName + " " + lastName).build();
                                                             user.updateProfile(profileUpdates);
-                                                            user.sendEmailVerification()
-                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                                            if (task.isSuccessful()) {
-                                                                                auth.signOut();
-                                                                                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                                                                                intent.putExtra("registration", true);
-                                                                                startActivity(intent);
-                                                                                finish();
-                                                                            }
-                                                                        }
-                                                                    });
+
+                                                            user.sendEmailVerification();
+                                                            auth.signOut();
+
+                                                            //Go Back to Login Page.
+                                                            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                                            intent.putExtra("registration", true);
+                                                            startActivity(intent);
+                                                            finish();
                                                         } else {
                                                             Toast.makeText(RegistrationActivity.this, "An Error Occurred", Toast.LENGTH_LONG).show();
                                                         }
