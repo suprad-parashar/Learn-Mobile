@@ -35,4 +35,5 @@ Praesent dapibus ex elit, non convallis nulla suscipit in. Maecenas ut blandit t
 
 Sed dapibus varius consectetur. Nulla facilisi. Cras pulvinar nec dolor at bibendum. Cras et tempor lectus. Pellentesque dolor sapien, congue quis tempor in, ullamcorper vel augue. Curabitur in tristique neque. Nam consectetur tellus eros. Morbi non eros metus. Donec dui mi, finibus vel dui eu, aliquam sodales metus.
     </string>
+    <string name="user_profile_image">Profile Image</string>
 </resources>
