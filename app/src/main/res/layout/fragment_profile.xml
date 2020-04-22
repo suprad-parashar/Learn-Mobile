@@ -6,10 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/wait_profile"
+        android:layout_height="match_parent"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:id="@+id/user_profile_data_container"
         android:background="@color/colorPrimary">
 
         <TextView
@@ -21,26 +28,26 @@
             android:paddingTop="4dp"
             android:paddingEnd="4dp"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="32sp"
             app:layout_constraintBottom_toTopOf="@id/profile_user_email"
             app:layout_constraintLeft_toLeftOf="parent"
             tools:text="Suprad Parashar" />
 
-        <ImageView
-            android:id="@+id/profile_user_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_above="@id/profile_user_name"
-            android:contentDescription="@string/user_profile_image"
-            android:paddingStart="4dp"
-            android:paddingTop="4dp"
-            app:layout_constraintWidth_percent="0.25"
-            android:paddingEnd="4dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintBottom_toTopOf="@id/profile_user_name"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageView-->
+<!--            android:id="@+id/profile_user_image"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_above="@id/profile_user_name"-->
+<!--            android:contentDescription="@string/user_profile_image"-->
+<!--            android:paddingStart="4dp"-->
+<!--            android:paddingTop="4dp"-->
+<!--            app:layout_constraintWidth_percent="0.25"-->
+<!--            android:paddingEnd="4dp"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:src="@mipmap/ic_launcher"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/profile_user_name"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
             android:id="@+id/profile_user_email"
