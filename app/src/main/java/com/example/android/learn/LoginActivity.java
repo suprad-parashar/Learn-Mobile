@@ -240,15 +240,19 @@ public class LoginActivity extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.child("points").exists()) {
-                    reference.child("points").setValue(0);
-                }
-                if (!dataSnapshot.child("type").exists()) {
-                    reference.child("type").setValue("Student");
-                }
-                if (!dataSnapshot.child("status").exists()) {
-                    reference.child("status").setValue("Newbie");
-                }
+//                if (!dataSnapshot.child("points").exists()) {
+//                    reference.child("points").setValue(0);
+//                }
+                checkAndAddData(reference, dataSnapshot, "points", 0);
+                checkAndAddData(reference, dataSnapshot, "type", "Student");
+                checkAndAddData(reference, dataSnapshot, "status", "Newbie");
+//                if (!dataSnapshot.child("type").exists()) {
+//                    reference.child("type").setValue("Student");
+//                }
+//                if (!dataSnapshot.child("status").exists()) {
+//                    reference.child("status").setValue("Newbie");
+//                }
+
             }
 
             @Override
@@ -257,5 +261,11 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Firebase Database Error Occurred.", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private <T> void checkAndAddData(DatabaseReference reference, DataSnapshot dataSnapshot, String key, T value) {
+        if (!dataSnapshot.child(key).exists()) {
+            reference.child(key).setValue(value);
+        }
     }
 }
