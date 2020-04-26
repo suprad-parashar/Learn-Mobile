@@ -1,10 +1,15 @@
 package com.example.android.learn.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.android.learn.HomeActivity;
+import com.example.android.learn.LoginActivity;
 import com.example.android.learn.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,9 +39,19 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser user = auth.getCurrentUser();
 
     private TextView nameTextView, emailTextView, typeTextView, pointsTextView, statusTextView;
-    private ImageView dpImageView;
+    private ImageButton settings;
+
+    private ListView profileLinks;
 
     ProgressBar wait;
+
+    final String[] PROFILE_LINKS_LIST = {
+            "View Profile",
+            "My Classroom",
+            "My Activity",
+            "My Achievements",
+            "Logout"
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +66,10 @@ public class ProfileFragment extends Fragment {
         typeTextView = view.findViewById(R.id.profile_user_type);
         pointsTextView = view.findViewById(R.id.profile_user_bp);
         statusTextView = view.findViewById(R.id.profile_user_status);
+        settings = view.findViewById(R.id.settings);
+        profileLinks = view.findViewById(R.id.profile_links);
+
+        wait.setVisibility(View.VISIBLE);
 
         nameTextView.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());
@@ -71,6 +92,25 @@ public class ProfileFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getContext(), "Firebase Profile Sucks", Toast.LENGTH_LONG).show();
                 wait.setVisibility(View.GONE);
+            }
+        });
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, PROFILE_LINKS_LIST);
+        profileLinks.setAdapter(arrayAdapter);
+        profileLinks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        HomeActivity.navController.navigate(R.id.navigation_view_profile);
+//                        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new ViewProfileFragment());
+                        break;
+                    case 4:
+                        auth.signOut();
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        requireActivity().finish();
+                        break;
+                }
             }
         });
     }
