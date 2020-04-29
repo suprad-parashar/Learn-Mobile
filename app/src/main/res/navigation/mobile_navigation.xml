@@ -40,4 +40,10 @@
         android:name="com.example.android.learn.ui.profile.ViewProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_view_profile" />
+
+    <fragment
+        android:id="@+id/navigation_edit_profile"
+        android:name="com.example.android.learn.ui.profile.EditProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

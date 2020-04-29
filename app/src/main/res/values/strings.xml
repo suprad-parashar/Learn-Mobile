@@ -27,10 +27,13 @@
     <string name="student">Student</string>
     <string name="mentor">Mentor</string>
     <string name="edit">Edit</string>
+    <string name="unknown">Unknown</string>
+    <string name="save">Save</string>
+    <string name="semester">Semester</string>
 
     <string-array name="currently_in">
-        <item>Class 11</item>
-        <item>Class 12</item>
+<!--        <item>Class 11</item>-->
+<!--        <item>Class 12</item>-->
         <item>Undergraduate</item>
     </string-array>
 
@@ -41,7 +44,7 @@
 
     <string-array name="stream_undergraduate">
         <item>Engineering</item>
-        <item>Others</item>
+<!--        <item>Others</item>-->
     </string-array>
 
     <string-array name="branch_science">
@@ -54,14 +57,14 @@
     <string-array name="branch_engineering">
         <item>Computer Science and Engineering</item>
         <item>Information Science and Engineering</item>
-        <item>Electronics and Communication Engineering</item>
-        <item>Electronics and Electrical Engineering</item>
-        <item>Mechanical Engineering</item>
-        <item>Civil Engineering</item>
-        <item>Industrial Engineering and Management</item>
-        <item>Instrumentation Engineering</item>
-        <item>Aerospace Engineering</item>
-        <item>Others</item>
+<!--        <item>Electronics and Communication Engineering</item>-->
+<!--        <item>Electronics and Electrical Engineering</item>-->
+<!--        <item>Mechanical Engineering</item>-->
+<!--        <item>Civil Engineering</item>-->
+<!--        <item>Industrial Engineering and Management</item>-->
+<!--        <item>Instrumentation Engineering</item>-->
+<!--        <item>Aerospace Engineering</item>-->
+<!--        <item>Others</item>-->
     </string-array>
 
     <string-array name="boards">
@@ -71,7 +74,12 @@
 
     <string-array name="universities">
         <item>Visvesvaraya Technological University</item>
-        <item>Bangalore University</item>
-        <item>PES University</item>
+<!--        <item>Bangalore University</item>-->
+<!--        <item>PES University</item>-->
+    </string-array>
+
+    <string-array name="learn_list">
+        <item>My Syllabus</item>
+        <item>Engineering</item>
     </string-array>
 </resources>

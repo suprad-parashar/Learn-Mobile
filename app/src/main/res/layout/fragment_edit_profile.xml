@@ -1,43 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
     <ProgressBar
-        android:id="@+id/wait_view_profile"
+        android:id="@+id/wait_edit_profile"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/user_name_view_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:textColor="@color/colorAccent"
-        android:textSize="32sp"
-        tools:text="Suprad Parashar" />
-
-    <TextView
-        android:id="@+id/user_type_view_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:textAllCaps="true"
-        tools:text="Student" />
-
-    <View
+    <ScrollView xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_margin="4dp"
-        android:background="@color/colorAccent" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,33 +22,101 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/view_profile_currently_in_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:text="@string/currently_in" />
+                    android:labelFor="@id/view_profile_name"
+                    android:text="@string/name" />
+
+                <EditText
+                    android:id="@+id/view_profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/outline_button"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:padding="8dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/user_currently_in_view_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:labelFor="@id/view_profile_name"
+                    android:text="@string/i_am_a" />
+
+                <RadioGroup
+                    android:id="@+id/user_type_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/student_radio_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:padding="8dp"
+                        android:text="@string/student" />
+
+                    <RadioButton
+                        android:id="@+id/mentor_radio_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        android:text="@string/mentor" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_profile_currently_in_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:labelFor="@id/view_profile_currently_in"
+                    android:text="@string/currently_in" />
+
+                <Spinner
+                    android:id="@+id/view_profile_currently_in"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Undergraduate" />
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/view_profile_stream_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -79,23 +124,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
+                    android:labelFor="@id/view_profile_stream"
                     android:text="@string/stream" />
 
-                <TextView
-                    android:id="@+id/stream_view_profile"
+                <Spinner
+                    android:id="@+id/view_profile_stream"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Engineering" />
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/view_profile_branch_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -103,23 +149,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
+                    android:labelFor="@id/view_profile_branch"
                     android:text="@string/branch" />
 
-                <TextView
-                    android:id="@+id/branch_view_profile"
+                <Spinner
+                    android:id="@+id/view_profile_branch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Information Science and Engineering" />
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/view_profile_board_university_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -127,23 +174,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:text="@string/university" />
+                    android:labelFor="@id/view_profile_board_university"
+                    tools:text="University" />
 
-                <TextView
-                    android:id="@+id/university_board_view_profile"
+                <Spinner
+                    android:id="@+id/view_profile_board_university"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Visvesvaraya Technological University" />
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/view_profile_college_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -154,21 +202,23 @@
                     android:labelFor="@id/view_profile_college"
                     android:text="@string/college_name" />
 
-                <TextView
-                    android:id="@+id/college_view_profile"
+                <EditText
+                    android:id="@+id/view_profile_college"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="SJB Institute of Technology" />
+                    android:background="@drawable/outline_button"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:padding="8dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/view_profile_semester_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -176,17 +226,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:labelFor="@id/view_profile_college"
+                    android:labelFor="@id/view_profile_semester"
                     android:text="@string/semester" />
 
-                <TextView
-                    android:id="@+id/semester_view_profile"
+                <Spinner
+                    android:id="@+id/view_profile_semester"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Semester 6" />
+                    android:spinnerMode="dialog" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
