@@ -1,29 +1,19 @@
 package com.example.android.learn.ui.profile;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 
 import com.example.android.learn.HomeActivity;
 import com.example.android.learn.R;
@@ -37,18 +27,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ViewProfileFragment extends Fragment {
 
-    FirebaseAuth auth = FirebaseAuth.getInstance();
-    FirebaseUser user = auth.getCurrentUser();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //Initialise Firebase Variables.
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseUser user = auth.getCurrentUser();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    TextView userName, collegeName;
-    TextView currentlyIn, stream, branch, boardUniversity;
-    TextView type, semester;
-    TextView boardUniversityLabel;
-
-    RadioGroup userType;
-
-    LinearLayout currentlyInLayout, streamLayout, branchLayout, boardUniversityLayout, collegeLayout;
+    //Declare UI Variables.
+    private TextView userName, collegeName;
+    private TextView currentlyIn, stream, branch, boardUniversity;
+    private TextView type, semester;
 
     @Nullable
     @Override
@@ -59,6 +46,7 @@ public class ViewProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //Initialise UI Variables.
         final ProgressBar wait = view.findViewById(R.id.wait_view_profile);
         userName = view.findViewById(R.id.user_name_view_profile);
         collegeName = view.findViewById(R.id.college_view_profile);
@@ -69,8 +57,10 @@ public class ViewProfileFragment extends Fragment {
         type = view.findViewById(R.id.user_type_view_profile);
         semester = view.findViewById(R.id.semester_view_profile);
 
+        //Set ProgressBar.
         wait.setVisibility(View.VISIBLE);
 
+        //Set User Data.
         userName.setText(user.getDisplayName());
         final DatabaseReference reference = database.getReference().child("users").child(user.getUid()).child("data");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -94,6 +84,13 @@ public class ViewProfileFragment extends Fragment {
         });
     }
 
+    /**
+     * Simplified Method to fetch Data from Firebase.
+     *
+     * @param dataSnapshot The Data Snapshot from Firebase Database.
+     * @param key          The key of the data to be fetched.
+     * @return The value of the key if exists else Unknown.
+     */
     private String getDataFromFirebase(DataSnapshot dataSnapshot, String key) {
         return dataSnapshot.child(key).exists() ? (String) dataSnapshot.child(key).getValue() : getString(R.string.unknown);
     }

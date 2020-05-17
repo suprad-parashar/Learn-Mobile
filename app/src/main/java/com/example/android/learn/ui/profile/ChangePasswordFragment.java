@@ -26,8 +26,9 @@ import java.util.Objects;
 
 public class ChangePasswordFragment extends Fragment {
 
-    TextInputEditText currentPasswordEditText, newPasswordEditText, confirmPasswordEditText;
-    Button saveButton;
+    //Declare UI Variables.
+    private TextInputEditText currentPasswordEditText, newPasswordEditText, confirmPasswordEditText;
+    private Button saveButton;
 
     @Nullable
     @Override
@@ -36,14 +37,16 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Initialise UI Variables.
         currentPasswordEditText = view.findViewById(R.id.change_password_current_password);
         newPasswordEditText = view.findViewById(R.id.change_password_new_password);
         confirmPasswordEditText = view.findViewById(R.id.change_password_confirm_password);
         saveButton = view.findViewById(R.id.save_password_button);
 
+        //Handle Password Change.
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

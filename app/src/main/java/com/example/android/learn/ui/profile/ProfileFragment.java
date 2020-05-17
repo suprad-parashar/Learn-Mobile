@@ -8,17 +8,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.learn.HomeActivity;
 import com.example.android.learn.LoginActivity;
@@ -31,29 +27,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
-
 public class ProfileFragment extends Fragment {
 
+    //Initialise Firebase Variables.
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseUser user = auth.getCurrentUser();
 
+    //Declare UI Variables.
     private TextView nameTextView, emailTextView, typeTextView, pointsTextView, statusTextView;
     private ImageButton settings;
-
     private ListView profileLinks;
-
-    ProgressBar wait;
-
-//    final String[] PROFILE_LINKS_LIST = {
-//            "View Profile",
-//            "My Classroom",
-//            "My Activity",
-//            "My Achievements",
-//            "Logout"
-//    };
-
-    private String[] PROFILE_LINKS_LIST;
+    private ProgressBar wait;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +46,8 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
+        //Initialise UI Variables.
+        String[] PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
         wait = view.findViewById(R.id.wait_profile);
         nameTextView = view.findViewById(R.id.profile_user_name);
         emailTextView = view.findViewById(R.id.profile_user_email);
@@ -72,11 +57,14 @@ public class ProfileFragment extends Fragment {
         settings = view.findViewById(R.id.settings);
         profileLinks = view.findViewById(R.id.profile_links);
 
+        //Set ProgressBar
         wait.setVisibility(View.VISIBLE);
 
+        //Set User Data.
         nameTextView.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());
 
+        //Fetch User Data from Firebase Database.
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference().child("users").child(user.getUid()).child("data");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -93,11 +81,11 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "Firebase Profile Sucks", Toast.LENGTH_LONG).show();
                 wait.setVisibility(View.GONE);
             }
         });
 
+        //Setup Profile Links.
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, PROFILE_LINKS_LIST);
         profileLinks.setAdapter(arrayAdapter);
         profileLinks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,7 +94,6 @@ public class ProfileFragment extends Fragment {
                 switch (position) {
                     case 0:
                         HomeActivity.navController.navigate(R.id.navigation_view_profile);
-//                        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new ViewProfileFragment());
                         break;
                     case 4:
                         HomeActivity.navController.navigate(R.id.navigation_change_password);

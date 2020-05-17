@@ -101,6 +101,9 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     emailEditText.setError("Invalid Email Address");
                     emailEditText.requestFocus();
+                } else if (password.equals("")) {
+                    passwordEditText.setError("Enter a password");
+                    passwordEditText.requestFocus();
                 } else {
                     //Sign In Using Email and Password.
                     auth.signInWithEmailAndPassword(email, password)
@@ -240,19 +243,9 @@ public class LoginActivity extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (!dataSnapshot.child("points").exists()) {
-//                    reference.child("points").setValue(0);
-//                }
                 checkAndAddData(reference, dataSnapshot, "points", 0);
                 checkAndAddData(reference, dataSnapshot, "type", "Student");
                 checkAndAddData(reference, dataSnapshot, "status", "Newbie");
-//                if (!dataSnapshot.child("type").exists()) {
-//                    reference.child("type").setValue("Student");
-//                }
-//                if (!dataSnapshot.child("status").exists()) {
-//                    reference.child("status").setValue("Newbie");
-//                }
-
             }
 
             @Override
@@ -263,6 +256,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if key and value exists in the Database. If not, adds the data into the Firebase Database.
+     *
+     * @param reference    The Path in the Database.
+     * @param dataSnapshot The Data Snapshot of the page in the Database.
+     * @param key          The key to be added.
+     * @param value        The value of the key.
+     * @param <T>          Generic Class Parameter to accommodate All types of Objects.
+     */
     private <T> void checkAndAddData(DatabaseReference reference, DataSnapshot dataSnapshot, String key, T value) {
         if (!dataSnapshot.child(key).exists()) {
             reference.child(key).setValue(value);

@@ -46,10 +46,7 @@ public class EditProfileFragment extends Fragment {
     //Declare UI Variables.
     private EditText userNameEditText, collegeNameEditText;
     private Spinner currentlyIn, stream, branch, boardUniversity, semester;
-//    private RadioButton studentRadioButton, mentorRadioButton;
     private TextView boardUniversityLabel;
-//    private RadioGroup userType;
-//    private LinearLayout currentlyInLayout, streamLayout, branchLayout, boardUniversityLayout, collegeLayout;
 
     @Nullable
     @Override
@@ -69,9 +66,6 @@ public class EditProfileFragment extends Fragment {
         branch = view.findViewById(R.id.view_profile_branch);
         boardUniversity = view.findViewById(R.id.view_profile_board_university);
         boardUniversityLabel = view.findViewById(R.id.view_profile_class_board_university_label);
-//        studentRadioButton = view.findViewById(R.id.student_radio_button);
-//        mentorRadioButton = view.findViewById(R.id.mentor_radio_button);
-//        userType = view.findViewById(R.id.user_type_radio_group);
         semester = view.findViewById(R.id.view_profile_semester);
 
         //Set Progressbar.
@@ -116,7 +110,7 @@ public class EditProfileFragment extends Fragment {
                 if (Objects.equals(dataSnapshot.child("type").getValue(), "Student")) {
                     if (Objects.equals(dataSnapshot.child("stream").getValue(), "Engineering")) {
                         branch.setSelection(dataSnapshot.child("branch").exists() ? branchEngineeringList.get(dataSnapshot.child("branch").getValue()) : 0);
-                        semester.setSelection(dataSnapshot.child("semester").exists() ? Integer.parseInt(((String) dataSnapshot.child("semester").getValue()).split(" ")[1]) - 1 : 0);
+                        semester.setSelection(dataSnapshot.child("semester").exists() ? Integer.parseInt(((String) Objects.requireNonNull(dataSnapshot.child("semester").getValue())).split(" ")[1]) - 1 : 0);
                     }
                     collegeNameEditText.setText(dataSnapshot.child("institution").exists() ? (String) dataSnapshot.child("institution").getValue() : "");
                 }
@@ -129,36 +123,11 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-//        studentRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-////                    currentlyInLayout.setVisibility(View.VISIBLE);
-//                    branchLayout.setVisibility(View.VISIBLE);
-//                    streamLayout.setVisibility(View.VISIBLE);
-//                    boardUniversityLayout.setVisibility(View.VISIBLE);
-//                    collegeLayout.setVisibility(View.VISIBLE);
-//                } else {
-////                    currentlyInLayout.setVisibility(View.GONE);
-//                    branchLayout.setVisibility(View.GONE);
-//                    streamLayout.setVisibility(View.GONE);
-//                    boardUniversityLayout.setVisibility(View.GONE);
-//                    collegeLayout.setVisibility(View.GONE);
-//                }
-//            }
-//        });
-
         currentlyIn.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.currently_in)));
         currentlyIn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-//                    case 0:
-//                    case 1:
-//                        stream.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.stream_school)));
-//                        branch.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.branch_science)));
-//                        boardUniversity.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.boards)));
-//                        break;
                     case 0:
                         stream.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.stream_undergraduate)));
                         branch.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.branch_engineering)));
@@ -176,6 +145,12 @@ public class EditProfileFragment extends Fragment {
         });
     }
 
+    /**
+     * Returns a List of Semesters.
+     *
+     * @param numberOfSemesters The number of Semesters to generate.
+     * @return An Array of String containing Text Form of Semesters.
+     */
     private String[] getSemestersArray(int numberOfSemesters) {
         String[] sems = new String[numberOfSemesters];
         for (int i = 1; i <= numberOfSemesters; i++)
@@ -197,7 +172,6 @@ public class EditProfileFragment extends Fragment {
                     user.updateProfile(profileUpdates);
                 }
                 reference.child("institution").setValue(collegeNameEditText.getText().toString());
-//                reference.child("type").setValue(studentRadioButton.isChecked() ? "Student" : "Mentor");
                 reference.child("currently_in").setValue(currentlyIn.getSelectedItem().toString());
                 reference.child("stream").setValue(stream.getSelectedItem().toString());
                 reference.child("branch").setValue(branch.getSelectedItem().toString());

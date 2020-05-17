@@ -46,46 +46,6 @@
                     android:padding="8dp" />
             </LinearLayout>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="8dp"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="4dp"-->
-<!--                    android:labelFor="@id/view_profile_name"-->
-<!--                    android:text="@string/i_am_a" />-->
-
-<!--                <RadioGroup-->
-<!--                    android:id="@+id/user_type_radio_group"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/student_radio_button"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:checked="true"-->
-<!--                        android:padding="8dp"-->
-<!--                        android:text="@string/student" />-->
-
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/mentor_radio_button"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:padding="8dp"-->
-<!--                        android:text="@string/mentor" />-->
-<!--                </RadioGroup>-->
-<!--            </LinearLayout>-->
-
             <LinearLayout
                 android:id="@+id/view_profile_currently_in_layout"
                 android:layout_width="match_parent"
@@ -174,7 +134,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:labelFor="@id/view_profile_board_university"
                     tools:text="University" />
 
                 <Spinner

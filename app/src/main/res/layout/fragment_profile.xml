@@ -9,7 +9,7 @@
     <ProgressBar
         android:id="@+id/wait_profile"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,22 +33,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             tools:text="Suprad Parashar" />
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/profile_user_image"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:layout_above="@id/profile_user_name"-->
-        <!--            android:contentDescription="@string/user_profile_image"-->
-        <!--            android:paddingStart="4dp"-->
-        <!--            android:paddingTop="4dp"-->
-        <!--            app:layout_constraintWidth_percent="0.25"-->
-        <!--            android:paddingEnd="4dp"-->
-        <!--            android:scaleType="fitCenter"-->
-        <!--            android:src="@mipmap/ic_launcher"-->
-        <!--            app:layout_constraintBottom_toTopOf="@id/profile_user_name"-->
-        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
         <TextView
             android:id="@+id/profile_user_email"
             android:layout_width="wrap_content"
@@ -64,13 +48,13 @@
             tools:text="suprad.s.parashar@gmail.com" />
 
         <ImageButton
+            android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:contentDescription="@string/settings"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/settings"
             android:src="@drawable/ic_settings"
-            android:id="@+id/settings"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
