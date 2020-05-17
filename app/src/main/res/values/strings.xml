@@ -15,24 +15,83 @@
     <string name="title_social">Social</string>
     <string name="title_tools">Tools</string>
     <string name="title_profile">Profile</string>
+    <string name="user_profile_image">Profile Image</string>
+    <string name="settings">Settings</string>
+    <string name="name">Name</string>
+    <string name="currently_in">Currently In</string>
+    <string name="stream">Stream</string>
+    <string name="branch">Branch</string>
+    <string name="university">University</string>
+    <string name="college_name">Name of College</string>
+    <string name="i_am_a">I am a</string>
+    <string name="student">Student</string>
+    <string name="mentor">Mentor</string>
+    <string name="edit">Edit</string>
+    <string name="unknown">Unknown</string>
+    <string name="save">Save</string>
+    <string name="semester">Semester</string>
+    <string name="title_change_password">Change Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
 
-    <string name="lorem">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo sapien, rutrum ac sodales placerat, facilisis in lorem. Proin eget finibus lorem. Donec faucibus rutrum est. In hac habitasse platea dictumst. Nam nisl leo, condimentum id luctus ac, fermentum id ex. Aliquam erat volutpat. Fusce facilisis vitae metus nec tincidunt. Sed iaculis dolor nec nisi porta pretium. Vestibulum id ex velit. Sed eu condimentum eros.
+    <string-array name="currently_in">
+<!--        <item>Class 11</item>-->
+<!--        <item>Class 12</item>-->
+        <item>Undergraduate</item>
+    </string-array>
 
-Vestibulum quis eleifend turpis. Donec efficitur quis ipsum venenatis pharetra. Duis id arcu tincidunt nulla feugiat hendrerit id at elit. In fermentum in elit sit amet interdum. Pellentesque vitae nibh lobortis, luctus mauris ut, bibendum orci. Pellentesque a dui tortor. Sed eu ligula quam. Maecenas tempor dui vel tortor feugiat, sed tincidunt lorem accumsan. In hac habitasse platea dictumst. Pellentesque euismod diam arcu, eget vehicula diam venenatis sit amet. Suspendisse potenti. Ut metus purus, lobortis sit amet rutrum sed, suscipit ac turpis. Aliquam feugiat eros sit amet mollis feugiat.
+    <string-array name="stream_school">
+        <item>Science</item>
+        <item>Others</item>
+    </string-array>
 
-Vivamus nec lacus placerat, euismod nisl nec, ullamcorper metus. Nulla at luctus nisi. Praesent vitae facilisis ipsum, sed efficitur lectus. Pellentesque efficitur, eros sit amet lobortis pulvinar, odio dui congue eros, in accumsan sem enim at tellus. Donec eu tortor et erat lacinia elementum non sit amet ligula. Integer magna nulla, efficitur tempor diam ac, auctor sodales odio. Nullam scelerisque nunc sit amet elit tincidunt, quis efficitur elit ultrices. Cras tristique at sem et fringilla. Aenean facilisis dapibus leo eu dignissim. Pellentesque molestie venenatis tempus. Pellentesque quam diam, viverra mollis arcu quis, imperdiet accumsan orci. Aenean sapien arcu, pellentesque at mi ac, ultrices varius sem. Phasellus ut lobortis nisi. Nunc mattis dolor vitae justo iaculis, at condimentum ex sollicitudin. Nullam euismod arcu et tempor rutrum. Donec nec varius orci.
+    <string-array name="stream_undergraduate">
+        <item>Engineering</item>
+<!--        <item>Others</item>-->
+    </string-array>
 
-In metus tellus, facilisis quis tincidunt sit amet, vulputate sit amet dolor. Nam mattis dui vitae metus suscipit tristique. Nullam vitae leo rhoncus metus tempor vehicula. In viverra urna eu lectus placerat viverra. Praesent id tortor bibendum, rutrum magna at, vulputate ligula. Donec id dictum leo. Etiam vel ante enim.
+    <string-array name="branch_science">
+        <item>PCM + Biology</item>
+        <item>PCM + Computer Science</item>
+        <item>PCM + Electronics</item>
+        <item>Others</item>
+    </string-array>
 
-Praesent eu eros facilisis, porta ante et, feugiat est. Sed ornare ac ante eu bibendum. Aenean id vestibulum justo. Nunc posuere aliquam magna sed aliquet. Aenean purus sapien, viverra a viverra vitae, elementum non ligula. Nunc rutrum cursus est ut faucibus. Phasellus mauris ante, scelerisque at tincidunt id, condimentum sed ligula. Donec molestie commodo rutrum. Integer rhoncus iaculis turpis, sed dignissim ante bibendum quis. Pellentesque elementum consectetur blandit. Integer vel fermentum eros, at feugiat urna. Vestibulum sit amet metus vitae tellus auctor molestie quis ut felis. Etiam tempus vulputate lorem, in tincidunt mi condimentum vitae.
+    <string-array name="profile_links">
+        <item>View Profile</item>
+        <item>My Classroom</item>
+        <item>My Activity</item>
+        <item>My Achievements</item>
+        <item>Change Password</item>
+        <item>Logout</item>
+    </string-array>
 
-Vivamus ac ex semper, venenatis urna eu, egestas metus. Nam venenatis enim a justo interdum tempor quis quis diam. In pharetra neque eget ipsum hendrerit, eu porta velit vehicula. Pellentesque condimentum, nisi a sollicitudin fringilla, orci urna dictum massa, sit amet ultricies sapien est hendrerit neque. In volutpat dolor velit, vel convallis massa finibus in. Mauris congue, quam vitae tristique condimentum, felis orci malesuada nunc, non tincidunt arcu dui tristique nulla. Donec aliquet urna sed blandit auctor. Integer laoreet arcu orci, eu luctus tellus bibendum id. Sed condimentum arcu mi, sed fermentum metus aliquam id. Duis suscipit consectetur sapien sed vehicula. Morbi non orci massa. Nulla sollicitudin scelerisque diam ut euismod. Vivamus vestibulum, eros id vehicula bibendum, ante velit tincidunt lectus, eu tincidunt libero dui at mauris. Sed in sollicitudin leo, nec sodales libero.
+    <string-array name="branch_engineering">
+        <item>Computer Science and Engineering</item>
+        <item>Information Science and Engineering</item>
+<!--        <item>Electronics and Communication Engineering</item>-->
+<!--        <item>Electronics and Electrical Engineering</item>-->
+<!--        <item>Mechanical Engineering</item>-->
+<!--        <item>Civil Engineering</item>-->
+<!--        <item>Industrial Engineering and Management</item>-->
+<!--        <item>Instrumentation Engineering</item>-->
+<!--        <item>Aerospace Engineering</item>-->
+<!--        <item>Others</item>-->
+    </string-array>
 
-Curabitur et nunc ultrices, dignissim magna eu, dapibus lectus. Aenean sed ligula porta, dapibus est nec, eleifend felis. Vestibulum rutrum maximus ex id congue. Nunc sed interdum nisi, at bibendum lectus. Cras scelerisque, tortor a venenatis vulputate, mauris lacus consequat lorem, ornare sagittis dolor augue vel leo. Duis pretium, nunc id porta commodo, lacus massa fringilla lectus, ac placerat massa ligula at arcu. Praesent dictum nibh ac condimentum rhoncus. Duis lectus sapien, malesuada et libero at, dapibus pretium sapien. Aliquam accumsan et ligula et semper. Curabitur blandit molestie augue, id rhoncus elit fermentum eleifend. Nam in congue orci. Aliquam tincidunt justo vel nulla tempor efficitur. Aenean lectus sem, suscipit facilisis augue id, feugiat blandit sem. Morbi aliquet diam in orci finibus, lacinia sodales mi fringilla. Sed velit elit, mollis id turpis non, venenatis congue enim. Proin aliquet nisl non nibh rhoncus volutpat.
+    <string-array name="boards">
+        <item>Central Board of Secondary Education</item>
+        <item>Karnataka State Secondary Education Examination Board</item>
+    </string-array>
 
-Praesent dapibus ex elit, non convallis nulla suscipit in. Maecenas ut blandit tellus. Vestibulum maximus sodales tellus nec tempus. In commodo nunc quam, dignissim malesuada magna porta at. Aenean porta varius suscipit. Mauris dapibus orci eget enim placerat sodales. Nam eget ultrices arcu. Sed vehicula felis justo. Sed id eros sed sem faucibus ultricies. Maecenas dapibus tortor varius, vulputate nibh vel, fermentum augue. Etiam massa justo, tempor quis purus vel, hendrerit viverra urna. Pellentesque vestibulum risus nec lacus aliquet sagittis. Integer porta vehicula mi, nec ullamcorper dui auctor pretium. In eget eros auctor, consectetur nunc quis, posuere magna.
+    <string-array name="universities">
+        <item>Visvesvaraya Technological University</item>
+<!--        <item>Bangalore University</item>-->
+<!--        <item>PES University</item>-->
+    </string-array>
 
-Sed dapibus varius consectetur. Nulla facilisi. Cras pulvinar nec dolor at bibendum. Cras et tempor lectus. Pellentesque dolor sapien, congue quis tempor in, ullamcorper vel augue. Curabitur in tristique neque. Nam consectetur tellus eros. Morbi non eros metus. Donec dui mi, finibus vel dui eu, aliquam sodales metus.
-    </string>
+    <string-array name="learn_list">
+        <item>My Syllabus</item>
+        <item>Engineering</item>
+    </string-array>
 </resources>

@@ -1,9 +1,5 @@
 package com.example.android.learn;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -159,7 +159,7 @@ public class RegistrationActivity extends AppCompatActivity {
      * @param password The password to be checked.
      * @return True if password satisfies all conditions else False.
      */
-    private int isValidPassword(String password) {
+    public static int isValidPassword(String password) {
         if (password.equals(""))
             return 1;
         else if (password.length() < 8)

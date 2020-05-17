@@ -21,6 +21,8 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
 
+    public static NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +31,13 @@ public class HomeActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_learn, R.id.navigation_social, R.id.navigation_tools, R.id.navigation_profile)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+                R.id.navigation_home,
+                R.id.navigation_learn,
+                R.id.navigation_social,
+                R.id.navigation_tools,
+                R.id.navigation_profile
+        ).build();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         boolean justLoggedIn = getIntent().getBooleanExtra("signIn", false);
