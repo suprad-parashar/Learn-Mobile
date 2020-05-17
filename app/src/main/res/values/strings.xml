@@ -30,6 +30,9 @@
     <string name="unknown">Unknown</string>
     <string name="save">Save</string>
     <string name="semester">Semester</string>
+    <string name="title_change_password">Change Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
 
     <string-array name="currently_in">
 <!--        <item>Class 11</item>-->
@@ -52,6 +55,15 @@
         <item>PCM + Computer Science</item>
         <item>PCM + Electronics</item>
         <item>Others</item>
+    </string-array>
+
+    <string-array name="profile_links">
+        <item>View Profile</item>
+        <item>My Classroom</item>
+        <item>My Activity</item>
+        <item>My Achievements</item>
+        <item>Change Password</item>
+        <item>Logout</item>
     </string-array>
 
     <string-array name="branch_engineering">

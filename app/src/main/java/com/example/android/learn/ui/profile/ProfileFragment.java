@@ -45,13 +45,15 @@ public class ProfileFragment extends Fragment {
 
     ProgressBar wait;
 
-    final String[] PROFILE_LINKS_LIST = {
-            "View Profile",
-            "My Classroom",
-            "My Activity",
-            "My Achievements",
-            "Logout"
-    };
+//    final String[] PROFILE_LINKS_LIST = {
+//            "View Profile",
+//            "My Classroom",
+//            "My Activity",
+//            "My Achievements",
+//            "Logout"
+//    };
+
+    private String[] PROFILE_LINKS_LIST;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
         wait = view.findViewById(R.id.wait_profile);
         nameTextView = view.findViewById(R.id.profile_user_name);
         emailTextView = view.findViewById(R.id.profile_user_email);
@@ -106,6 +109,9 @@ public class ProfileFragment extends Fragment {
 //                        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new ViewProfileFragment());
                         break;
                     case 4:
+                        HomeActivity.navController.navigate(R.id.navigation_change_password);
+                        break;
+                    case 5:
                         auth.signOut();
                         startActivity(new Intent(getActivity(), LoginActivity.class));
                         requireActivity().finish();

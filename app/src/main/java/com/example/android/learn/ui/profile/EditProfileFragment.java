@@ -9,12 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -50,10 +46,10 @@ public class EditProfileFragment extends Fragment {
     //Declare UI Variables.
     private EditText userNameEditText, collegeNameEditText;
     private Spinner currentlyIn, stream, branch, boardUniversity, semester;
-    private RadioButton studentRadioButton, mentorRadioButton;
+//    private RadioButton studentRadioButton, mentorRadioButton;
     private TextView boardUniversityLabel;
-    private RadioGroup userType;
-    private LinearLayout currentlyInLayout, streamLayout, branchLayout, boardUniversityLayout, collegeLayout;
+//    private RadioGroup userType;
+//    private LinearLayout currentlyInLayout, streamLayout, branchLayout, boardUniversityLayout, collegeLayout;
 
     @Nullable
     @Override
@@ -73,9 +69,9 @@ public class EditProfileFragment extends Fragment {
         branch = view.findViewById(R.id.view_profile_branch);
         boardUniversity = view.findViewById(R.id.view_profile_board_university);
         boardUniversityLabel = view.findViewById(R.id.view_profile_class_board_university_label);
-        studentRadioButton = view.findViewById(R.id.student_radio_button);
-        mentorRadioButton = view.findViewById(R.id.mentor_radio_button);
-        userType = view.findViewById(R.id.user_type_radio_group);
+//        studentRadioButton = view.findViewById(R.id.student_radio_button);
+//        mentorRadioButton = view.findViewById(R.id.mentor_radio_button);
+//        userType = view.findViewById(R.id.user_type_radio_group);
         semester = view.findViewById(R.id.view_profile_semester);
 
         //Set Progressbar.
@@ -133,24 +129,24 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-        studentRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    currentlyInLayout.setVisibility(View.VISIBLE);
-                    branchLayout.setVisibility(View.VISIBLE);
-                    streamLayout.setVisibility(View.VISIBLE);
-                    boardUniversityLayout.setVisibility(View.VISIBLE);
-                    collegeLayout.setVisibility(View.VISIBLE);
-                } else {
-                    currentlyInLayout.setVisibility(View.GONE);
-                    branchLayout.setVisibility(View.GONE);
-                    streamLayout.setVisibility(View.GONE);
-                    boardUniversityLayout.setVisibility(View.GONE);
-                    collegeLayout.setVisibility(View.GONE);
-                }
-            }
-        });
+//        studentRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+////                    currentlyInLayout.setVisibility(View.VISIBLE);
+//                    branchLayout.setVisibility(View.VISIBLE);
+//                    streamLayout.setVisibility(View.VISIBLE);
+//                    boardUniversityLayout.setVisibility(View.VISIBLE);
+//                    collegeLayout.setVisibility(View.VISIBLE);
+//                } else {
+////                    currentlyInLayout.setVisibility(View.GONE);
+//                    branchLayout.setVisibility(View.GONE);
+//                    streamLayout.setVisibility(View.GONE);
+//                    boardUniversityLayout.setVisibility(View.GONE);
+//                    collegeLayout.setVisibility(View.GONE);
+//                }
+//            }
+//        });
 
         currentlyIn.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.currently_in)));
         currentlyIn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -201,7 +197,7 @@ public class EditProfileFragment extends Fragment {
                     user.updateProfile(profileUpdates);
                 }
                 reference.child("institution").setValue(collegeNameEditText.getText().toString());
-                reference.child("type").setValue(studentRadioButton.isChecked() ? "Student" : "Mentor");
+//                reference.child("type").setValue(studentRadioButton.isChecked() ? "Student" : "Mentor");
                 reference.child("currently_in").setValue(currentlyIn.getSelectedItem().toString());
                 reference.child("stream").setValue(stream.getSelectedItem().toString());
                 reference.child("branch").setValue(branch.getSelectedItem().toString());

@@ -46,4 +46,10 @@
         android:name="com.example.android.learn.ui.profile.EditProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/navigation_change_password"
+        android:name="com.example.android.learn.ui.profile.ChangePasswordFragment"
+        android:label="@string/title_change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>
