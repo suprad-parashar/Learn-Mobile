@@ -11,3 +11,4 @@ public class Learn extends Application {
 		FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 	}
 }
+
