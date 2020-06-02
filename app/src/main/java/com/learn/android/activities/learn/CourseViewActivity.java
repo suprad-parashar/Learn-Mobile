@@ -1,0 +1,43 @@
+package com.learn.android.activities.learn;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.learn.android.R;
+import com.learn.android.fragments.learn.CourseOverViewFragment;
+
+public class CourseViewActivity extends AppCompatActivity {
+
+	//Initialise UI Variables
+	public String title;
+	public static int type = 0;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_course_view);
+
+		title = getIntent().getStringExtra("title");
+
+		getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.course_view_fragment, new CourseOverViewFragment(title))
+				.commit();
+
+		ActionBar actionBar = getSupportActionBar();
+		assert actionBar != null;
+		actionBar.setTitle(title);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+		}
+		return true;
+	}
+}

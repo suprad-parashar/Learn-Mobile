@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.learn.android.fragments.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_learn"
+        android:name="com.learn.android.fragments.learn.LearnFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_learn" />
+
+    <fragment
+        android:id="@+id/navigation_social"
+        android:name="com.learn.android.fragments.social.SocialFragment"
+        android:label="@string/title_social"
+        tools:layout="@layout/fragment_social" />
+
+    <fragment
+        android:id="@+id/navigation_tools"
+        android:name="com.learn.android.fragments.tools.ToolsFragment"
+        android:label="@string/title_tools"
+        tools:layout="@layout/fragment_tools" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.learn.android.fragments.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_view_profile"
+        android:name="com.learn.android.fragments.profile.ViewProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_view_profile" />
+
+    <fragment
+        android:id="@+id/navigation_edit_profile"
+        android:name="com.learn.android.fragments.profile.EditProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/navigation_change_password"
+        android:name="com.learn.android.fragments.profile.ChangePasswordFragment"
+        android:label="@string/title_change_password"
+        tools:layout="@layout/fragment_change_password" />
+</navigation>
