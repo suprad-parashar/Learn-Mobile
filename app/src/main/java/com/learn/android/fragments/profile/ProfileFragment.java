@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
+import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.HomeActivity;
 import com.learn.android.activities.auth.LoginActivity;
 
@@ -47,7 +48,7 @@ public class ProfileFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		//Initialise UI Variables.
-		String[] PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
+		final String[] PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
 		wait = view.findViewById(R.id.wait_profile);
 		nameTextView = view.findViewById(R.id.profile_user_name);
 		emailTextView = view.findViewById(R.id.profile_user_email);
@@ -91,14 +92,17 @@ public class ProfileFragment extends Fragment {
 		profileLinks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				switch (position) {
-					case 0:
+				switch (PROFILE_LINKS_LIST[position]) {
+					case "View Profile":
 						HomeActivity.navController.navigate(R.id.navigation_view_profile);
 						break;
-					case 4:
+					case "Change Password":
 						HomeActivity.navController.navigate(R.id.navigation_change_password);
 						break;
-					case 5:
+					case "About":
+						startActivity(new Intent(requireActivity(), AboutActivity.class));
+						break;
+					case "Logout":
 						auth.signOut();
 						startActivity(new Intent(getActivity(), LoginActivity.class));
 						requireActivity().finish();

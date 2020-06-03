@@ -54,6 +54,8 @@
         <!--        <item>Others</item>-->
     </string-array>
 
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dictum fringilla nulla, non molestie dui gravida vitae. Sed eget convallis ante. Mauris sit amet leo sit amet sem pretium cursus non ac lorem. Praesent tempor, est a scelerisque bibendum, tellus dolor tincidunt massa, eget tincidunt erat est vel mi. Nam sodales scelerisque felis, nec faucibus magna iaculis eget. Fusce sed auctor quam. Nunc mollis orci et nunc lobortis sodales. Nulla sagittis nisl eu nibh consequat cursus. Maecenas ornare neque id viverra laoreet.</string>
+
     <string-array name="branch_science">
         <item>PCM + Biology</item>
         <item>PCM + Computer Science</item>
@@ -67,6 +69,7 @@
         <item>My Activity</item>
         <item>My Achievements</item>
         <item>Change Password</item>
+        <item>About</item>
         <item>Logout</item>
     </string-array>
 
@@ -111,4 +114,12 @@
     <string name="share">Share</string>
     <string name="search">Search</string>
     <string name="back_button">Back Button</string>
+    <string name="developers">Developers</string>
+    <string name="suprad">Suprad Parashar</string>
+    <string name="aad">Android Application Developer</string>
+    <string name="github">Github</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="instagram">Instagram</string>
+    <string name="srivalli">Srivalli S B</string>
+    <string name="wd">Web Developer</string>
 </resources>
