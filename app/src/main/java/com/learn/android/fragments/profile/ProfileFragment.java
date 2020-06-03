@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.HomeActivity;
+import com.learn.android.activities.OpenSourceLibrariesActivity;
 import com.learn.android.activities.auth.LoginActivity;
 
 public class ProfileFragment extends Fragment {
@@ -98,6 +99,9 @@ public class ProfileFragment extends Fragment {
 						break;
 					case "Change Password":
 						HomeActivity.navController.navigate(R.id.navigation_change_password);
+						break;
+					case "Open Source Libraries":
+						startActivity(new Intent(requireActivity(), OpenSourceLibrariesActivity.class));
 						break;
 					case "About":
 						startActivity(new Intent(requireActivity(), AboutActivity.class));

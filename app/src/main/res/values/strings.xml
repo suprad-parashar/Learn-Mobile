@@ -69,6 +69,7 @@
         <item>My Activity</item>
         <item>My Achievements</item>
         <item>Change Password</item>
+        <item>Open Source Libraries</item>
         <item>About</item>
         <item>Logout</item>
     </string-array>
