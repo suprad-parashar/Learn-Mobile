@@ -31,6 +31,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
+
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     implementation 'com.google.android.material:material:1.1.0'
@@ -40,10 +41,20 @@ dependencies {
     //TreeView
     implementation 'com.github.bmelnychuk:atv:1.2.+'
 
+    //Circle Image View
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
     //AndroidYouTubePlayer
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+    //uCrop
+    implementation 'com.github.yalantis:ucrop:2.2.5'
+
+    //Dexter
+    implementation 'com.karumi:dexter:6.1.2'
 
     //Firebase Gradle
     implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
 }

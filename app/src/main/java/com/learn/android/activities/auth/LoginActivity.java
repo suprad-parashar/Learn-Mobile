@@ -112,13 +112,26 @@ public class LoginActivity extends AppCompatActivity {
 								@Override
 								public void onComplete(@NonNull Task<AuthResult> task) {
 									if (task.isSuccessful()) {
-										if (Objects.requireNonNull(auth.getCurrentUser()).isEmailVerified()) {
+										FirebaseUser user = auth.getCurrentUser();
+										assert user != null;
+										if (user.isEmailVerified()) {
 											insertDefaultUserProfileDataInFirebaseDatabase();
 											load.setVisibility(View.GONE);
-											Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-											intent.putExtra("signIn", true);
-											startActivity(intent);
-											finish();
+											DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("setup");
+											reference.addListenerForSingleValueEvent(new ValueEventListener() {
+												@Override
+												public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+													Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+													intent.putExtra("signIn", true);
+													startActivity(intent);
+													finish();
+												}
+
+												@Override
+												public void onCancelled(@NonNull DatabaseError databaseError) {
+
+												}
+											});
 										} else {
 											load.setVisibility(View.GONE);
 											Toast.makeText(LoginActivity.this, "Verify your email before logging in", Toast.LENGTH_LONG).show();
@@ -202,12 +215,25 @@ public class LoginActivity extends AppCompatActivity {
 					@Override
 					public void onComplete(@NonNull Task<AuthResult> task) {
 						if (task.isSuccessful()) {
+							FirebaseUser user = auth.getCurrentUser();
+							assert user != null;
 							insertDefaultUserProfileDataInFirebaseDatabase();
 							load.setVisibility(View.GONE);
-							Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-							intent.putExtra("signIn", true);
-							startActivity(intent);
-							finish();
+							DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("setup");
+							reference.addListenerForSingleValueEvent(new ValueEventListener() {
+								@Override
+								public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+									Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+									intent.putExtra("signIn", true);
+									startActivity(intent);
+									finish();
+								}
+
+								@Override
+								public void onCancelled(@NonNull DatabaseError databaseError) {
+
+								}
+							});
 						} else {
 							Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_LONG).show();
 							load.setVisibility(View.GONE);
@@ -245,8 +271,8 @@ public class LoginActivity extends AppCompatActivity {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 				checkAndAddData(reference, dataSnapshot, "points", 0);
-				checkAndAddData(reference, dataSnapshot, "type", "Student");
 				checkAndAddData(reference, dataSnapshot, "status", "Newbie");
+				checkAndAddData(reference, dataSnapshot, "setup", false);
 			}
 
 			@Override

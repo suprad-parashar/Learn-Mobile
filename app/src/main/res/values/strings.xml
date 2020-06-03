@@ -105,4 +105,7 @@
     <string name="documents">Documents</string>
     <string name="courses">Courses</string>
     <string name="projects">Projects</string>
+    <string name="username">Username</string>
+    <string name="not_available">Not Available</string>
+    <string name="next">Next</string>
 </resources>
