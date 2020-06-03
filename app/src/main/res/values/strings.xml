@@ -109,4 +109,6 @@
     <string name="not_available">Not Available</string>
     <string name="next">Next</string>
     <string name="share">Share</string>
+    <string name="search">Search</string>
+    <string name="back_button">Back Button</string>
 </resources>
