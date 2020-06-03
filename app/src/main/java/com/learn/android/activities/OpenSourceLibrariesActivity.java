@@ -2,6 +2,7 @@ package com.learn.android.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
 public class OpenSourceLibrariesActivity extends AppCompatActivity {
 
+	//Declare UI Variables
 	private RecyclerView librariesView;
 
 	@Override
@@ -34,6 +36,7 @@ public class OpenSourceLibrariesActivity extends AppCompatActivity {
 		toolbar.setDisplayHomeAsUpEnabled(true);
 		toolbar.setTitle("Open Source Libraries");
 
+		//Setup Recycler View
 		librariesView = findViewById(R.id.osl_recycler_view);
 		LinearLayoutManager manager = new LinearLayoutManager(this);
 		manager.setOrientation(RecyclerView.VERTICAL);
@@ -41,6 +44,7 @@ public class OpenSourceLibrariesActivity extends AppCompatActivity {
 
 		final ArrayList<OpenSourceLibrary> libraries = new ArrayList<>();
 
+		//Get Libraries from Database.
 		FirebaseDatabase.getInstance().getReference().child("osl").child("android").addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -51,7 +55,6 @@ public class OpenSourceLibrariesActivity extends AppCompatActivity {
 					library.setLink(String.valueOf(snapshot.child("link").getValue()));
 					library.setLicence(String.valueOf(snapshot.child("licence").getValue()));
 					libraries.add(library);
-					Log.e("LIB", library.toString());
 				}
 				librariesView.setAdapter(new OpenSourceLibrariesAdapter(OpenSourceLibrariesActivity.this, libraries));
 			}
@@ -61,5 +64,13 @@ public class OpenSourceLibrariesActivity extends AppCompatActivity {
 
 			}
 		});
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+		}
+		return true;
 	}
 }

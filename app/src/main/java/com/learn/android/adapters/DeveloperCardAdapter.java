@@ -16,35 +16,42 @@ import com.learn.android.R;
 
 public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdapter.DeveloperCardViewHolder> {
 
+	//Declare UI Variables
 	private Context context;
+
 	public DeveloperCardAdapter(Context context) {
 		this.context = context;
 	}
 
+	//Names of Developers
 	private String[] names = {
 			"Suprad Parashar",
 			"Srivalli S B",
 			"Sandeep N S"
 	};
 
+	//Roles of Developers
 	private String[] jobs = {
 			"Android Application Developer",
 			"Web Developer",
 			"Web Developer"
 	};
 
+	//GitHub Links of Developers
 	private String[] githubs = {
 			"https://github.com/suprad-parashar",
 			"https://github.com/srivallisb",
 			"https://github.com/sandy13521"
 	};
 
+	//LinkedIn Profile Links of Developers
 	private String[] linkedIns = {
 			"https://www.linkedin.com/in/supradparashar/",
 			"https://www.linkedin.com/in/srivalli-s-b-a51339188/",
 			"https://www.linkedin.com/in/sandeep-n-s/"
 	};
 
+	//Instagram Profile Links of Developers
 	private String[] instagrams = {
 			"https://www.instagram.com/suprad.parashar/",
 			"https://www.instagram.com/srivalli_1526/",

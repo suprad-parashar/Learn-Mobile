@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class OpenSourceLibrariesAdapter extends RecyclerView.Adapter<OpenSourceLibrariesAdapter.OpenSourceLibrariesViewHolder> {
 
+	//Declare UI Variables
 	private Context context;
 	private ArrayList<OpenSourceLibrary> libraries;
 

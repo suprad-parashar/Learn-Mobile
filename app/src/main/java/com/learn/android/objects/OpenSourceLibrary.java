@@ -1,5 +1,8 @@
 package com.learn.android.objects;
 
+/**
+ * Object to Hold Open Source Libraries Details.
+ */
 public class OpenSourceLibrary {
 	private String name, from, link, licence;
 

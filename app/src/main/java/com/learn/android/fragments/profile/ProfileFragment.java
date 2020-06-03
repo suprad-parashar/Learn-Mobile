@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,10 +34,9 @@ public class ProfileFragment extends Fragment {
 	private FirebaseAuth auth = FirebaseAuth.getInstance();
 	private FirebaseUser user = auth.getCurrentUser();
 
-	//Declare UI Variables.
-	private TextView nameTextView, emailTextView, typeTextView, pointsTextView, statusTextView;
-	private ImageButton settings;
-	private ListView profileLinks;
+	private TextView typeTextView;
+	private TextView pointsTextView;
+	private TextView statusTextView;
 	private ProgressBar wait;
 
 	public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,13 +49,14 @@ public class ProfileFragment extends Fragment {
 		//Initialise UI Variables.
 		final String[] PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
 		wait = view.findViewById(R.id.wait_profile);
-		nameTextView = view.findViewById(R.id.profile_user_name);
-		emailTextView = view.findViewById(R.id.profile_user_email);
+		//Declare UI Variables.
+		TextView nameTextView = view.findViewById(R.id.profile_user_name);
+		TextView emailTextView = view.findViewById(R.id.profile_user_email);
 		typeTextView = view.findViewById(R.id.profile_user_type);
 		pointsTextView = view.findViewById(R.id.profile_user_bp);
 		statusTextView = view.findViewById(R.id.profile_user_status);
-		settings = view.findViewById(R.id.settings);
-		profileLinks = view.findViewById(R.id.profile_links);
+//		ImageButton settings = view.findViewById(R.id.settings);
+		ListView profileLinks = view.findViewById(R.id.profile_links);
 
 		//Set ProgressBar
 		wait.setVisibility(View.VISIBLE);

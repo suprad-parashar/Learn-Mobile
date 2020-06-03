@@ -15,7 +15,6 @@ import com.learn.android.activities.learn.CourseViewActivity;
 
 public class CourseOverViewFragment extends Fragment {
 
-	private CardView coursesCard, videosCard, documentsCard, projectsCard;
 	private String title;
 
 	public CourseOverViewFragment() {
@@ -35,11 +34,13 @@ public class CourseOverViewFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		//Initialise UI Variables.
-		coursesCard = view.findViewById(R.id.courses);
-		videosCard = view.findViewById(R.id.videos);
-		documentsCard = view.findViewById(R.id.documents);
-		projectsCard = view.findViewById(R.id.projects);
+		//Declare UI Variables.
+		CardView coursesCard = view.findViewById(R.id.courses);
+		CardView videosCard = view.findViewById(R.id.videos);
+		CardView documentsCard = view.findViewById(R.id.documents);
+		CardView projectsCard = view.findViewById(R.id.projects);
 
+		//Courses Card
 		coursesCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -51,6 +52,7 @@ public class CourseOverViewFragment extends Fragment {
 						.commit();
 			}
 		});
+		//Videos Card
 		videosCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -62,6 +64,7 @@ public class CourseOverViewFragment extends Fragment {
 						.commit();
 			}
 		});
+		//Documents Card
 		documentsCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -73,6 +76,7 @@ public class CourseOverViewFragment extends Fragment {
 						.commit();
 			}
 		});
+		//Projects Card
 		projectsCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

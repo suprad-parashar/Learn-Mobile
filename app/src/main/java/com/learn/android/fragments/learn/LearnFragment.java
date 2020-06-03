@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnectionWrapper;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,7 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseViewActivity;
@@ -72,6 +70,7 @@ public class LearnFragment extends Fragment {
 		searchListView = view.findViewById(R.id.search_results_list_view);
 		backButton = view.findViewById(R.id.back_button);
 
+		//Set Visibility
 		searchListView.setVisibility(View.GONE);
 		backButton.setVisibility(View.GONE);
 		learnListView.setVisibility(View.VISIBLE);
@@ -79,6 +78,7 @@ public class LearnFragment extends Fragment {
 		//Create Main Root Node.
 		final TreeNode root = TreeNode.root();
 
+		//Search Item Click
 		searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,6 +88,7 @@ public class LearnFragment extends Fragment {
 			}
 		});
 
+		//Back Press
 		backButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

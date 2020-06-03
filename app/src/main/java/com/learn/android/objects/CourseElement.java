@@ -4,6 +4,9 @@ import android.os.Build;
 
 import com.google.firebase.database.DatabaseReference;
 
+/**
+ * Object to hold Course Details.
+ */
 public class CourseElement {
 	private String name;
 	private String link;

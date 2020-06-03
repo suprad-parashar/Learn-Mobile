@@ -32,8 +32,8 @@ public class ViewProfileFragment extends Fragment {
 	private FirebaseUser user = auth.getCurrentUser();
 	private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-	//Declare UI Variables.
-	private TextView userName, collegeName;
+	//Initialise UI Variables.
+	private TextView collegeName;
 	private TextView currentlyIn, stream, branch, boardUniversity;
 	private TextView type, semester;
 
@@ -48,7 +48,8 @@ public class ViewProfileFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		//Initialise UI Variables.
 		final ProgressBar wait = view.findViewById(R.id.wait_view_profile);
-		userName = view.findViewById(R.id.user_name_view_profile);
+		//Declare UI Variables.
+		TextView userName = view.findViewById(R.id.user_name_view_profile);
 		collegeName = view.findViewById(R.id.college_view_profile);
 		currentlyIn = view.findViewById(R.id.user_currently_in_view_profile);
 		stream = view.findViewById(R.id.stream_view_profile);

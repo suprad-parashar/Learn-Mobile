@@ -9,8 +9,12 @@ import android.widget.TextView;
 import com.learn.android.R;
 import com.unnamed.b.atv.model.TreeNode;
 
+/**
+ * Object to Display TreeView Data.
+ */
 public class TreeViewHolder extends TreeNode.BaseNodeViewHolder<String> {
 
+	//Declare UI Variables
 	private ViewGroup parent;
 	private Context context;
 	private int level;
