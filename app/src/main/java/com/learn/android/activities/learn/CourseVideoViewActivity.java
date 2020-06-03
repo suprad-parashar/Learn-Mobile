@@ -1,7 +1,10 @@
 package com.learn.android.activities.learn;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -28,6 +31,9 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 	//Declare UI Variables
 	private RatingBar ratingBar;
+	private ImageView shareButton;
+	private TextView nameTextView, fromTextView, ratingTextView;
+	private YouTubePlayerView youTubePlayerView;
 
 	//Initialise Firebase Variables
 	private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -38,17 +44,18 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_course_video_view);
 
 		//Initialise UI Variables
-		YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player);
-		TextView nameTextView = findViewById(R.id.title);
-		TextView fromTextView = findViewById(R.id.from);
-		TextView ratingTextView = findViewById(R.id.rating);
+		youTubePlayerView = findViewById(R.id.youtube_player);
+		nameTextView = findViewById(R.id.title);
+		fromTextView = findViewById(R.id.from);
+		ratingTextView = findViewById(R.id.rating);
 		ratingBar = findViewById(R.id.rating_bar);
+		shareButton = findViewById(R.id.share);
 
 		//Get Data from Intent
-		String name = getIntent().getStringExtra("name");
+		final String name = getIntent().getStringExtra("name");
 		double rating = getIntent().getDoubleExtra("rating", 0);
 		final String link = getIntent().getStringExtra("link");
-		String from = getIntent().getStringExtra("from");
+		final String from = getIntent().getStringExtra("from");
 		final String reference = getIntent().getStringExtra("reference");
 
 		//Set Reference
@@ -78,6 +85,24 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			@Override
 			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 				databaseReference.setValue(rating);
+			}
+		});
+
+		//Share
+		shareButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent sendIntent = new Intent();
+				sendIntent.setAction(Intent.ACTION_SEND);
+
+				String shareMessage = "Hey there! I am learning " + name + " from " + from + " on Learn!" +
+						"\nURL: " + link +
+						"\nWhy don't you join me on Learn!";
+				sendIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+				sendIntent.setType("text/plain");
+
+				Intent shareIntent = Intent.createChooser(sendIntent, null);
+				startActivity(shareIntent);
 			}
 		});
 

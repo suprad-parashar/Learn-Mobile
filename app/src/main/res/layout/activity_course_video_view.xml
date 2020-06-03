@@ -11,56 +11,64 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:layout_weight="2">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/rating"
             android:padding="8dp"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="Python Documentation" />
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/from"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_toStartOf="@id/rating"
+            android:padding="8dp"
+            android:textSize="18sp"
+            tools:text="SpeckBit" />
 
-            <TextView
-                android:id="@+id/from"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/rating"
-                android:padding="8dp"
-                android:textSize="18sp"
-                tools:text="SpeckBit" />
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorAccent"
+            android:padding="8dp"
+            android:textSize="24sp"
+            tools:text="4.2" />
 
-            <TextView
-                android:id="@+id/rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@color/colorAccent"
-                android:padding="8dp"
-                android:textSize="24sp"
-                tools:text="4.2" />
-
-        </RelativeLayout>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/rating"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="4dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/share"
+            android:contentDescription="@string/share"
+            android:focusable="true"
+            android:src="@drawable/ic_share" />
 
         <RatingBar
             android:id="@+id/rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/from"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_margin="8dp"
             android:numStars="5"
             android:stepSize="1.0" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
