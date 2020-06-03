@@ -1,6 +1,7 @@
 package com.learn.android.activities.learn;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -29,6 +30,9 @@ public class CourseDocumentViewActivity extends AppCompatActivity {
 	//Declare UI Variables.
 	WebView webView;
 
+	//Data
+	String link, name;
+
 	//Initialise Firebase Variables.
 	DatabaseReference databaseReference;
 	FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -39,8 +43,8 @@ public class CourseDocumentViewActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_course_document_view);
 
 		//Get Data from Intent
-		String link = getIntent().getStringExtra("link");
-		String name = getIntent().getStringExtra("name");
+		link = getIntent().getStringExtra("link");
+		name = getIntent().getStringExtra("name");
 		String reference = getIntent().getStringExtra("reference");
 
 		//Set Reference
@@ -104,6 +108,18 @@ public class CourseDocumentViewActivity extends AppCompatActivity {
 						}
 					});
 			builder.create().show();
+		} else if (item.getItemId() == R.id.share_menu_item) {
+			Intent sendIntent = new Intent();
+			sendIntent.setAction(Intent.ACTION_SEND);
+
+			String shareMessage = "Hey there! I am learning " + name + " on Learn!" +
+					"\nURL: " + link +
+					"\nWhy don't you join me on Learn!";
+			sendIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+			sendIntent.setType("text/plain");
+
+			Intent shareIntent = Intent.createChooser(sendIntent, null);
+			startActivity(shareIntent);
 		}
 		return true;
 	}
