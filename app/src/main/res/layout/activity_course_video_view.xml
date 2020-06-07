@@ -47,6 +47,7 @@
             tools:text="4.2" />
 
         <ImageView
+            android:id="@+id/share"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_below="@id/rating"
@@ -54,7 +55,6 @@
             android:layout_margin="4dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
-            android:id="@+id/share"
             android:contentDescription="@string/share"
             android:focusable="true"
             android:src="@drawable/ic_share" />
@@ -69,6 +69,38 @@
             android:layout_margin="8dp"
             android:numStars="5"
             android:stepSize="1.0" />
+
+        <Button
+            android:id="@+id/previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rating_bar"
+            android:layout_margin="8dp"
+            android:text="@string/previous" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rating_bar"
+            android:layout_alignBottom="@+id/next"
+            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/video_index"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="-262dp"
+            android:layout_toStartOf="@id/next"
+            android:layout_toEndOf="@id/previous"
+            android:spinnerMode="dialog" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rating_bar"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:text="@string/next" />
 
     </RelativeLayout>
 </LinearLayout>

@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseViewActivity;
+import com.learn.android.activities.learn.Type;
 import com.learn.android.adapters.CourseDetailedElementListViewAdapter;
 import com.learn.android.objects.CourseElement;
 
@@ -52,13 +53,13 @@ public class CourseDetailedElementFragment extends Fragment {
 		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("links").child(title);
 
 		switch (CourseViewActivity.type) {
-			case 0:
+			case VIDEO:
 				//Videos
 				reference.child("Videos").addListenerForSingleValueEvent(new ValueEventListener() {
 					@Override
 					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 						for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-							CourseElement element = getCourseElement(snapshot, 0);
+							CourseElement element = getCourseElement(snapshot, Type.VIDEO);
 							courseElements.add(element);
 						}
 						detailsListView.setAdapter(new CourseDetailedElementListViewAdapter(requireActivity(), courseElements));
@@ -70,13 +71,13 @@ public class CourseDetailedElementFragment extends Fragment {
 					}
 				});
 				break;
-			case 1:
+			case DOCUMENT:
 				//Documents
 				reference.child("Documents").addListenerForSingleValueEvent(new ValueEventListener() {
 					@Override
 					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 						for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-							CourseElement element = getCourseElement(snapshot, 1);
+							CourseElement element = getCourseElement(snapshot, Type.DOCUMENT);
 							courseElements.add(element);
 						}
 						detailsListView.setAdapter(new CourseDetailedElementListViewAdapter(requireActivity(), courseElements));
@@ -88,13 +89,13 @@ public class CourseDetailedElementFragment extends Fragment {
 					}
 				});
 				break;
-			case 2:
+			case COURSE:
 				//Courses
 				reference.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
 					@Override
 					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 						for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-							CourseElement element = getCourseElement(snapshot, 2);
+							CourseElement element = getCourseElement(snapshot, Type.COURSE);
 							courseElements.add(element);
 						}
 						detailsListView.setAdapter(new CourseDetailedElementListViewAdapter(requireActivity(), courseElements));
@@ -106,13 +107,13 @@ public class CourseDetailedElementFragment extends Fragment {
 					}
 				});
 				break;
-			case 3:
+			case PROJECT:
 				//Projects
 				reference.child("Projects").addListenerForSingleValueEvent(new ValueEventListener() {
 					@Override
 					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 						for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-							CourseElement element = getCourseElement(snapshot, 3);
+							CourseElement element = getCourseElement(snapshot, Type.PROJECT);
 							courseElements.add(element);
 						}
 						detailsListView.setAdapter(new CourseDetailedElementListViewAdapter(requireActivity(), courseElements));
@@ -134,13 +135,29 @@ public class CourseDetailedElementFragment extends Fragment {
 	 * @param type     The type of Element.
 	 * @return The CourseElement Created.
 	 */
-	private CourseElement getCourseElement(DataSnapshot snapshot, int type) {
+	private CourseElement getCourseElement(DataSnapshot snapshot, Type type) {
 		CourseElement element = new CourseElement();
 		String[] prerequisites = new String[(int) snapshot.child("prerequisites").getChildrenCount()];
 		element.setName((String) snapshot.child("name").getValue());
 		element.setFrom((String) snapshot.child("from").getValue());
 		element.setLink((String) snapshot.child("link").getValue());
 		element.setType(type);
+		if (type == Type.VIDEO) {
+			boolean isPlaylist = Boolean.parseBoolean(String.valueOf(snapshot.child("playlist").getValue()));
+			element.setPlaylist(isPlaylist);
+			if (isPlaylist) {
+				ArrayList<String> videoNames = new ArrayList<>(), videoLinks = new ArrayList<>();
+				DataSnapshot playlistSnapShot = snapshot.child("list");
+				for (int i = 0; i < playlistSnapShot.getChildrenCount(); i++) {
+					String name = String.valueOf(playlistSnapShot.child(String.valueOf(i)).child("name").getValue());
+					String link = String.valueOf(playlistSnapShot.child(String.valueOf(i)).child("link").getValue());
+					videoLinks.add(link);
+					videoNames.add(name);
+				}
+				element.setVideoNames(videoNames);
+				element.setVideoLinks(videoLinks);
+			}
+		}
 		for (int i = 0; i < prerequisites.length; i++)
 			prerequisites[i] = snapshot.child("prerequisites").child(String.valueOf(i)).getValue(String.class);
 		element.setPrerequisites(prerequisites);

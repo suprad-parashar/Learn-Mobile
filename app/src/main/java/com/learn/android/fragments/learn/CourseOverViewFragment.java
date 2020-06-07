@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseViewActivity;
+import com.learn.android.activities.learn.Type;
 
 public class CourseOverViewFragment extends Fragment {
 
@@ -44,7 +45,7 @@ public class CourseOverViewFragment extends Fragment {
 		coursesCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				CourseViewActivity.type = 2;
+				CourseViewActivity.type = Type.COURSE;
 				requireActivity()
 						.getSupportFragmentManager()
 						.beginTransaction()
@@ -56,7 +57,7 @@ public class CourseOverViewFragment extends Fragment {
 		videosCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				CourseViewActivity.type = 0;
+				CourseViewActivity.type = Type.VIDEO;
 				requireActivity()
 						.getSupportFragmentManager()
 						.beginTransaction()
@@ -68,7 +69,7 @@ public class CourseOverViewFragment extends Fragment {
 		documentsCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				CourseViewActivity.type = 1;
+				CourseViewActivity.type = Type.DOCUMENT;
 				requireActivity()
 						.getSupportFragmentManager()
 						.beginTransaction()
@@ -80,7 +81,7 @@ public class CourseOverViewFragment extends Fragment {
 		projectsCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				CourseViewActivity.type = 3;
+				CourseViewActivity.type = Type.PROJECT;
 				requireActivity()
 						.getSupportFragmentManager()
 						.beginTransaction()

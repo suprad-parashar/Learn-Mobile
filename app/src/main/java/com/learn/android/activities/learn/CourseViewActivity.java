@@ -13,7 +13,7 @@ public class CourseViewActivity extends AppCompatActivity {
 
 	//Initialise UI Variables
 	public String title;
-	public static int type = 0;
+	public static Type type;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

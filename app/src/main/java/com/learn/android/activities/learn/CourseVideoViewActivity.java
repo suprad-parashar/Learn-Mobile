@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +28,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +39,13 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 	private ImageView shareButton;
 	private TextView nameTextView, fromTextView, ratingTextView;
 	private YouTubePlayerView youTubePlayerView;
+	private Button next, previous;
+	private Spinner videoIndexSpinner;
+	private YouTubePlayer mYouTubePlayer;
+	private int count;
+
+	//Video Index
+	private int videoIndex = 0;
 
 	//Initialise Firebase Variables
 	private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -50,17 +62,120 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		ratingTextView = findViewById(R.id.rating);
 		ratingBar = findViewById(R.id.rating_bar);
 		shareButton = findViewById(R.id.share);
+		previous = findViewById(R.id.previous);
+		next = findViewById(R.id.next);
+		videoIndexSpinner = findViewById(R.id.video_index);
 
 		//Get Data from Intent
 		final String name = getIntent().getStringExtra("name");
 		double rating = getIntent().getDoubleExtra("rating", 0);
 		final String link = getIntent().getStringExtra("link");
 		final String from = getIntent().getStringExtra("from");
+		final boolean isPlaylist = getIntent().getBooleanExtra("isPlaylist", false);
+		final ArrayList<String> videoNames = getIntent().getStringArrayListExtra("videoNames");
+		final ArrayList<String> videoLinks = getIntent().getStringArrayListExtra("videoLinks");
 		final String reference = getIntent().getStringExtra("reference");
 
 		//Set Reference
 		assert reference != null;
 		final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(reference).child("rating").child(user.getUid());
+
+		//Initialise Youtube Player.
+		getLifecycle().addObserver(youTubePlayerView);
+		youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+			@Override
+			public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+				mYouTubePlayer = youTubePlayer;
+				assert videoLinks != null;
+				String id = extractVideoIdFromLink((isPlaylist) ? videoLinks.get(0) : link);
+				mYouTubePlayer.loadVideo(id, 0);
+
+				videoIndexSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+						videoIndex = position;
+						if (position == count - 1) {
+							next.setEnabled(false);
+							previous.setEnabled(true);
+						} else if (position == 0) {
+							previous.setEnabled(false);
+							next.setEnabled(true);
+						} else {
+							previous.setEnabled(true);
+							next.setEnabled(true);
+						}
+
+						assert videoNames != null;
+						mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(videoIndex)), 0);
+						nameTextView.setText(videoNames.get(videoIndex));
+						videoIndexSpinner.setSelection(videoIndex);
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+
+					}
+				});
+			}
+		});
+//		while (mYouTubePlayer == null) {
+//			youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
+//				@Override
+//				public void onYouTubePlayer(YouTubePlayer youTubePlayer) {
+//					mYouTubePlayer = youTubePlayer;
+//				}
+//			});
+//		}
+
+		if (isPlaylist) {
+			next.setVisibility(View.VISIBLE);
+			previous.setVisibility(View.VISIBLE);
+			videoIndexSpinner.setVisibility(View.VISIBLE);
+			assert videoLinks != null;
+			count = videoLinks.size();
+			previous.setEnabled(false);
+			videoIndexSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, getVideoNumbersStringList(count)));
+			videoIndexSpinner.setSelection(0);
+//			mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(0)), 0);
+			assert videoNames != null;
+			nameTextView.setText(videoNames.get(0));
+		} else {
+			next.setVisibility(View.GONE);
+			previous.setVisibility(View.GONE);
+			videoIndexSpinner.setVisibility(View.GONE);
+//			mYouTubePlayer.loadVideo(extractVideoIdFromLink(link), 0);
+			nameTextView.setText(name);
+		}
+
+		next.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				videoIndex++;
+				if (videoIndex == count - 1)
+					next.setEnabled(false);
+				previous.setEnabled(true);
+				assert videoNames != null;
+				assert videoLinks != null;
+				mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(videoIndex)), 0);
+				nameTextView.setText(videoNames.get(videoIndex));
+				videoIndexSpinner.setSelection(videoIndex);
+			}
+		});
+
+		previous.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				videoIndex--;
+				if (videoIndex == 0)
+					previous.setEnabled(false);
+				next.setEnabled(true);
+				assert videoNames != null;
+				assert videoLinks != null;
+				mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(videoIndex)), 0);
+				nameTextView.setText(videoNames.get(videoIndex));
+				videoIndexSpinner.setSelection(videoIndex);
+			}
+		});
 
 		//Set Rating
 		databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -106,17 +221,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			}
 		});
 
-		//Initialise Youtube Player.
-		getLifecycle().addObserver(youTubePlayerView);
-		youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-			@Override
-			public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-				youTubePlayer.loadVideo(extractVideoIdFromLink(link), 0);
-			}
-		});
-
 		//Set Data
-		nameTextView.setText(name);
 		fromTextView.setText(from);
 		ratingTextView.setText(String.valueOf(rating));
 
@@ -142,6 +247,13 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		} else {
 			return "error";
 		}
+	}
+
+	private String[] getVideoNumbersStringList(int count) {
+		String[] data = new String[count];
+		for (int i = 1; i <= count; i++)
+			data[i - 1] = "Video " + i;
+		return data;
 	}
 
 	@Override

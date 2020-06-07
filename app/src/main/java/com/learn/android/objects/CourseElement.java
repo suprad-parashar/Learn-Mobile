@@ -3,6 +3,9 @@ package com.learn.android.objects;
 import android.os.Build;
 
 import com.google.firebase.database.DatabaseReference;
+import com.learn.android.activities.learn.Type;
+
+import java.util.ArrayList;
 
 /**
  * Object to hold Course Details.
@@ -11,16 +14,42 @@ public class CourseElement {
 	private String name;
 	private String link;
 	private String from;
-	private int type;
+	private Type type;
 	private int[] ratings;
 	private String[] prerequisites;
 	private DatabaseReference reference;
+	private boolean isPlaylist;
+	private ArrayList<String> videoNames, videoLinks;
 
-	public int getType() {
+	public boolean isPlaylist() {
+		return isPlaylist;
+	}
+
+	public void setPlaylist(boolean playlist) {
+		isPlaylist = playlist;
+	}
+
+	public ArrayList<String> getVideoNames() {
+		return videoNames;
+	}
+
+	public void setVideoNames(ArrayList<String> videoNames) {
+		this.videoNames = videoNames;
+	}
+
+	public ArrayList<String> getVideoLinks() {
+		return videoLinks;
+	}
+
+	public void setVideoLinks(ArrayList<String> videoLinks) {
+		this.videoLinks = videoLinks;
+	}
+
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 

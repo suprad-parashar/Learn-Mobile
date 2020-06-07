@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseDocumentViewActivity;
 import com.learn.android.activities.learn.CourseVideoViewActivity;
+import com.learn.android.activities.learn.Type;
 import com.learn.android.objects.CourseElement;
 
 import java.util.ArrayList;
@@ -62,17 +63,22 @@ public class CourseDetailedElementListViewAdapter extends BaseAdapter {
 		convertView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (element.getType() == 0) {
+				if (element.getType() == Type.VIDEO) {
 					//Video
 					Intent intent = new Intent(context, CourseVideoViewActivity.class);
 					intent.putExtra("rating", element.getRating());
 					intent.putExtra("link", element.getLink());
 					intent.putExtra("name", element.getName());
 					intent.putExtra("from", element.getFrom());
+					intent.putExtra("isPlaylist", element.isPlaylist());
+					if (element.isPlaylist()) {
+						intent.putExtra("videoNames", element.getVideoNames());
+						intent.putExtra("videoLinks", element.getVideoLinks());
+					}
 					intent.putExtra("reference", element.getReference().toString());
 					context.startActivity(intent);
 					context.finish();
-				} else if (element.getType() == 1) {
+				} else if (element.getType() == Type.DOCUMENT) {
 					//Document
 					Intent intent = new Intent(context, CourseDocumentViewActivity.class);
 					intent.putExtra("link", element.getLink());
