@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.HomeActivity;
+
+import java.util.Objects;
 
 public class ViewProfileFragment extends Fragment {
 
@@ -57,6 +61,10 @@ public class ViewProfileFragment extends Fragment {
 		boardUniversity = view.findViewById(R.id.university_board_view_profile);
 		type = view.findViewById(R.id.user_type_view_profile);
 		semester = view.findViewById(R.id.semester_view_profile);
+
+		Toolbar toolbar = view.findViewById(R.id.toolbar);
+		((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+		Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 		//Set ProgressBar.
 		wait.setVisibility(View.VISIBLE);

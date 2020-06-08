@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.HomeActivity;
 import com.learn.android.activities.OpenSourceLibrariesActivity;
+import com.learn.android.activities.SettingsActivity;
 import com.learn.android.activities.auth.AuthActivity;
 
 public class ProfileFragment extends Fragment {
@@ -34,9 +36,7 @@ public class ProfileFragment extends Fragment {
 	private FirebaseAuth auth = FirebaseAuth.getInstance();
 	private FirebaseUser user = auth.getCurrentUser();
 
-	private TextView typeTextView;
 	private TextView pointsTextView;
-	private TextView statusTextView;
 	private ProgressBar wait;
 
 	public View onCreateView(@NonNull LayoutInflater inflater,
@@ -48,15 +48,20 @@ public class ProfileFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		//Initialise UI Variables.
 		final String[] PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
-		wait = view.findViewById(R.id.wait_profile);
+		wait = view.findViewById(R.id.wait);
 		//Declare UI Variables.
 		TextView nameTextView = view.findViewById(R.id.profile_user_name);
 		TextView emailTextView = view.findViewById(R.id.profile_user_email);
-		typeTextView = view.findViewById(R.id.profile_user_type);
 		pointsTextView = view.findViewById(R.id.profile_user_bp);
-		statusTextView = view.findViewById(R.id.profile_user_status);
-//		ImageButton settings = view.findViewById(R.id.settings);
+		ImageButton settings = view.findViewById(R.id.settings);
 		ListView profileLinks = view.findViewById(R.id.profile_links);
+
+		settings.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(requireActivity(), SettingsActivity.class));
+			}
+		});
 
 		//Set ProgressBar
 		wait.setVisibility(View.VISIBLE);
@@ -71,12 +76,9 @@ public class ProfileFragment extends Fragment {
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				String type = (String) dataSnapshot.child("type").getValue();
 				long points = (long) dataSnapshot.child("points").getValue();
-				String status = (String) dataSnapshot.child("status").getValue();
-				typeTextView.setText(type);
-				pointsTextView.setText(String.valueOf(points));
-				statusTextView.setText(status);
+				String pointsText = points + " Brains";
+				pointsTextView.setText(pointsText);
 				wait.setVisibility(View.GONE);
 			}
 
@@ -93,7 +95,7 @@ public class ProfileFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				switch (PROFILE_LINKS_LIST[position]) {
-					case "View Profile":
+					case "My Profile":
 						HomeActivity.navController.navigate(R.id.navigation_view_profile);
 						break;
 					case "Change Password":

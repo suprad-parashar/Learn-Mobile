@@ -65,10 +65,10 @@
     </string-array>
 
     <string-array name="profile_links">
-        <item>View Profile</item>
-        <item>My Classroom</item>
-        <item>My Activity</item>
-        <item>My Achievements</item>
+        <item>My Profile</item>
+<!--        <item>My Classroom</item>-->
+<!--        <item>My Activity</item>-->
+<!--        <item>My Achievements</item>-->
         <item>Change Password</item>
         <item>Open Source Libraries</item>
         <item>About</item>
@@ -132,4 +132,7 @@
     <string name="illustration">Illustration</string>
     <string name="create_account">Create Account</string>
     <string name="account_already">Already have an Account?</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="dropdown">Dropdown</string>
 </resources>

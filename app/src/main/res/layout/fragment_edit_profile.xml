@@ -1,200 +1,394 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundBold"
     android:orientation="vertical">
 
     <ProgressBar
-        android:id="@+id/wait_edit_profile"
+        android:id="@+id/wait"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView xmlns:tools="http://schemas.android.com/tools"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/edit_profile" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:labelFor="@id/view_profile_name"
-                    android:text="@string/name" />
+                <View
+                    android:id="@+id/blank_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/view_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_outline"
+                    android:background="@drawable/edit_text_box_border"
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/view_profile_currently_in_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:orientation="vertical">
+                    android:padding="12dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/blank_name" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:labelFor="@id/view_profile_currently_in"
-                    android:text="@string/currently_in" />
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/backgroundBold"
+                    android:labelFor="@id/view_profile_name"
+                    android:padding="4dp"
+                    android:text="@string/name"
+                    android:textColor="@color/textColorBold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/blank_currently_in"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
                     android:id="@+id/view_profile_currently_in"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:spinnerMode="dialog" />
-            </LinearLayout>
+                    android:background="@drawable/edit_text_box_border"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintTop_toBottomOf="@id/blank_currently_in" />
 
-            <LinearLayout
-                android:id="@+id/view_profile_stream_layout"
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/dropdown"
+                    android:src="@drawable/ic_drop_down"
+                    app:layout_constraintBottom_toBottomOf="@id/view_profile_currently_in"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/view_profile_currently_in" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/backgroundBold"
+                    android:labelFor="@id/view_profile_name"
+                    android:padding="4dp"
+                    android:text="@string/currently_in"
+                    android:textColor="@color/textColorBold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/view_profile_stream_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:labelFor="@id/view_profile_stream"
-                    android:text="@string/stream" />
+                <View
+                    android:id="@+id/blank_stream"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
                     android:id="@+id/view_profile_stream"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:spinnerMode="dialog" />
-            </LinearLayout>
+                    android:background="@drawable/edit_text_box_border"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintTop_toBottomOf="@id/blank_stream" />
 
-            <LinearLayout
-                android:id="@+id/view_profile_branch_layout"
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/dropdown"
+                    android:src="@drawable/ic_drop_down"
+                    app:layout_constraintBottom_toBottomOf="@id/view_profile_stream"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/view_profile_stream" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/backgroundBold"
+                    android:labelFor="@id/view_profile_name"
+                    android:padding="4dp"
+                    android:text="@string/stream"
+                    android:textColor="@color/textColorBold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/view_profile_branch_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:labelFor="@id/view_profile_branch"
-                    android:text="@string/branch" />
+                <View
+                    android:id="@+id/blank_branch"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
                     android:id="@+id/view_profile_branch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:spinnerMode="dialog" />
-            </LinearLayout>
+                    android:background="@drawable/edit_text_box_border"
+                    android:dropDownSelector="@drawable/ic_drop_down"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintTop_toBottomOf="@id/blank_branch" />
 
-            <LinearLayout
-                android:id="@+id/view_profile_board_university_layout"
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/dropdown"
+                    android:src="@drawable/ic_drop_down"
+                    app:layout_constraintBottom_toBottomOf="@id/view_profile_branch"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/view_profile_branch" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/backgroundBold"
+                    android:labelFor="@id/view_profile_name"
+                    android:padding="4dp"
+                    android:text="@string/branch"
+                    android:textColor="@color/textColorBold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/view_profile_class_board_university_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    tools:text="University" />
+                <View
+                    android:id="@+id/blank_board_university"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
                     android:id="@+id/view_profile_board_university"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:spinnerMode="dialog" />
-            </LinearLayout>
+                    android:background="@drawable/edit_text_box_border"
+                    android:dropDownSelector="@drawable/ic_drop_down"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintTop_toBottomOf="@id/blank_board_university" />
 
-            <LinearLayout
-                android:id="@+id/view_profile_college_layout"
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/dropdown"
+                    android:src="@drawable/ic_drop_down"
+                    app:layout_constraintBottom_toBottomOf="@id/view_profile_board_university"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/view_profile_board_university" />
+
+                <TextView
+                    android:id="@+id/view_profile_class_board_university_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/backgroundBold"
+                    android:labelFor="@id/view_profile_name"
+                    android:padding="4dp"
+                    android:text="@string/university"
+                    android:textColor="@color/textColorBold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/view_profile_class_college_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:labelFor="@id/view_profile_college"
-                    android:text="@string/college_name" />
+                <View
+                    android:id="@+id/blank_institution"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/view_profile_college"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_outline"
+                    android:background="@drawable/edit_text_box_border"
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
-                    android:padding="8dp" />
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/blank_institution" />
 
-            <LinearLayout
-                android:id="@+id/view_profile_semester_layout"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/backgroundBold"
+                    android:labelFor="@id/view_profile_name"
+                    android:padding="4dp"
+                    android:text="@string/college_name"
+                    android:textColor="@color/textColorBold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/view_profile_semester_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:labelFor="@id/view_profile_semester"
-                    android:text="@string/semester" />
+                <View
+                    android:id="@+id/blank_semester"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
                     android:id="@+id/view_profile_semester"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:spinnerMode="dialog" />
-            </LinearLayout>
+                    android:background="@drawable/edit_text_box_border"
+                    android:dropDownSelector="@drawable/ic_drop_down"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintTop_toBottomOf="@id/blank_semester" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/dropdown"
+                    android:src="@drawable/ic_drop_down"
+                    app:layout_constraintBottom_toBottomOf="@id/view_profile_semester"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/view_profile_semester" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/backgroundBold"
+                    android:labelFor="@id/view_profile_name"
+                    android:padding="4dp"
+                    android:text="@string/semester"
+                    android:textColor="@color/textColorBold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

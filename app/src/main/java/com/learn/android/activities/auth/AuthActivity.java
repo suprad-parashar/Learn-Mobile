@@ -28,8 +28,6 @@ public class AuthActivity extends AppCompatActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//Remove title bar
-		Objects.requireNonNull(getSupportActionBar()).hide();
 		setContentView(R.layout.activity_auth);
 
 		getSupportFragmentManager()

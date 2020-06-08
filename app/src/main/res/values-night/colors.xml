@@ -5,9 +5,9 @@
     <color name="colorAccent">#389059</color>
     <color name="lightest">#E5D4CE</color>
 
-    <color name="textColorBold">#000000</color>
+    <color name="textColorBold">#FFFFFF</color>
     <color name="textColorFade">#606060</color>
 
-    <color name="backgroundBold">#FFFFFF</color>
-    <color name="backgroundFade">#D5D5D5</color>
+    <color name="backgroundBold">#000000</color>
+    <color name="backgroundFade">#333333</color>
 </resources>

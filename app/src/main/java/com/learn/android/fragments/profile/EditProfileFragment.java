@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,7 +60,7 @@ public class EditProfileFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		//Initialise UI Variables.
-		final ProgressBar wait = view.findViewById(R.id.wait_edit_profile);
+		final ProgressBar wait = view.findViewById(R.id.wait);
 		userNameEditText = view.findViewById(R.id.view_profile_name);
 		collegeNameEditText = view.findViewById(R.id.view_profile_college);
 		currentlyIn = view.findViewById(R.id.view_profile_currently_in);
@@ -67,6 +69,10 @@ public class EditProfileFragment extends Fragment {
 		boardUniversity = view.findViewById(R.id.view_profile_board_university);
 		boardUniversityLabel = view.findViewById(R.id.view_profile_class_board_university_label);
 		semester = view.findViewById(R.id.view_profile_semester);
+
+		Toolbar toolbar = view.findViewById(R.id.toolbar);
+		((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+		Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 		//Set Progressbar.
 		wait.setVisibility(View.VISIBLE);
