@@ -12,25 +12,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.OpenSourceLibrariesActivity"></activity>
+        <activity android:name=".activities.OpenSourceLibrariesActivity" />
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.learn.CourseDocumentViewActivity" />
         <activity android:name=".activities.learn.SyllabusViewActivity" />
         <activity android:name=".activities.learn.CourseVideoViewActivity" />
         <activity android:name=".activities.learn.CourseViewActivity" />
-        <activity
-            android:name=".activities.HomeActivity"
-            android:label="@string/title_activity_home" />
-        <activity
-            android:name=".activities.auth.RegistrationActivity"
-            android:parentActivityName=".activities.auth.LoginActivity" />
-        <activity android:name=".activities.auth.LoginActivity">
+        <activity android:name=".activities.auth.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label="@string/title_activity_home" />
     </application>
 
 </manifest>

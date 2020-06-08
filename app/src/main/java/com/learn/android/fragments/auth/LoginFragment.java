@@ -1,23 +1,26 @@
-package com.learn.android.activities.auth;
+package com.learn.android.fragments.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,7 +29,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,20 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.HomeActivity;
 
-import java.util.Objects;
-
-/**
- * Activity to Log in users. The First activity of the App.
- */
-public class LoginActivity extends AppCompatActivity {
-	@Override
-	protected void onStart() {
-		super.onStart();
-		if (auth.getCurrentUser() != null) {
-			startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-			finish();
-		}
-	}
+public class LoginFragment extends Fragment {
 
 	//Constants
 	private static final int GOOGLE_SIGN_IN_RC = 474;
@@ -59,35 +48,31 @@ public class LoginActivity extends AppCompatActivity {
 	// Declare UI Variables
 	EditText emailEditText, passwordEditText;
 	Button loginButton, signUpButton;
-	SignInButton googleSignInButton;
+	ImageView googleSignInButton;
 	GoogleSignInClient client;
 	TextView forgotPassword;
 	ProgressBar load;
 
+	@Nullable
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_login, container, false);
+	}
 
-		//Remove title bar
-		Objects.requireNonNull(getSupportActionBar()).hide();
-		setContentView(R.layout.activity_login);
-
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		//Initialise Views.
-		emailEditText = findViewById(R.id.login_email);
-		passwordEditText = findViewById(R.id.login_password);
-		loginButton = findViewById(R.id.login_button);
-		signUpButton = findViewById(R.id.sign_up_button);
-		googleSignInButton = findViewById(R.id.google_sign_in_button);
-		forgotPassword = findViewById(R.id.forgot_password);
-		load = findViewById(R.id.wait);
+		emailEditText = view.findViewById(R.id.email);
+		passwordEditText = view.findViewById(R.id.password);
+		loginButton = view.findViewById(R.id.login_button);
+		signUpButton = view.findViewById(R.id.sign_up_button);
+		googleSignInButton = view.findViewById(R.id.google_sign_in_button);
+		forgotPassword = view.findViewById(R.id.forgot_password);
+		load = view.findViewById(R.id.wait);
 
 		//Disable Loading Icon.
 		load.setVisibility(View.GONE);
-
-		//Get Intent to check if a user returned after registration.
-		boolean wasRegistering = getIntent().getBooleanExtra("registration", false);
-		if (wasRegistering)
-			Toast.makeText(this, "Successfully Registered. Check your email for verification.", Toast.LENGTH_LONG).show();
 
 		//Handle Click on Login Button.
 		loginButton.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 				} else {
 					//Sign In Using Email and Password.
 					auth.signInWithEmailAndPassword(email, password)
-							.addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+							.addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
 								@Override
 								public void onComplete(@NonNull Task<AuthResult> task) {
 									if (task.isSuccessful()) {
@@ -117,24 +102,13 @@ public class LoginActivity extends AppCompatActivity {
 										if (user.isEmailVerified()) {
 											insertDefaultUserProfileDataInFirebaseDatabase();
 											load.setVisibility(View.GONE);
-											DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("setup");
-											reference.addListenerForSingleValueEvent(new ValueEventListener() {
-												@Override
-												public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-													Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-													intent.putExtra("signIn", true);
-													startActivity(intent);
-													finish();
-												}
-
-												@Override
-												public void onCancelled(@NonNull DatabaseError databaseError) {
-
-												}
-											});
+											Intent intent = new Intent(requireContext(), HomeActivity.class);
+											intent.putExtra("signIn", true);
+											startActivity(intent);
+											requireActivity().finish();
 										} else {
 											load.setVisibility(View.GONE);
-											Toast.makeText(LoginActivity.this, "Verify your email before logging in", Toast.LENGTH_LONG).show();
+											Toast.makeText(requireContext(), "Verify your email before logging in", Toast.LENGTH_LONG).show();
 											auth.signOut();
 										}
 									} else {
@@ -153,7 +127,11 @@ public class LoginActivity extends AppCompatActivity {
 		signUpButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
+				getParentFragmentManager()
+						.beginTransaction()
+						.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+						.replace(R.id.auth_fragment, new RegistrationFragment())
+						.commit();
 			}
 		});
 
@@ -162,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
 				.requestIdToken(getString(R.string.default_web_client_id))
 				.requestEmail()
 				.build();
-		client = GoogleSignIn.getClient(this, gso);
+		client = GoogleSignIn.getClient(requireActivity(), gso);
 
 		//Sign In Using Google.
 		googleSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -184,20 +162,17 @@ public class LoginActivity extends AppCompatActivity {
 					emailEditText.setError("Invalid Email Address");
 					emailEditText.requestFocus();
 				} else {
-					//Check if email exists.
-					auth.fetchSignInMethodsForEmail(email)
-							.addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-								@Override
-								public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-									if (Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getSignInMethods()).size() == 0) {
-										emailEditText.setError("Email Address not Registered! Register now.");
-										emailEditText.requestFocus();
-									} else {
-										Toast.makeText(LoginActivity.this, "Reset Link sent to mail.", Toast.LENGTH_LONG).show();
-										auth.sendPasswordResetEmail(email);
-									}
-								}
-							});
+					auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+						@Override
+						public void onComplete(@NonNull Task<Void> task) {
+							if (task.isSuccessful())
+								Toast.makeText(requireContext(), "Reset Link sent to mail.", Toast.LENGTH_LONG).show();
+							else {
+								emailEditText.setError("Email Address not Registered! Register now.");
+								emailEditText.requestFocus();
+							}
+						}
+					});
 				}
 			}
 		});
@@ -211,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
 	private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
 		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 		auth.signInWithCredential(credential)
-				.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+				.addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
 					@Override
 					public void onComplete(@NonNull Task<AuthResult> task) {
 						if (task.isSuccessful()) {
@@ -219,23 +194,12 @@ public class LoginActivity extends AppCompatActivity {
 							assert user != null;
 							insertDefaultUserProfileDataInFirebaseDatabase();
 							load.setVisibility(View.GONE);
-							DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("setup");
-							reference.addListenerForSingleValueEvent(new ValueEventListener() {
-								@Override
-								public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-									Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-									intent.putExtra("signIn", true);
-									startActivity(intent);
-									finish();
-								}
-
-								@Override
-								public void onCancelled(@NonNull DatabaseError databaseError) {
-
-								}
-							});
+							Intent intent = new Intent(requireActivity(), HomeActivity.class);
+							intent.putExtra("signIn", true);
+							startActivity(intent);
+							requireActivity().finish();
 						} else {
-							Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_LONG).show();
+							Toast.makeText(requireContext(), "Authentication Failed.", Toast.LENGTH_LONG).show();
 							load.setVisibility(View.GONE);
 						}
 					}
@@ -253,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
 				assert account != null;
 				firebaseAuthWithGoogle(account);
 			} catch (ApiException e) {
-				Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_LONG).show();
+				Toast.makeText(requireActivity(), "Authentication Failed.", Toast.LENGTH_LONG).show();
 			}
 		}
 	}
@@ -277,8 +241,8 @@ public class LoginActivity extends AppCompatActivity {
 
 			@Override
 			public void onCancelled(@NonNull DatabaseError databaseError) {
-				Log.e("WTF", databaseError.toString());
-				Toast.makeText(LoginActivity.this, "Firebase Database Error Occurred.", Toast.LENGTH_LONG).show();
+				Log.e("Data Insert Error", databaseError.toString());
+				Toast.makeText(requireContext(), "Firebase Database Error Occurred.", Toast.LENGTH_LONG).show();
 			}
 		});
 	}

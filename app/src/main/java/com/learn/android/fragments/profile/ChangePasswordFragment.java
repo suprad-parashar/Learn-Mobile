@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.learn.android.R;
 import com.learn.android.activities.HomeActivity;
-import com.learn.android.activities.auth.RegistrationActivity;
+import com.learn.android.fragments.auth.RegistrationFragment;
 
 import java.util.Objects;
 
@@ -57,7 +57,7 @@ public class ChangePasswordFragment extends Fragment {
 				if (currentPassword.equals("")) {
 					currentPasswordEditText.setError("Enter your current Password");
 					currentPasswordEditText.requestFocus();
-				} else if ((value = RegistrationActivity.isValidPassword(newPassword)) != 0) {
+				} else if ((value = RegistrationFragment.isValidPassword(newPassword)) != 0) {
 					switch (value) {
 						case 1:
 							newPasswordEditText.setError("Enter a password");
@@ -68,19 +68,7 @@ public class ChangePasswordFragment extends Fragment {
 							newPasswordEditText.requestFocus();
 							break;
 						case 3:
-							newPasswordEditText.setError("Password must contain at least one UPPERCASE Character");
-							newPasswordEditText.requestFocus();
-							break;
-						case 4:
-							newPasswordEditText.setError("Password must contain at least one lowercase Character");
-							newPasswordEditText.requestFocus();
-							break;
-						case 5:
-							newPasswordEditText.setError("Password must contain at least one Digit");
-							newPasswordEditText.requestFocus();
-							break;
-						case 6:
-							newPasswordEditText.setError("Password must contain at least one Special Character");
+							newPasswordEditText.setError("Password must contain at least one UPPERCASE, lowercase, digit and special Character");
 							newPasswordEditText.requestFocus();
 							break;
 					}

@@ -26,7 +26,7 @@ import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.HomeActivity;
 import com.learn.android.activities.OpenSourceLibrariesActivity;
-import com.learn.android.activities.auth.LoginActivity;
+import com.learn.android.activities.auth.AuthActivity;
 
 public class ProfileFragment extends Fragment {
 
@@ -107,7 +107,7 @@ public class ProfileFragment extends Fragment {
 						break;
 					case "Logout":
 						auth.signOut();
-						startActivity(new Intent(getActivity(), LoginActivity.class));
+						startActivity(new Intent(getActivity(), AuthActivity.class));
 						requireActivity().finish();
 						break;
 				}

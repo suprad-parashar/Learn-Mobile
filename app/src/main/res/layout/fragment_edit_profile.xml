@@ -40,7 +40,7 @@
                     android:id="@+id/view_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/outline_button"
+                    android:background="@drawable/button_outline"
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
                     android:padding="8dp" />
@@ -165,7 +165,7 @@
                     android:id="@+id/view_profile_college"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/outline_button"
+                    android:background="@drawable/button_outline"
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
                     android:padding="8dp" />

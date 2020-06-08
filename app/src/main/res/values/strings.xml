@@ -19,6 +19,7 @@
     <string name="last_name">Last Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_password_reverse">\?Forgot Password</string>
     <string name="user_profile_image">Profile Image</string>
     <string name="settings">Settings</string>
     <string name="name">Name</string>
@@ -124,4 +125,11 @@
     <string name="srivalli">Srivalli S B</string>
     <string name="wd">Web Developer</string>
     <string name="previous">Previous</string>
+    <string name="welcome">Welcome</string>
+    <string name="or_sign_in_with">or sign in with</string>
+    <string name="google_sign_in_button">Google Sign In Button</string>
+    <string name="learn_logo">Learn Logo</string>
+    <string name="illustration">Illustration</string>
+    <string name="create_account">Create Account</string>
+    <string name="account_already">Already have an Account?</string>
 </resources>
