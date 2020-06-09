@@ -8,6 +8,7 @@
     android:layout_marginTop="8dp"
     android:layout_weight="1"
     android:elevation="16dp"
+    android:background="@color/backgroundFade"
     app:cardCornerRadius="16dp">
 
     <LinearLayout
@@ -22,7 +23,7 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textColorBold"
             android:textSize="32sp"
             android:textStyle="bold" />
 
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
+            android:textColor="@color/textColorFade"
             android:paddingBottom="4dp"
             android:textSize="24sp" />
 
@@ -39,6 +41,7 @@
             android:id="@+id/link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/textColorFade"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
@@ -50,6 +53,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
+            android:textColor="@color/textColorFade"
             android:paddingBottom="4dp"
             android:textSize="18sp" />
 

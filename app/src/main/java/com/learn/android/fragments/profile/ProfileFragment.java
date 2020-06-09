@@ -26,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.HomeActivity;
-import com.learn.android.activities.OpenSourceLibrariesActivity;
 import com.learn.android.activities.SettingsActivity;
 import com.learn.android.activities.auth.AuthActivity;
 
@@ -97,12 +96,6 @@ public class ProfileFragment extends Fragment {
 				switch (PROFILE_LINKS_LIST[position]) {
 					case "My Profile":
 						HomeActivity.navController.navigate(R.id.navigation_view_profile);
-						break;
-					case "Change Password":
-						HomeActivity.navController.navigate(R.id.navigation_change_password);
-						break;
-					case "Open Source Libraries":
-						startActivity(new Intent(requireActivity(), OpenSourceLibrariesActivity.class));
 						break;
 					case "About":
 						startActivity(new Intent(requireActivity(), AboutActivity.class));

@@ -1,46 +1,47 @@
 package com.learn.android.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.learn.android.R;
+import com.learn.android.fragments.settings.SettingsOverviewFragment;
+
+import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
-
-	Switch darkMode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 
-		darkMode = findViewById(R.id.dark_mode);
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-		final SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-		boolean isDark = settings.getBoolean("darkMode", AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
-		darkMode.setChecked(isDark);
+		getSupportFragmentManager()
+				.beginTransaction()
+				.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+				.replace(R.id.settings_fragment_view, new SettingsOverviewFragment())
+				.commit();
+	}
 
-		darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-					SharedPreferences.Editor editor = settings.edit();
-					editor.putBoolean("darkMode", true);
-					editor.apply();
-				} else {
-					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-					SharedPreferences.Editor editor = settings.edit();
-					editor.putBoolean("darkMode", false);
-					editor.apply();
-				}
-			}
-		});
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+		}
+		return true;
 	}
 }

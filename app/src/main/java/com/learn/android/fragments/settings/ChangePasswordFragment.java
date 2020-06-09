@@ -1,4 +1,4 @@
-package com.learn.android.fragments.profile;
+package com.learn.android.fragments.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,6 +40,8 @@ public class ChangePasswordFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("Change Password");
 
 		//Initialise UI Variables.
 		currentPasswordEditText = view.findViewById(R.id.change_password_current_password);
@@ -108,8 +111,13 @@ public class ChangePasswordFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		if (item.getItemId() == android.R.id.home)
-			HomeActivity.navController.navigate(R.id.navigation_profile);
+		if (item.getItemId() == android.R.id.home) {
+			getParentFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+					.replace(R.id.settings_fragment_view, new SettingsOverviewFragment())
+					.commit();
+		}
 		return true;
 	}
 }

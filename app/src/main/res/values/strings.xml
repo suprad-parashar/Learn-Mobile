@@ -69,8 +69,6 @@
 <!--        <item>My Classroom</item>-->
 <!--        <item>My Activity</item>-->
 <!--        <item>My Achievements</item>-->
-        <item>Change Password</item>
-        <item>Open Source Libraries</item>
         <item>About</item>
         <item>Logout</item>
     </string-array>
@@ -135,4 +133,9 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="dropdown">Dropdown</string>
+    <string name="account">Account</string>
+    <string name="change_password">Change Password</string>
+    <string name="theme">Theme</string>
+    <string name="more">More</string>
+    <string name="osl">Open Source Libraries</string>
 </resources>

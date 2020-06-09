@@ -1,12 +1,14 @@
-package com.learn.android.activities;
+package com.learn.android.fragments.settings;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,26 +21,26 @@ import com.learn.android.adapters.OpenSourceLibrariesAdapter;
 import com.learn.android.objects.OpenSourceLibrary;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class OpenSourceLibrariesActivity extends AppCompatActivity {
-
-	//Declare UI Variables
+public class OpenSourceLibrariesFragment extends Fragment {
 	private RecyclerView librariesView;
 
+	@Nullable
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_open_source_libraries);
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_open_source_libraries, container, false);
+	}
 
-		//Set Toolbar
-		ActionBar toolbar = getSupportActionBar();
-		assert toolbar != null;
-		toolbar.setDisplayHomeAsUpEnabled(true);
-		toolbar.setTitle("Open Source Libraries");
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("Open Source Libraries");
 
 		//Setup Recycler View
-		librariesView = findViewById(R.id.osl_recycler_view);
-		LinearLayoutManager manager = new LinearLayoutManager(this);
+		librariesView = view.findViewById(R.id.osl_recycler_view);
+		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);
 		librariesView.setLayoutManager(manager);
 
@@ -56,7 +58,7 @@ public class OpenSourceLibrariesActivity extends AppCompatActivity {
 					library.setLicence(String.valueOf(snapshot.child("licence").getValue()));
 					libraries.add(library);
 				}
-				librariesView.setAdapter(new OpenSourceLibrariesAdapter(OpenSourceLibrariesActivity.this, libraries));
+				librariesView.setAdapter(new OpenSourceLibrariesAdapter(requireContext(), libraries));
 			}
 
 			@Override
@@ -64,13 +66,5 @@ public class OpenSourceLibrariesActivity extends AppCompatActivity {
 
 			}
 		});
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		if (item.getItemId() == android.R.id.home) {
-			onBackPressed();
-		}
-		return true;
 	}
 }

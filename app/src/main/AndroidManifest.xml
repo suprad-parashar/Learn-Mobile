@@ -15,7 +15,6 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:configChanges="uiMode" />
-        <activity android:name=".activities.OpenSourceLibrariesActivity" />
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.learn.CourseDocumentViewActivity" />
         <activity android:name=".activities.learn.SyllabusViewActivity" />

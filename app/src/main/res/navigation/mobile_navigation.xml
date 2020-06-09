@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/navigation_change_password"
-        android:name="com.learn.android.fragments.profile.ChangePasswordFragment"
+        android:name="com.learn.android.fragments.settings.ChangePasswordFragment"
         android:label="@string/title_change_password"
         tools:layout="@layout/fragment_change_password" />
 </navigation>
