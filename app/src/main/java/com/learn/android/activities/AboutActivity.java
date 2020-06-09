@@ -1,19 +1,26 @@
 package com.learn.android.activities;
 
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.adapters.DeveloperCardAdapter;
+
+import java.util.Objects;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -23,10 +30,9 @@ public class AboutActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_about);
 
 		//Set Toolbar
-		ActionBar toolbar = getSupportActionBar();
-		assert toolbar != null;
-		toolbar.setDisplayHomeAsUpEnabled(true);
-		toolbar.setTitle("About");
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 		//Setup Recycler View for Developer's Card.
 		RecyclerView developersView = findViewById(R.id.developers_recycler_view);
@@ -46,9 +52,28 @@ public class AboutActivity extends AppCompatActivity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.change_log_menu, menu);
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
 			onBackPressed();
+		} else if (item.getItemId() == R.id.change_log_menu) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("What's New")
+					.setMessage(Learn.CHANGE_MESSAGE)
+					.setCancelable(true)
+					.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
+			builder.create().show();
 		}
 		return true;
 	}

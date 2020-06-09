@@ -36,9 +36,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 	//Declare UI Variables
 	private RatingBar ratingBar;
-	private ImageView shareButton;
-	private TextView nameTextView, fromTextView, ratingTextView;
-	private YouTubePlayerView youTubePlayerView;
+	private TextView nameTextView;
 	private Button next, previous;
 	private Spinner videoIndexSpinner;
 	private YouTubePlayer mYouTubePlayer;
@@ -56,12 +54,12 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_course_video_view);
 
 		//Initialise UI Variables
-		youTubePlayerView = findViewById(R.id.youtube_player);
+		YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player);
 		nameTextView = findViewById(R.id.title);
-		fromTextView = findViewById(R.id.from);
-		ratingTextView = findViewById(R.id.rating);
+		TextView fromTextView = findViewById(R.id.from);
+		TextView ratingTextView = findViewById(R.id.rating);
 		ratingBar = findViewById(R.id.rating_bar);
-		shareButton = findViewById(R.id.share);
+		ImageView shareButton = findViewById(R.id.share);
 		previous = findViewById(R.id.previous);
 		next = findViewById(R.id.next);
 		videoIndexSpinner = findViewById(R.id.video_index);
@@ -118,14 +116,6 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 				});
 			}
 		});
-//		while (mYouTubePlayer == null) {
-//			youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
-//				@Override
-//				public void onYouTubePlayer(YouTubePlayer youTubePlayer) {
-//					mYouTubePlayer = youTubePlayer;
-//				}
-//			});
-//		}
 
 		if (isPlaylist) {
 			next.setVisibility(View.VISIBLE);
@@ -136,14 +126,12 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			previous.setEnabled(false);
 			videoIndexSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, getVideoNumbersStringList(count)));
 			videoIndexSpinner.setSelection(0);
-//			mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(0)), 0);
 			assert videoNames != null;
 			nameTextView.setText(videoNames.get(0));
 		} else {
 			next.setVisibility(View.GONE);
 			previous.setVisibility(View.GONE);
 			videoIndexSpinner.setVisibility(View.GONE);
-//			mYouTubePlayer.loadVideo(extractVideoIdFromLink(link), 0);
 			nameTextView.setText(name);
 		}
 
@@ -249,6 +237,12 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * Obtain Strings containing the the Video Numbers in text.
+	 *
+	 * @param count The total count of videos in playlist
+	 * @return String Array
+	 */
 	private String[] getVideoNumbersStringList(int count) {
 		String[] data = new String[count];
 		for (int i = 1; i <= count; i++)

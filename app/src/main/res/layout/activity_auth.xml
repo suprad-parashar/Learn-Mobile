@@ -7,7 +7,7 @@
     android:background="@color/lightest"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.learn.android.activities.auth.AuthActivity">
+    tools:context="com.learn.android.activities.AuthActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -21,7 +21,7 @@
         <activity android:name=".activities.learn.CourseVideoViewActivity" />
         <activity android:name=".activities.learn.CourseViewActivity" />
         <activity
-            android:name=".activities.auth.AuthActivity"
+            android:name=".activities.AuthActivity"
             android:configChanges="uiMode">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

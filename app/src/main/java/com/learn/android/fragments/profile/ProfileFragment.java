@@ -27,7 +27,7 @@ import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.HomeActivity;
 import com.learn.android.activities.SettingsActivity;
-import com.learn.android.activities.auth.AuthActivity;
+import com.learn.android.activities.AuthActivity;
 
 public class ProfileFragment extends Fragment {
 

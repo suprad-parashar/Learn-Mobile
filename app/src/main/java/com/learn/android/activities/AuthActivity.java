@@ -1,4 +1,4 @@
-package com.learn.android.activities.auth;
+package com.learn.android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.learn.android.R;
-import com.learn.android.activities.HomeActivity;
 import com.learn.android.fragments.auth.LoginFragment;
-
-import java.util.Objects;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -27,9 +24,9 @@ public class AuthActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_auth);
 
+		//Change to Login Fragment
 		getSupportFragmentManager()
 				.beginTransaction()
 				.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)

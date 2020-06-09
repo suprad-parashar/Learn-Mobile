@@ -20,8 +20,10 @@ public class CourseViewActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_course_view);
 
+		//Get Title
 		title = getIntent().getStringExtra("title");
 
+		//Show Course Overview.
 		getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.course_view_fragment, new CourseOverViewFragment(title))

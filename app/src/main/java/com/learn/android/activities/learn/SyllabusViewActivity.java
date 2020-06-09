@@ -32,10 +32,8 @@ public class SyllabusViewActivity extends AppCompatActivity {
 		syllabus = new ArrayList<>();
 
 		//Initialise Firebase Variables.
-//		FirebaseDatabase database = FirebaseDatabase.getInstance();
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		assert user != null;
-//		final DatabaseReference reference = database.getReference().child("users").child(user.getUid()).child("data");
 	}
 
 	@Override

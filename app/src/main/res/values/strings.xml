@@ -138,4 +138,6 @@
     <string name="theme">Theme</string>
     <string name="more">More</string>
     <string name="osl">Open Source Libraries</string>
+    <string name="change_log">Change Log</string>
+    <string name="about">About</string>
 </resources>
