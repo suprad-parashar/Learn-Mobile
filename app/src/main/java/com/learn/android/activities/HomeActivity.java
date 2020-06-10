@@ -1,9 +1,12 @@
 package com.learn.android.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -29,6 +32,10 @@ public class HomeActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
+//		final SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
+//		int isDark = settings.getInt("darkMode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+//		AppCompatDelegate.setDefaultNightMode(isDark);
 
 		//Set up Navigation View.
 		BottomNavigationView navView = findViewById(R.id.nav_view);

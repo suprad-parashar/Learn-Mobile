@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.HomeActivity;
@@ -37,6 +39,12 @@ public class ProfileFragment extends Fragment {
 
 	private TextView pointsTextView;
 	private ProgressBar wait;
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		AppCompatDelegate.setDefaultNightMode(Learn.isDark);
+	}
 
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {

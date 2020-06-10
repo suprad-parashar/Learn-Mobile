@@ -1,12 +1,16 @@
 package com.learn.android.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.fragments.auth.LoginFragment;
 
@@ -18,6 +22,8 @@ public class AuthActivity extends AppCompatActivity {
 		if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 			startActivity(new Intent(AuthActivity.this, HomeActivity.class));
 			finish();
+		} else {
+			AppCompatDelegate.setDefaultNightMode(Learn.isDark);
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.learn.android.fragments.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import com.learn.android.Learn;
 import com.learn.android.R;
+import com.learn.android.activities.SettingsActivity;
 
 public class SettingsOverviewFragment extends Fragment {
 
@@ -47,24 +50,26 @@ public class SettingsOverviewFragment extends Fragment {
 			}
 		});
 
-		final SharedPreferences settings = requireActivity().getPreferences(Context.MODE_PRIVATE);
-		boolean isDark = settings.getBoolean("darkMode", AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
-		darkMode.setChecked(isDark);
+		darkMode.setChecked(Learn.isDark != AppCompatDelegate.MODE_NIGHT_NO);
 
 		darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				final SharedPreferences settings = requireActivity().getPreferences(Context.MODE_PRIVATE);
+				SharedPreferences.Editor editor = settings.edit();
 				if (isChecked) {
 					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-					SharedPreferences.Editor editor = settings.edit();
-					editor.putBoolean("darkMode", true);
-					editor.apply();
+					Learn.isDark = AppCompatDelegate.MODE_NIGHT_YES;
+					editor.putInt("darkMode", AppCompatDelegate.MODE_NIGHT_YES);
 				} else {
 					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-					SharedPreferences.Editor editor = settings.edit();
-					editor.putBoolean("darkMode", false);
-					editor.apply();
+					Learn.isDark = AppCompatDelegate.MODE_NIGHT_NO;
+					editor.putInt("darkMode", AppCompatDelegate.MODE_NIGHT_NO);
 				}
+				editor.apply();
+				editor.commit();
+				startActivity(new Intent(requireActivity(), SettingsActivity.class));
+				requireActivity().finish();
 			}
 		});
 
