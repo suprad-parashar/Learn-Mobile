@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseViewActivity;
 import com.learn.android.activities.learn.Type;
-import com.learn.android.adapters.CourseDetailedElementListViewAdapter;
+import com.learn.android.adapters.CourseDetailedElementAdapter;
 import com.learn.android.objects.CourseElement;
 
 import java.util.ArrayList;
@@ -26,8 +28,9 @@ import java.util.ArrayList;
 public class CourseDetailedElementFragment extends Fragment {
 
 	//Declare UI Variables.
-	private ListView detailsListView;
+	private RecyclerView detailsListView;
 	private String title;
+	TextView titleTextView;
 
 	public CourseDetailedElementFragment() {
 		//Required Default Public Constructor.
@@ -47,7 +50,14 @@ public class CourseDetailedElementFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		//Initialise UI Variables.
 		detailsListView = view.findViewById(R.id.course_detailed_list_view);
+		titleTextView = view.findViewById(R.id.title);
 		final ArrayList<CourseElement> courseElements = new ArrayList<>();
+
+		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
+		manager.setOrientation(RecyclerView.VERTICAL);
+		detailsListView.setLayoutManager(manager);
+
+		titleTextView.setText(title);
 
 		//Initialise Firebase Variables.
 		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("links").child(title);
@@ -62,7 +72,7 @@ public class CourseDetailedElementFragment extends Fragment {
 							CourseElement element = getCourseElement(snapshot, Type.VIDEO);
 							courseElements.add(element);
 						}
-						detailsListView.setAdapter(new CourseDetailedElementListViewAdapter(requireActivity(), courseElements));
+						detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
 					}
 
 					@Override
@@ -80,7 +90,7 @@ public class CourseDetailedElementFragment extends Fragment {
 							CourseElement element = getCourseElement(snapshot, Type.DOCUMENT);
 							courseElements.add(element);
 						}
-						detailsListView.setAdapter(new CourseDetailedElementListViewAdapter(requireActivity(), courseElements));
+						detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
 					}
 
 					@Override
@@ -98,7 +108,7 @@ public class CourseDetailedElementFragment extends Fragment {
 							CourseElement element = getCourseElement(snapshot, Type.COURSE);
 							courseElements.add(element);
 						}
-						detailsListView.setAdapter(new CourseDetailedElementListViewAdapter(requireActivity(), courseElements));
+						detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
 					}
 
 					@Override
@@ -116,7 +126,7 @@ public class CourseDetailedElementFragment extends Fragment {
 							CourseElement element = getCourseElement(snapshot, Type.PROJECT);
 							courseElements.add(element);
 						}
-						detailsListView.setAdapter(new CourseDetailedElementListViewAdapter(requireActivity(), courseElements));
+						detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
 					}
 
 					@Override

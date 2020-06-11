@@ -1,52 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/learn_fragment_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/wait"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" />
+    <!--    <ProgressBar-->
+    <!--        android:id="@+id/wait"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_gravity="center" />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <!--        <androidx.fragment.app.FragmentContainerView-->
+    <!--            android:id="@+id/learn_fragment_view"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent" />-->
 
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/back_button"
-            android:padding="4dp"
-            android:src="@drawable/ic_back" />
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal">-->
 
-        <EditText
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:drawableStart="@drawable/ic_search"
-            android:hint="@string/search"
-            android:imeOptions="actionDone"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:padding="16dp" />
+    <!--        <ImageView-->
+    <!--            android:id="@+id/back_button"-->
+    <!--            android:layout_width="50dp"-->
+    <!--            android:layout_height="50dp"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:contentDescription="@string/back_button"-->
+    <!--            android:padding="4dp"-->
+    <!--            android:src="@drawable/ic_back" />-->
 
-    </LinearLayout>
+    <!--        <EditText-->
+    <!--            android:id="@+id/search_bar"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_margin="8dp"-->
+    <!--            android:drawableStart="@drawable/ic_search"-->
+    <!--            android:hint="@string/search"-->
+    <!--            android:imeOptions="actionDone"-->
+    <!--            android:importantForAutofill="no"-->
+    <!--            android:inputType="text"-->
+    <!--            android:padding="16dp" />-->
 
-    <ListView
-        android:id="@+id/search_results_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:id="@+id/tree_view_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
+    <!--    <ListView-->
+    <!--        android:id="@+id/search_results_list_view"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
 
-</LinearLayout>
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/tree_view_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:orientation="vertical" />-->
+
+</androidx.fragment.app.FragmentContainerView>

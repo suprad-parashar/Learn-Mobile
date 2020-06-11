@@ -66,9 +66,9 @@
 
     <string-array name="profile_links">
         <item>My Profile</item>
-<!--        <item>My Classroom</item>-->
-<!--        <item>My Activity</item>-->
-<!--        <item>My Achievements</item>-->
+        <!--        <item>My Classroom</item>-->
+        <!--        <item>My Activity</item>-->
+        <!--        <item>My Achievements</item>-->
         <item>About</item>
         <item>Logout</item>
     </string-array>
@@ -140,4 +140,23 @@
     <string name="osl">Open Source Libraries</string>
     <string name="change_log">Change Log</string>
     <string name="about">About</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_profile">Profile</string>
+    <string name="other">Other</string>
+    <string name="app">App</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_view_courses_data">ViewCoursesDataActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="no_prerequisites">No Prerequisites Required</string>
+    <string name="prerequisites">Prerequisites</string>
 </resources>

@@ -1,7 +1,5 @@
 package com.learn.android.objects;
 
-import android.os.Build;
-
 import com.google.firebase.database.DatabaseReference;
 import com.learn.android.activities.learn.Type;
 
@@ -96,11 +94,10 @@ public class CourseElement {
 		this.reference = reference;
 	}
 
-	public String getPrerequisites() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-			return String.join(", ", prerequisites);
-		else
-			return prerequisites[0];
+	public String[] getPrerequisites() {
+		if (prerequisites.length == 1 && prerequisites[0].equals("None"))
+			return null;
+		return prerequisites;
 	}
 
 	public void setPrerequisites(String[] prerequisites) {
