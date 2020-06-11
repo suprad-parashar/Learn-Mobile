@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "Version 1.4.3 Alpha - " +
+	public static final String CHANGE_MESSAGE = "Version 1.5.0 Alpha - " +
+			"\n1. Redesigned Learn Module" +
+			"\n\nVersion 1.4.3 Alpha - " +
 			"\n1. Removed Dark Mode" +
 			"\n2. Redesigned Playlist View in Course Videos" +
 			"\n\nVersion 1.4.2 Alpha - " +
