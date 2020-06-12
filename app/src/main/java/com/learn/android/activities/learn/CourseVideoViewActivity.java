@@ -1,24 +1,19 @@
 package com.learn.android.activities.learn;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,11 +24,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
+import com.learn.android.objects.Activity;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,162 +43,154 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 	//Declare UI Variables
 	private RatingBar ratingBar;
 	private TextView nameTextView;
-//	private Button next, previous;
+	//	private Button next, previous;
 //	private Spinner videoIndexSpinner;
 	private YouTubePlayer mYouTubePlayer;
 	private ListView videosPlaylist;
 	private int count;
+
+	private String name, link, from, reference;
+	private boolean isPlaylist;
+	private float time, duration;
 
 	//Video Index
 	private int videoIndex = 0;
 
 	//Initialise Firebase Variables
 	private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+	final DatabaseReference activityReference = FirebaseDatabase.getInstance().getReference()
+			.child("users")
+			.child(Objects.requireNonNull(user).getUid())
+			.child("activity");
+	private float loadTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_course_video_view);
 
-//		final SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-//		int isDark = settings.getInt("darkMode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//		AppCompatDelegate.setDefaultNightMode(isDark);
-
 		//Initialise UI Variables
 		YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player);
 		nameTextView = findViewById(R.id.title);
 		TextView fromTextView = findViewById(R.id.from);
-		TextView ratingTextView = findViewById(R.id.rating);
+		final TextView ratingTextView = findViewById(R.id.rating);
 		ratingBar = findViewById(R.id.rating_bar);
 		ImageView shareButton = findViewById(R.id.share);
-//		previous = findViewById(R.id.previous);
-//		next = findViewById(R.id.next);
-//		videoIndexSpinner = findViewById(R.id.video_index);
 		videosPlaylist = findViewById(R.id.videos_playlist);
 
 		//Get Data from Intent
-		final String name = getIntent().getStringExtra("name");
-		double rating = getIntent().getDoubleExtra("rating", 0);
-		final String link = getIntent().getStringExtra("link");
-		final String from = getIntent().getStringExtra("from");
-		final boolean isPlaylist = getIntent().getBooleanExtra("isPlaylist", false);
-		final ArrayList<String> videoNames = getIntent().getStringArrayListExtra("videoNames");
+		name = getIntent().getStringExtra("name");
+		link = getIntent().getStringExtra("link");
+		from = getIntent().getStringExtra("from");
+		isPlaylist = getIntent().getBooleanExtra("isPlaylist", false);
+		loadTime = getIntent().getFloatExtra("time", 0);
+		videoIndex = (int) getIntent().getLongExtra("index", 0);
+		Log.e("VIDEOFUCKINGINDEX", String.valueOf(videoIndex));
+		ArrayList<String> videoNames = getIntent().getStringArrayListExtra("videoNames");
 		final ArrayList<String> videoLinks = getIntent().getStringArrayListExtra("videoLinks");
-		final String reference = getIntent().getStringExtra("reference");
+		reference = getIntent().getStringExtra("reference");
+
+
+		assert videoNames != null;
+		videosPlaylist.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, videoNames));
+		videosPlaylist.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		videosPlaylist.setItemChecked(videoIndex, true);
+		videosPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				assert videoLinks != null;
+				mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(position)), loadTime);
+				videoIndex = position;
+			}
+		});
 
 		//Set Reference
 		assert reference != null;
-		final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(reference).child("rating").child(user.getUid());
+		final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(reference).child("rating");
 
 		//Initialise Youtube Player.
 		getLifecycle().addObserver(youTubePlayerView);
-		youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+		youTubePlayerView.addYouTubePlayerListener(new YouTubePlayerListener() {
 			@Override
 			public void onReady(@NonNull YouTubePlayer youTubePlayer) {
 				mYouTubePlayer = youTubePlayer;
 				assert videoLinks != null;
-				String id = extractVideoIdFromLink((isPlaylist) ? videoLinks.get(0) : link);
-				mYouTubePlayer.loadVideo(id, 0);
+				String id = extractVideoIdFromLink((isPlaylist) ? videoLinks.get(videoIndex) : link);
+				mYouTubePlayer.loadVideo(id, loadTime);
+			}
 
-//				videoIndexSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//					@Override
-//					public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//						videoIndex = position;
-//						if (position == count - 1) {
-//							next.setEnabled(false);
-//							previous.setEnabled(true);
-//						} else if (position == 0) {
-//							previous.setEnabled(false);
-//							next.setEnabled(true);
-//						} else {
-//							previous.setEnabled(true);
-//							next.setEnabled(true);
-//						}
-//
-//						assert videoNames != null;
-//						mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(videoIndex)), 0);
-//						nameTextView.setText(videoNames.get(videoIndex));
-//						videoIndexSpinner.setSelection(videoIndex);
-//					}
-//
-//					@Override
-//					public void onNothingSelected(AdapterView<?> parent) {
-//
-//					}
-//				});
+			@Override
+			public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState playerState) {
+				if (playerState == PlayerConstants.PlayerState.PAUSED) {
+					updateActivity();
+				}
+			}
+
+			@Override
+			public void onPlaybackQualityChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackQuality playbackQuality) {
+
+			}
+
+			@Override
+			public void onPlaybackRateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackRate playbackRate) {
+
+			}
+
+			@Override
+			public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError playerError) {
+				Log.e("ERROR", playerError.name());
+			}
+
+			@Override
+			public void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float v) {
+				time = v;
+			}
+
+			@Override
+			public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float v) {
+				duration = v;
+			}
+
+			@Override
+			public void onVideoLoadedFraction(YouTubePlayer youTubePlayer, float v) {
+
+			}
+
+			@Override
+			public void onVideoId(YouTubePlayer youTubePlayer, String s) {
+
+			}
+
+			@Override
+			public void onApiChange(YouTubePlayer youTubePlayer) {
+
 			}
 		});
 
 		if (isPlaylist) {
-//			next.setVisibility(View.VISIBLE);
-//			previous.setVisibility(View.VISIBLE);
-//			videoIndexSpinner.setVisibility(View.VISIBLE);
 			assert videoLinks != null;
 			count = videoLinks.size();
-//			previous.setEnabled(false);
-//			videoIndexSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, getVideoNumbersStringList(count)));
-//			videoIndexSpinner.setSelection(0);
 			assert videoNames != null;
 			videosPlaylist.setVisibility(View.VISIBLE);
-			videosPlaylist.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, videoNames));
-			videosPlaylist.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-			videosPlaylist.setItemChecked(0, true);
-			videosPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(position)), 0);
-				}
-			});
 			nameTextView.setText(videoNames.get(0));
 		} else {
-//			next.setVisibility(View.GONE);
-//			previous.setVisibility(View.GONE);
-//			videoIndexSpinner.setVisibility(View.GONE);
 			nameTextView.setText(name);
 		}
 
-
-
-//		next.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				videoIndex++;
-//				if (videoIndex == count - 1)
-//					next.setEnabled(false);
-//				previous.setEnabled(true);
-//				assert videoNames != null;
-//				assert videoLinks != null;
-//				mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(videoIndex)), 0);
-//				nameTextView.setText(videoNames.get(videoIndex));
-//				videoIndexSpinner.setSelection(videoIndex);
-//			}
-//		});
-//
-//		previous.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				videoIndex--;
-//				if (videoIndex == 0)
-//					previous.setEnabled(false);
-//				next.setEnabled(true);
-//				assert videoNames != null;
-//				assert videoLinks != null;
-//				mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(videoIndex)), 0);
-//				nameTextView.setText(videoNames.get(videoIndex));
-//				videoIndexSpinner.setSelection(videoIndex);
-//			}
-//		});
-
 		//Set Rating
+		ratingBar.setRating(0);
 		databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				try {
-					long ratingValue = (long) dataSnapshot.getValue();
-					ratingBar.setRating(ratingValue);
-				} catch (NullPointerException e) {
-					ratingBar.setRating(0);
+				double ratingTotal = 0;
+				int count = 0;
+				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+					ratingTotal += (long) snapshot.getValue();
+					count++;
+					if (Objects.equals(snapshot.getKey(), user.getUid()))
+						ratingBar.setRating((long) snapshot.getValue());
 				}
+				ratingTextView.setText(String.valueOf(ratingTotal / count));
 			}
 
 			@Override
@@ -211,7 +203,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 			@Override
 			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-				databaseReference.setValue(rating);
+				databaseReference.child(user.getUid()).setValue(rating);
 			}
 		});
 
@@ -235,13 +227,59 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 		//Set Data
 		fromTextView.setText(from);
-		ratingTextView.setText(String.valueOf(rating));
+//		ratingTextView.setText(String.valueOf(rating));
 
 		//Add Back Button to Toolbar.
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		toolbar.setTitle(name);
 		setSupportActionBar(toolbar);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+	}
+
+	private void updateActivity() {
+		activityReference.addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+				boolean found = false;
+				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+					Activity activity = snapshot.getValue(Activity.class);
+					assert activity != null;
+					if (!activity.getName().equals(name))
+						continue;
+					found = true;
+					activity.setDone(time >= duration - 90);
+					activity.setTime(time);
+					if (activity.isPlaylist())
+						activity.setIndex(videoIndex);
+					SimpleDateFormat format = new SimpleDateFormat("d MMM, yyyy", Locale.getDefault());
+					String date = format.format(new Date());
+					activity.setDate(date);
+					activityReference.child(Objects.requireNonNull(snapshot.getKey())).setValue(activity);
+				}
+				if (!found) {
+					final Activity activity = new Activity();
+					activity.setName(name);
+					SimpleDateFormat format = new SimpleDateFormat("d MMM, yyyy", Locale.getDefault());
+					String date = format.format(new Date());
+					activity.setDate(date);
+					activity.setTime(time);
+					activity.setPlaylist(isPlaylist);
+					if (isPlaylist)
+						activity.setIndex(videoIndex);
+					activity.setType(Type.VIDEO);
+					activity.setFrom(from);
+					activity.setLink(link);
+					activity.setDone(time >= duration - 90);
+					activity.setReference(reference);
+					activityReference.child(String.valueOf(dataSnapshot.getChildrenCount())).setValue(activity);
+				}
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError databaseError) {
+				Log.e("ERROR", databaseError.toString());
+			}
+		});
 	}
 
 	/**
@@ -261,23 +299,16 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		}
 	}
 
-	/**
-	 * Obtain Strings containing the the Video Numbers in text.
-	 *
-	 * @param count The total count of videos in playlist
-	 * @return String Array
-	 */
-	private String[] getVideoNumbersStringList(int count) {
-		String[] data = new String[count];
-		for (int i = 1; i <= count; i++)
-			data[i - 1] = "Video " + i;
-		return data;
-	}
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home)
 			onBackPressed();
 		return true;
+	}
+
+	@Override
+	public void onBackPressed() {
+		updateActivity();
+		super.onBackPressed();
 	}
 }

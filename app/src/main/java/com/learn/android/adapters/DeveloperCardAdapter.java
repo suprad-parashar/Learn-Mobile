@@ -61,7 +61,7 @@ public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdap
 	@NonNull
 	@Override
 	public DeveloperCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.developer_card, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_developer_card, parent, false);
 		return new DeveloperCardViewHolder(view);
 	}
 

@@ -52,4 +52,10 @@
         android:name="com.learn.android.fragments.settings.ChangePasswordFragment"
         android:label="@string/title_change_password"
         tools:layout="@layout/fragment_change_password" />
+
+    <fragment
+        android:id="@+id/navigation_my_activity"
+        android:name="com.learn.android.fragments.profile.MyActivitiesFragment"
+        android:label="@string/title_my_activity"
+        tools:layout="@layout/fragment_my_activites" />
 </navigation>

@@ -34,7 +34,7 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 	@NonNull
 	@Override
 	public ElementViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_element_layout, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_course_element, parent, false);
 		return new ElementViewHolder(view);
 	}
 

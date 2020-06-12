@@ -1,4 +1,4 @@
-package com.learn.android.fragments.home;
+package com.learn.android.fragments.profile;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,48 +19,43 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
+import com.learn.android.activities.learn.Type;
 import com.learn.android.adapters.MyActivitiesAdapter;
 import com.learn.android.objects.Activity;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class HomeFragment extends Fragment {
+public class MyActivitiesFragment extends Fragment {
+	RecyclerView recyclerView;
 
-	RecyclerView homeActivitiesRecyclerView;
-
-	public View onCreateView(@NonNull LayoutInflater inflater,
-							 ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_home, container, false);
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_my_activites, container, false);
 	}
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		homeActivitiesRecyclerView = view.findViewById(R.id.home_cards_list);
+		recyclerView = view.findViewById(R.id.activities_list);
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);
-		homeActivitiesRecyclerView.setLayoutManager(manager);
+		recyclerView.setLayoutManager(manager);
 
-		DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+		final DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
 				.child("users")
 				.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
 				.child("activity");
-		reference.addListenerForSingleValueEvent(new ValueEventListener() {
+		reference.addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 				ArrayList<Activity> activities = new ArrayList<>();
-				long index = dataSnapshot.getChildrenCount() - 1;
-				int count = 3;
-				while (index >= 0 && count > 0) {
-					Activity activity = dataSnapshot.child(String.valueOf(index--)).getValue(Activity.class);
-					count--;
+				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+					Activity activity = snapshot.getValue(Activity.class);
 					activities.add(activity);
-					assert activity != null;
-					Log.e("ACT_IN", String.valueOf(activity.getIndex()));
-					Log.e("ACTIVITY_INDEX", String.valueOf(dataSnapshot.child(String.valueOf(index + 1)).child("index").getValue()));
 				}
-				homeActivitiesRecyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities));
+				recyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities));
 			}
 
 			@Override

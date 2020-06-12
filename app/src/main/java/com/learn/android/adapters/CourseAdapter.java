@@ -10,10 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DatabaseReference;
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseViewActivity;
-import com.learn.android.activities.learn.ViewCoursesDataActivity;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
 	@NonNull
 	@Override
 	public CourseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.branch_layout, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_branch, parent, false);
 		return new CourseHolder(view);
 	}
 

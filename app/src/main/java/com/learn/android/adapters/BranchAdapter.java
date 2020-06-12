@@ -32,7 +32,7 @@ public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.BranchHold
 	@NonNull
 	@Override
 	public BranchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.branch_layout, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_branch, parent, false);
 		return new BranchHolder(view);
 	}
 

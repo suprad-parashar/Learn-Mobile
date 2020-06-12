@@ -40,12 +40,6 @@ public class ProfileFragment extends Fragment {
 	private TextView pointsTextView;
 	private ProgressBar wait;
 
-	@Override
-	public void onStart() {
-		super.onStart();
-		AppCompatDelegate.setDefaultNightMode(Learn.isDark);
-	}
-
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_profile, container, false);
@@ -112,6 +106,9 @@ public class ProfileFragment extends Fragment {
 						auth.signOut();
 						startActivity(new Intent(getActivity(), AuthActivity.class));
 						requireActivity().finish();
+						break;
+					case "My Activity":
+						HomeActivity.navController.navigate(R.id.navigation_my_activity);
 						break;
 				}
 			}

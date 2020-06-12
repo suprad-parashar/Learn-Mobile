@@ -25,7 +25,7 @@ public class PrerequisitesAdapter extends RecyclerView.Adapter<PrerequisitesAdap
 	@NonNull
 	@Override
 	public PrerequisitesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.prerequisites_layout, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_prerequisites, parent, false);
 		return new PrerequisitesHolder(view);
 	}
 

@@ -32,7 +32,7 @@ public class OpenSourceLibrariesAdapter extends RecyclerView.Adapter<OpenSourceL
 	@NonNull
 	@Override
 	public OpenSourceLibrariesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.osl_card, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_osl, parent, false);
 		return new OpenSourceLibrariesViewHolder(view);
 	}
 

@@ -29,7 +29,7 @@ public class TreeViewHolder extends TreeNode.BaseNodeViewHolder<String> {
 	@Override
 	public View createNodeView(TreeNode node, String value) {
 		final LayoutInflater inflater = LayoutInflater.from(context);
-		final View view = inflater.inflate(R.layout.treeview_element_layout, parent, false);
+		final View view = inflater.inflate(R.layout.layout_treeview_element, parent, false);
 		TextView valueTextView = view.findViewById(R.id.value);
 		valueTextView.setText(value);
 		valueTextView.setPadding(8 * level, 8, 8, 8);
