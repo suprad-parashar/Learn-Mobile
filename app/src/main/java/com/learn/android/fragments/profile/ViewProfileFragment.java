@@ -62,10 +62,6 @@ public class ViewProfileFragment extends Fragment {
 		type = view.findViewById(R.id.user_type_view_profile);
 		semester = view.findViewById(R.id.semester_view_profile);
 
-		Toolbar toolbar = view.findViewById(R.id.toolbar);
-		((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-		Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
 		//Set ProgressBar.
 		wait.setVisibility(View.VISIBLE);
 

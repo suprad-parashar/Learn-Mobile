@@ -70,10 +70,6 @@ public class EditProfileFragment extends Fragment {
 		boardUniversityLabel = view.findViewById(R.id.view_profile_class_board_university_label);
 		semester = view.findViewById(R.id.view_profile_semester);
 
-		Toolbar toolbar = view.findViewById(R.id.toolbar);
-		((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-		Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
 		//Set Progressbar.
 		wait.setVisibility(View.VISIBLE);
 
