@@ -26,6 +26,7 @@ import java.util.Objects;
 
 public class DomainFragment extends Fragment {
 
+	//Declare UI Variables.
 	RecyclerView domainView;
 	ProgressBar loading;
 
@@ -38,10 +39,13 @@ public class DomainFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		//Initialise UI Variables.
 		domainView = view.findViewById(R.id.domain_view);
 		loading = view.findViewById(R.id.wait);
 		loading.setVisibility(View.VISIBLE);
 
+		//Setup Recycler View.
 		GridLayoutManager manager = new GridLayoutManager(requireContext(), 2);
 		manager.setOrientation(RecyclerView.VERTICAL);
 		domainView.setLayoutManager(manager);
@@ -53,16 +57,15 @@ public class DomainFragment extends Fragment {
 				ArrayList<String> domains = new ArrayList<>();
 				domains.add("My Syllabus");
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-					Log.e("DOMAIN", Objects.requireNonNull(snapshot.getKey()));
 					domains.add(snapshot.getKey());
 				}
-				domainView.setAdapter(new DomainAdapter(requireContext(), domains, getParentFragmentManager()));
+				domainView.setAdapter(new DomainAdapter(domains, getParentFragmentManager()));
 				loading.setVisibility(View.GONE);
 			}
 
 			@Override
 			public void onCancelled(@NonNull DatabaseError databaseError) {
-				Log.e("ERROR", databaseError.toString());
+				Log.e("Database Error", databaseError.toString());
 				loading.setVisibility(View.GONE);
 			}
 		});

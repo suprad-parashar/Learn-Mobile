@@ -41,6 +41,7 @@ public class ChangePasswordFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		//Set Title.
 		Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("Change Password");
 
 		//Initialise UI Variables.

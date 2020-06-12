@@ -42,18 +42,13 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 	//Declare UI Variables
 	private RatingBar ratingBar;
-	private TextView nameTextView;
-	//	private Button next, previous;
-//	private Spinner videoIndexSpinner;
 	private YouTubePlayer mYouTubePlayer;
-	private ListView videosPlaylist;
-	private int count;
 
+	//Declare Data Variables.
 	private String name, link, from, reference;
 	private boolean isPlaylist;
 	private float time, duration;
-
-	//Video Index
+	private float loadTime;
 	private int videoIndex = 0;
 
 	//Initialise Firebase Variables
@@ -62,7 +57,6 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			.child("users")
 			.child(Objects.requireNonNull(user).getUid())
 			.child("activity");
-	private float loadTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +65,12 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 		//Initialise UI Variables
 		YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player);
-		nameTextView = findViewById(R.id.title);
+		TextView nameTextView = findViewById(R.id.title);
 		TextView fromTextView = findViewById(R.id.from);
 		final TextView ratingTextView = findViewById(R.id.rating);
 		ratingBar = findViewById(R.id.rating_bar);
 		ImageView shareButton = findViewById(R.id.share);
-		videosPlaylist = findViewById(R.id.videos_playlist);
+		ListView videosPlaylist = findViewById(R.id.videos_playlist);
 
 		//Get Data from Intent
 		name = getIntent().getStringExtra("name");
@@ -85,12 +79,11 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		isPlaylist = getIntent().getBooleanExtra("isPlaylist", false);
 		loadTime = getIntent().getFloatExtra("time", 0);
 		videoIndex = (int) getIntent().getLongExtra("index", 0);
-		Log.e("VIDEOFUCKINGINDEX", String.valueOf(videoIndex));
 		ArrayList<String> videoNames = getIntent().getStringArrayListExtra("videoNames");
 		final ArrayList<String> videoLinks = getIntent().getStringArrayListExtra("videoLinks");
 		reference = getIntent().getStringExtra("reference");
 
-
+		//Setup Playlist Data.
 		assert videoNames != null;
 		videosPlaylist.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, videoNames));
 		videosPlaylist.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -127,18 +120,18 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			}
 
 			@Override
-			public void onPlaybackQualityChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackQuality playbackQuality) {
+			public void onPlaybackQualityChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlaybackQuality playbackQuality) {
 
 			}
 
 			@Override
-			public void onPlaybackRateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackRate playbackRate) {
+			public void onPlaybackRateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlaybackRate playbackRate) {
 
 			}
 
 			@Override
 			public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError playerError) {
-				Log.e("ERROR", playerError.name());
+				Log.e("Player Error", playerError.name());
 			}
 
 			@Override
@@ -152,27 +145,24 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			}
 
 			@Override
-			public void onVideoLoadedFraction(YouTubePlayer youTubePlayer, float v) {
+			public void onVideoLoadedFraction(@NonNull YouTubePlayer youTubePlayer, float v) {
 
 			}
 
 			@Override
-			public void onVideoId(YouTubePlayer youTubePlayer, String s) {
+			public void onVideoId(@NonNull YouTubePlayer youTubePlayer, @NonNull String s) {
 
 			}
 
 			@Override
-			public void onApiChange(YouTubePlayer youTubePlayer) {
+			public void onApiChange(@NonNull YouTubePlayer youTubePlayer) {
 
 			}
 		});
 
 		if (isPlaylist) {
-			assert videoLinks != null;
-			count = videoLinks.size();
-			assert videoNames != null;
 			videosPlaylist.setVisibility(View.VISIBLE);
-			nameTextView.setText(videoNames.get(0));
+			nameTextView.setText(videoNames.get(videoIndex));
 		} else {
 			nameTextView.setText(name);
 		}
@@ -227,7 +217,6 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 		//Set Data
 		fromTextView.setText(from);
-//		ratingTextView.setText(String.valueOf(rating));
 
 		//Add Back Button to Toolbar.
 		Toolbar toolbar = findViewById(R.id.toolbar);
@@ -236,12 +225,16 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 	}
 
+	/**
+	 * Create or Update the User Activity.
+	 */
 	private void updateActivity() {
 		activityReference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 				boolean found = false;
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+					//Update Activity.
 					Activity activity = snapshot.getValue(Activity.class);
 					assert activity != null;
 					if (!activity.getName().equals(name))
@@ -257,6 +250,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 					activityReference.child(Objects.requireNonNull(snapshot.getKey())).setValue(activity);
 				}
 				if (!found) {
+					//Create new Activity.
 					final Activity activity = new Activity();
 					activity.setName(name);
 					SimpleDateFormat format = new SimpleDateFormat("d MMM, yyyy", Locale.getDefault());
@@ -277,7 +271,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 			@Override
 			public void onCancelled(@NonNull DatabaseError databaseError) {
-				Log.e("ERROR", databaseError.toString());
+				Log.e("Database Error", databaseError.toString());
 			}
 		});
 	}

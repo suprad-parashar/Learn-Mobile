@@ -5,13 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,13 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.adapters.BranchAdapter;
-import com.learn.android.adapters.DomainAdapter;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class BranchFragment extends Fragment {
 
+	//Declare UI Variables.
 	RecyclerView branchView;
 	ProgressBar loading;
 	String domain;
@@ -46,10 +43,13 @@ public class BranchFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		//Initialise UI Variables.
 		branchView = view.findViewById(R.id.branch_view);
 		loading = view.findViewById(R.id.wait);
 		loading.setVisibility(View.VISIBLE);
 
+		//Setup Recycler View.
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);
 		branchView.setLayoutManager(manager);
@@ -68,7 +68,7 @@ public class BranchFragment extends Fragment {
 
 			@Override
 			public void onCancelled(@NonNull DatabaseError databaseError) {
-				Log.e("ERROR", databaseError.toString());
+				Log.e("Database Error", databaseError.toString());
 				loading.setVisibility(View.GONE);
 			}
 		});

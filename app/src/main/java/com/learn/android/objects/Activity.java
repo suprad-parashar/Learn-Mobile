@@ -3,6 +3,7 @@ package com.learn.android.objects;
 import com.learn.android.activities.learn.Type;
 
 public class Activity {
+
 	private String name;
 	private String link;
 	private String reference;

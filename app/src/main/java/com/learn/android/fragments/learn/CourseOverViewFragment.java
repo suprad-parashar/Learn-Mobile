@@ -16,6 +16,7 @@ import com.learn.android.activities.learn.Type;
 
 public class CourseOverViewFragment extends Fragment {
 
+	//Declare Data Variables.
 	private String title;
 
 	public CourseOverViewFragment() {
@@ -35,7 +36,6 @@ public class CourseOverViewFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		//Initialise UI Variables.
-		//Declare UI Variables.
 		CardView coursesCard = view.findViewById(R.id.courses);
 		CardView videosCard = view.findViewById(R.id.videos);
 		CardView documentsCard = view.findViewById(R.id.documents);
@@ -89,6 +89,5 @@ public class CourseOverViewFragment extends Fragment {
 						.commit();
 			}
 		});
-
 	}
 }

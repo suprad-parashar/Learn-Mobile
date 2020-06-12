@@ -1,13 +1,9 @@
 package com.learn.android.activities.learn;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import com.learn.android.R;
@@ -26,10 +22,6 @@ public class CourseViewActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_course_view);
 
-//		final SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-//		int isDark = settings.getInt("darkMode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//		AppCompatDelegate.setDefaultNightMode(isDark);
-
 		//Get Title
 		title = getIntent().getStringExtra("title");
 
@@ -39,6 +31,7 @@ public class CourseViewActivity extends AppCompatActivity {
 				.replace(R.id.course_view_fragment, new CourseOverViewFragment(title))
 				.commit();
 
+		//Setup Toolbar.
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		toolbar.setTitle(title);
 		setSupportActionBar(toolbar);

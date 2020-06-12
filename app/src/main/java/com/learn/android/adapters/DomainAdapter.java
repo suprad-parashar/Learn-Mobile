@@ -1,6 +1,5 @@
 package com.learn.android.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,10 @@ import java.util.ArrayList;
 public class DomainAdapter extends RecyclerView.Adapter<DomainAdapter.DomainHolder> {
 
 	//Declare UI Variables
-	private Context context;
 	private ArrayList<String> domains;
 	private FragmentManager fragmentManager;
 
-	public DomainAdapter(Context context, ArrayList<String> domains, FragmentManager fragmentManager) {
-		this.context = context;
+	public DomainAdapter(ArrayList<String> domains, FragmentManager fragmentManager) {
 		this.domains = domains;
 		this.fragmentManager = fragmentManager;
 	}

@@ -1,7 +1,6 @@
 package com.learn.android.fragments.profile;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
-import com.learn.android.activities.learn.Type;
 import com.learn.android.adapters.MyActivitiesAdapter;
 import com.learn.android.objects.Activity;
 
@@ -27,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MyActivitiesFragment extends Fragment {
+
+	//Declare UI Variables.
 	RecyclerView recyclerView;
 
 	@Nullable
@@ -38,6 +38,8 @@ public class MyActivitiesFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		//Setup Recycler View.
 		recyclerView = view.findViewById(R.id.activities_list);
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);

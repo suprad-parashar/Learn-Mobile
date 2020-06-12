@@ -53,10 +53,6 @@ public class CourseDocumentViewActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_course_document_view);
 
-//		final SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-//		int isDark = settings.getInt("darkMode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//		AppCompatDelegate.setDefaultNightMode(isDark);
-
 		//Get Data from Intent
 		link = getIntent().getStringExtra("link");
 		from = getIntent().getStringExtra("from");
@@ -77,11 +73,13 @@ public class CourseDocumentViewActivity extends AppCompatActivity {
 		webView = findViewById(R.id.web_view);
 		webView.loadUrl(link);
 
+		//Add User Activity.
 		activityReference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 				boolean found = false;
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+					//Modify Existing Activity.
 					Activity activity = snapshot.getValue(Activity.class);
 					assert activity != null;
 					if (!activity.getName().equals(name))
@@ -93,6 +91,7 @@ public class CourseDocumentViewActivity extends AppCompatActivity {
 					activityReference.child(Objects.requireNonNull(snapshot.getKey())).setValue(activity);
 				}
 				if (!found) {
+					//Create a new Activity.
 					final Activity activity = new Activity();
 					activity.setName(name);
 					SimpleDateFormat format = new SimpleDateFormat("d MMM, yyyy", Locale.getDefault());
@@ -160,15 +159,14 @@ public class CourseDocumentViewActivity extends AppCompatActivity {
 					});
 			builder.create().show();
 		} else if (item.getItemId() == R.id.share_menu_item) {
+			//Share Link
 			Intent sendIntent = new Intent();
 			sendIntent.setAction(Intent.ACTION_SEND);
-
 			String shareMessage = "Hey there! I am learning " + name + " on Learn!" +
 					"\nURL: " + link +
 					"\nWhy don't you join me on Learn!";
 			sendIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 			sendIntent.setType("text/plain");
-
 			Intent shareIntent = Intent.createChooser(sendIntent, null);
 			startActivity(shareIntent);
 		}

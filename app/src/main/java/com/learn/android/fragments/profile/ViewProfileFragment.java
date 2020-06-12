@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.HomeActivity;
-
-import java.util.Objects;
 
 public class ViewProfileFragment extends Fragment {
 
@@ -52,7 +48,6 @@ public class ViewProfileFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		//Initialise UI Variables.
 		final ProgressBar wait = view.findViewById(R.id.wait_view_profile);
-		//Declare UI Variables.
 		TextView userName = view.findViewById(R.id.user_name_view_profile);
 		collegeName = view.findViewById(R.id.college_view_profile);
 		currentlyIn = view.findViewById(R.id.user_currently_in_view_profile);

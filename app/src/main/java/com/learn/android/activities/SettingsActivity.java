@@ -1,29 +1,18 @@
 package com.learn.android.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
-import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.fragments.settings.SettingsOverviewFragment;
 
 import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		AppCompatDelegate.setDefaultNightMode(Learn.isDark);
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +35,6 @@ public class SettingsActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
-//			HomeActivity.navController.navigate(R.id.navigation_profile);
-//			startActivity(new Intent(this, HomeActivity.class));
-//			finish();
 			onBackPressed();
 		}
 		return true;

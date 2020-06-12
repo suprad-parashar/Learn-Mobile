@@ -1,7 +1,6 @@
 package com.learn.android.fragments.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
+	//Declare UI Variables.
 	RecyclerView homeActivitiesRecyclerView;
 
 	public View onCreateView(@NonNull LayoutInflater inflater,
@@ -37,6 +37,8 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		//Setup Recycler View.
 		homeActivitiesRecyclerView = view.findViewById(R.id.home_cards_list);
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);
@@ -56,9 +58,6 @@ public class HomeFragment extends Fragment {
 					Activity activity = dataSnapshot.child(String.valueOf(index--)).getValue(Activity.class);
 					count--;
 					activities.add(activity);
-					assert activity != null;
-					Log.e("ACT_IN", String.valueOf(activity.getIndex()));
-					Log.e("ACTIVITY_INDEX", String.valueOf(dataSnapshot.child(String.valueOf(index + 1)).child("index").getValue()));
 				}
 				homeActivitiesRecyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities));
 			}

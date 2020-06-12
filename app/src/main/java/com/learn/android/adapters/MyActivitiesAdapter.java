@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
+import com.learn.android.activities.learn.CourseDocumentViewActivity;
 import com.learn.android.activities.learn.CourseVideoViewActivity;
 import com.learn.android.objects.Activity;
 
@@ -60,7 +60,6 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 						intent.putExtra("isPlaylist", activity.isPlaylist());
 						intent.putExtra("time", activity.getTime());
 						intent.putExtra("index", activity.getIndex());
-						Log.e("INDEX", String.valueOf(activity.getIndex()));
 						intent.putExtra("reference", activity.getReference());
 						final ArrayList<String> videoNames = new ArrayList<>(), videoLinks = new ArrayList<>();
 						if (activity.isPlaylist()) {
@@ -94,6 +93,16 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 				break;
 			case DOCUMENT:
 				buttonText = "Read";
+				holder.button.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(context, CourseDocumentViewActivity.class);
+						intent.putExtra("name", activity.getName());
+						intent.putExtra("from", activity.getFrom());
+						intent.putExtra("link", activity.getLink());
+						context.startActivity(intent);
+					}
+				});
 				break;
 			case COURSE:
 				buttonText = "Go to Course";

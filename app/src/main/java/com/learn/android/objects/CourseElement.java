@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Object to hold Course Details.
  */
 public class CourseElement {
+
 	private String name;
 	private String link;
 	private String from;

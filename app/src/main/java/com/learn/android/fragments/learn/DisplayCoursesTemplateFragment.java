@@ -16,15 +16,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
-import com.learn.android.adapters.BranchAdapter;
 import com.learn.android.adapters.CourseAdapter;
 
 import java.util.ArrayList;
 
 public class DisplayCoursesTemplateFragment extends Fragment {
 
-	DatabaseReference reference;
+	//Declare UI Variables
 	RecyclerView recyclerView;
+
+	//Declare Firebase Variables.
+	DatabaseReference reference;
 
 	public DisplayCoursesTemplateFragment(DatabaseReference reference) {
 		this.reference = reference;
@@ -39,6 +41,8 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		//Setup Recycler View.
 		recyclerView = view.findViewById(R.id.courses_list);
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);

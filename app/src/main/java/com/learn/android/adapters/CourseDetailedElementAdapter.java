@@ -40,13 +40,13 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 
 	@Override
 	public void onBindViewHolder(@NonNull ElementViewHolder holder, int position) {
-		//Populate Data
+		//Get Element.
 		final CourseElement element = courseElements.get(position);
 
+		//Setup Prerequisites.
 		LinearLayoutManager manager = new LinearLayoutManager(context);
 		manager.setOrientation(RecyclerView.HORIZONTAL);
 		holder.prerequisites.setLayoutManager(manager);
-
 		String[] prerequisites = element.getPrerequisites();
 		if (prerequisites == null) {
 			holder.prerequisites.setVisibility(View.GONE);
@@ -58,6 +58,7 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 			holder.prerequisites.setAdapter(new PrerequisitesAdapter(context, prerequisites));
 		}
 
+		//Populate Data
 		holder.name.setText(element.getName());
 		holder.rating.setText(String.valueOf(element.getRating()));
 		holder.from.setText(element.getFrom());

@@ -10,7 +10,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Learn extends Application {
 	public static final String CHANGE_MESSAGE = "1. Added My Activities" +
 			"\n2. Added Dashboard Activity" +
-			"\n3. Clicking on the activity takes you to the respective link";
+			"\n3. Clicking on the activity takes you to the respective link" +
+			"\n4. Bug Fixes";
 
 	public static int isDark;
 

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,12 +23,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
+import com.learn.android.activities.AuthActivity;
 import com.learn.android.activities.HomeActivity;
 import com.learn.android.activities.SettingsActivity;
-import com.learn.android.activities.AuthActivity;
 
 public class ProfileFragment extends Fragment {
 
@@ -37,11 +35,11 @@ public class ProfileFragment extends Fragment {
 	private FirebaseAuth auth = FirebaseAuth.getInstance();
 	private FirebaseUser user = auth.getCurrentUser();
 
+	//Declare UI Variables.
 	private TextView pointsTextView;
 	private ProgressBar wait;
 
-	public View onCreateView(@NonNull LayoutInflater inflater,
-							 ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_profile, container, false);
 	}
 
@@ -50,6 +48,7 @@ public class ProfileFragment extends Fragment {
 		//Initialise UI Variables.
 		final String[] PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
 		wait = view.findViewById(R.id.wait);
+
 		//Declare UI Variables.
 		TextView nameTextView = view.findViewById(R.id.profile_user_name);
 		TextView emailTextView = view.findViewById(R.id.profile_user_email);
@@ -57,6 +56,7 @@ public class ProfileFragment extends Fragment {
 		ImageButton settings = view.findViewById(R.id.settings);
 		ListView profileLinks = view.findViewById(R.id.profile_links);
 
+		//Handle Settings Click.
 		settings.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

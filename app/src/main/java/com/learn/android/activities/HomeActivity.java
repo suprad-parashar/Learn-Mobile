@@ -1,7 +1,6 @@
 package com.learn.android.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import com.learn.android.R;
 /**
  * Home Activity is the main Activity of the Application.
  */
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 	//Initialise Firebase Variables.
 	FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -43,22 +42,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-//		final SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-//		int isDark = settings.getInt("darkMode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//		AppCompatDelegate.setDefaultNightMode(isDark);
-
 		//Set up Navigation View.
 		BottomNavigationView navView = findViewById(R.id.nav_view);
 		drawerLayout = findViewById(R.id.container);
 		NavigationView navigationView = findViewById(R.id.main_sidebar);
 		navigationView.setNavigationItemSelectedListener(this);
 
+		//Setup Toolbar with NavController.
 		appBarConfiguration = new AppBarConfiguration.Builder(
 				R.id.navigation_home,
 				R.id.navigation_learn,
-				R.id.navigation_social
-//				R.id.navigation_tools,
-//				R.id.navigation_profile
+				R.id.navigation_social,
+				R.id.navigation_tools,
+				R.id.navigation_profile
 		).setDrawerLayout(drawerLayout).build();
 		navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 		NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -88,15 +84,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-//			drawerLayout.closeDrawer(GravityCompat.START);
-//		}
+		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+			drawerLayout.closeDrawer(GravityCompat.START);
+		}
 		if (item.getItemId() == R.id.nav_tools) {
 			navController.navigate(R.id.navigation_tools);
 		} else if (item.getItemId() == R.id.navigation_profile) {
-//			navController.navigate(R.id.navigation_profile);
-			Log.e("ALPHA", "YTGUHJucgtfhjgtfhjk");
-			Toast.makeText(HomeActivity.this, "PRRRRROOOOOFFFFILLLEEEE", Toast.LENGTH_LONG).show();
+			navController.navigate(R.id.navigation_profile);
 		}
 		return true;
 	}

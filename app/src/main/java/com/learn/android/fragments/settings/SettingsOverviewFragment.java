@@ -22,6 +22,7 @@ import com.learn.android.activities.SettingsActivity;
 
 public class SettingsOverviewFragment extends Fragment {
 
+	//Declare UI Variables.
 	Switch darkMode;
 	TextView changePassword, openSourceLibraries;
 
@@ -35,10 +36,12 @@ public class SettingsOverviewFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		//Initialise UI Variables.
 		darkMode = view.findViewById(R.id.dark_mode);
 		changePassword = view.findViewById(R.id.change_password);
 		openSourceLibraries = view.findViewById(R.id.osl);
 
+		//Handle Change Password.
 		changePassword.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -50,8 +53,10 @@ public class SettingsOverviewFragment extends Fragment {
 			}
 		});
 
+		//Set Dark Mode Switch
 		darkMode.setChecked(Learn.isDark != AppCompatDelegate.MODE_NIGHT_NO);
 
+		//Handle Dark Mode Selection.
 		darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -73,6 +78,7 @@ public class SettingsOverviewFragment extends Fragment {
 			}
 		});
 
+		//Handle OSL Click.
 		openSourceLibraries.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

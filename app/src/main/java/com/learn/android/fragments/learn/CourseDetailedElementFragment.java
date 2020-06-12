@@ -53,15 +53,18 @@ public class CourseDetailedElementFragment extends Fragment {
 		titleTextView = view.findViewById(R.id.title);
 		final ArrayList<CourseElement> courseElements = new ArrayList<>();
 
+		//Setup Recycler View.
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);
 		detailsListView.setLayoutManager(manager);
 
+		//Set Title.
 		titleTextView.setText(title);
 
 		//Initialise Firebase Variables.
 		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("links").child(title);
 
+		//Populate Data.
 		switch (CourseViewActivity.type) {
 			case VIDEO:
 				//Videos

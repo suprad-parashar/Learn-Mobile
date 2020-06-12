@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class CoursesDataViewPagerAdapter extends FragmentPagerAdapter {
 
+	//Declare Adapter Data.
 	private final ArrayList<Fragment> fragments = new ArrayList<>();
 	private final ArrayList<String> titles = new ArrayList<>();
 

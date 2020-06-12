@@ -1,13 +1,10 @@
 package com.learn.android.activities.learn;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,10 +23,6 @@ public class SyllabusViewActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_syllabus_view);
-
-//		final SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-//		int isDark = settings.getInt("darkMode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//		AppCompatDelegate.setDefaultNightMode(isDark);
 
 		//Set Back button to Toolbar.
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

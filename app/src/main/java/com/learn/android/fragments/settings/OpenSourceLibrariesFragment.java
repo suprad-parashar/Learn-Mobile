@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class OpenSourceLibrariesFragment extends Fragment {
+
+	//Declare UI Variables.
 	private RecyclerView librariesView;
 
 	@Nullable
