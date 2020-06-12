@@ -84,6 +84,7 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 					Intent intent = new Intent(context, CourseDocumentViewActivity.class);
 					intent.putExtra("link", element.getLink());
 					intent.putExtra("name", element.getName());
+					intent.putExtra("from", element.getFrom());
 					intent.putExtra("reference", element.getReference().toString());
 					context.startActivity(intent);
 					context.finish();

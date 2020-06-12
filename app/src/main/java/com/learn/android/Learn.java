@@ -8,16 +8,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "Version 1.5.0 Alpha - " +
-			"\n1. Redesigned Learn Module" +
-			"\n\nVersion 1.4.3 Alpha - " +
-			"\n1. Removed Dark Mode" +
-			"\n2. Redesigned Playlist View in Course Videos" +
-			"\n\nVersion 1.4.2 Alpha - " +
-			"\n1. Redesigned Profile Fragment" +
-			"\n2. Redesigned Edit Profile Fragment" +
-			"\n3. Redesigned Settings Activity" +
-			"\n4. Added ChangeLog Feature in About Section";
+	public static final String CHANGE_MESSAGE = "1. Added My Activities" +
+			"\n2. Added Dashboard Activity" +
+			"\n3. Clicking on the activity takes you to the respective link";
 
 	public static int isDark;
 
