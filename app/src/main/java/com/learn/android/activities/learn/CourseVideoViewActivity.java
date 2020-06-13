@@ -42,14 +42,14 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 	//Declare UI Variables
 	private RatingBar ratingBar;
-	private YouTubePlayer mYouTubePlayer;
+	public static YouTubePlayer mYouTubePlayer;
 
 	//Declare Data Variables.
 	private String name, link, from, reference;
 	private boolean isPlaylist;
 	private float time, duration;
 	private float loadTime;
-	private int videoIndex = 0;
+	public static int videoIndex = 0;
 
 	//Initialise Firebase Variables
 	private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -65,12 +65,12 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 		//Initialise UI Variables
 		YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player);
-		TextView nameTextView = findViewById(R.id.title);
+		final TextView nameTextView = findViewById(R.id.title);
 		TextView fromTextView = findViewById(R.id.from);
 		final TextView ratingTextView = findViewById(R.id.rating);
 		ratingBar = findViewById(R.id.rating_bar);
 		ImageView shareButton = findViewById(R.id.share);
-		ListView videosPlaylist = findViewById(R.id.videos_playlist);
+		final ListView videosPlaylist = findViewById(R.id.videos_playlist);
 
 		//Get Data from Intent
 		name = getIntent().getStringExtra("name");
@@ -79,23 +79,9 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		isPlaylist = getIntent().getBooleanExtra("isPlaylist", false);
 		loadTime = getIntent().getFloatExtra("time", 0);
 		videoIndex = (int) getIntent().getLongExtra("index", 0);
-		ArrayList<String> videoNames = getIntent().getStringArrayListExtra("videoNames");
+		final ArrayList<String> videoNames = getIntent().getStringArrayListExtra("videoNames");
 		final ArrayList<String> videoLinks = getIntent().getStringArrayListExtra("videoLinks");
 		reference = getIntent().getStringExtra("reference");
-
-		//Setup Playlist Data.
-		assert videoNames != null;
-		videosPlaylist.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, videoNames));
-		videosPlaylist.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		videosPlaylist.setItemChecked(videoIndex, true);
-		videosPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				assert videoLinks != null;
-				mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(position)), loadTime);
-				videoIndex = position;
-			}
-		});
 
 		//Set Reference
 		assert reference != null;
@@ -110,6 +96,25 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 				assert videoLinks != null;
 				String id = extractVideoIdFromLink((isPlaylist) ? videoLinks.get(videoIndex) : link);
 				mYouTubePlayer.loadVideo(id, loadTime);
+				if (isPlaylist) {
+					videosPlaylist.setVisibility(View.VISIBLE);
+					assert videoNames != null;
+					nameTextView.setText(videoNames.get(videoIndex));
+					//Setup Playlist Data.
+					videosPlaylist.setAdapter(new ArrayAdapter<>(CourseVideoViewActivity.this, android.R.layout.simple_list_item_activated_1, videoNames));
+					videosPlaylist.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+					videosPlaylist.setItemChecked(videoIndex, true);
+					videosPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(position)), 0);
+							videoIndex = position;
+						}
+					});
+				} else {
+					nameTextView.setText(name);
+					videosPlaylist.setVisibility(View.GONE);
+				}
 			}
 
 			@Override
@@ -159,13 +164,6 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 			}
 		});
-
-		if (isPlaylist) {
-			videosPlaylist.setVisibility(View.VISIBLE);
-			nameTextView.setText(videoNames.get(videoIndex));
-		} else {
-			nameTextView.setText(name);
-		}
 
 		//Set Rating
 		ratingBar.setRating(0);

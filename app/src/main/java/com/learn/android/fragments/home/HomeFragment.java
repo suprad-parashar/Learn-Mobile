@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +38,10 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		//Hide Bottom Navigation Bar
+		BottomNavigationView bottomBar = requireActivity().findViewById(R.id.nav_view);
+		bottomBar.setVisibility(View.VISIBLE);
 
 		//Setup Recycler View.
 		homeActivitiesRecyclerView = view.findViewById(R.id.home_cards_list);

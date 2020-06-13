@@ -72,6 +72,8 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 					intent.putExtra("link", element.getLink());
 					intent.putExtra("name", element.getName());
 					intent.putExtra("from", element.getFrom());
+					intent.putExtra("time", 0.0);
+					intent.putExtra("index", 0);
 					intent.putExtra("isPlaylist", element.isPlaylist());
 					if (element.isPlaylist()) {
 						intent.putExtra("videoNames", element.getVideoNames());

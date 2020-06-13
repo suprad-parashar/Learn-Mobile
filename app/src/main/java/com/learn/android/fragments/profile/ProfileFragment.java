@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +46,10 @@ public class ProfileFragment extends Fragment {
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		//Hide Bottom Navigation Bar
+		BottomNavigationView bottomBar = requireActivity().findViewById(R.id.nav_view);
+		bottomBar.setVisibility(View.GONE);
+
 		//Initialise UI Variables.
 		final String[] PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
 		wait = view.findViewById(R.id.wait);

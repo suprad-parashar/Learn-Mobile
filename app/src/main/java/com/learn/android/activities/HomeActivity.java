@@ -87,11 +87,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
 			drawerLayout.closeDrawer(GravityCompat.START);
 		}
-		if (item.getItemId() == R.id.nav_tools) {
-			navController.navigate(R.id.navigation_tools);
-		} else if (item.getItemId() == R.id.navigation_profile) {
-			navController.navigate(R.id.navigation_profile);
-		}
 		return true;
 	}
 }

@@ -1,6 +1,7 @@
 package com.learn.android.fragments.learn;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,11 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 	//Declare Firebase Variables.
 	DatabaseReference reference;
 
-	public DisplayCoursesTemplateFragment(DatabaseReference reference) {
+	public DisplayCoursesTemplateFragment() {
+		//Required Empty Constructor.
+	}
+
+	public DisplayCoursesTemplateFragment(@ NonNull DatabaseReference reference) {
 		this.reference = reference;
 	}
 
@@ -47,6 +52,10 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);
 		recyclerView.setLayoutManager(manager);
+
+		if (reference == null) {
+			Log.e("NULLLLL", "NULL");
+		}
 
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
