@@ -42,14 +42,14 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 	//Declare UI Variables
 	private RatingBar ratingBar;
-	public static YouTubePlayer mYouTubePlayer;
+	public YouTubePlayer mYouTubePlayer;
 
 	//Declare Data Variables.
 	private String name, link, from, reference;
 	private boolean isPlaylist;
 	private float time, duration;
 	private float loadTime;
-	public static int videoIndex = 0;
+	public int videoIndex = 0;
 
 	//Initialise Firebase Variables
 	private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

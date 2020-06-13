@@ -1,6 +1,7 @@
 package com.learn.android.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.learn.android.R;
+import com.learn.android.activities.learn.CourseViewActivity;
 
 public class PrerequisitesAdapter extends RecyclerView.Adapter<PrerequisitesAdapter.PrerequisitesHolder> {
 
@@ -32,6 +34,14 @@ public class PrerequisitesAdapter extends RecyclerView.Adapter<PrerequisitesAdap
 	@Override
 	public void onBindViewHolder(@NonNull PrerequisitesHolder holder, final int position) {
 		holder.prerequisite.setText(prerequisites[position]);
+		holder.itemView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, CourseViewActivity.class);
+				intent.putExtra("title", prerequisites[position]);
+				context.startActivity(intent);
+			}
+		});
 	}
 
 	@Override
