@@ -14,14 +14,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/settings" />
 
-    <!--    <ScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/toolbar">-->
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/settings_fragment_view"
         android:layout_width="match_parent"

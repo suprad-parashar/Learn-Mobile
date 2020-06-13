@@ -32,13 +32,13 @@
         tools:text="FreeCodeCamp" />
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:background="@drawable/button_filled"
-        android:id="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
-        android:layout_margin="8dp"
         tools:text="RESUME" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

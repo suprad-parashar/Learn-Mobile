@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
     android:layout_weight="1"
-    android:elevation="16dp"
     android:background="@color/backgroundFade"
+    android:elevation="16dp"
     app:cardCornerRadius="16dp">
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
             android:textColor="@color/textColorBold"
-            android:textSize="32sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
@@ -33,18 +33,18 @@
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:textColor="@color/textColorFade"
             android:paddingBottom="4dp"
-            android:textSize="24sp" />
+            android:textColor="@color/textColorFade"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorFade"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
+            android:textColor="@color/textColorFade"
             android:textSize="18sp" />
 
         <TextView
@@ -53,9 +53,9 @@
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:textColor="@color/textColorFade"
             android:paddingBottom="4dp"
-            android:textSize="18sp" />
+            android:textColor="@color/textColorFade"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

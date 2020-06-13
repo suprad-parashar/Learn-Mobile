@@ -6,11 +6,11 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/videos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:layout_weight="1"
-        android:id="@+id/videos"
         android:backgroundTint="@color/colorAccent"
         app:cardCornerRadius="16dp">
 
@@ -25,12 +25,12 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/documents"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:layout_weight="1"
         android:backgroundTint="@color/colorAccent"
-        android:id="@+id/documents"
         app:cardCornerRadius="16dp">
 
         <TextView
@@ -44,11 +44,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/courses"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:layout_weight="1"
-        android:id="@+id/courses"
         android:backgroundTint="@color/colorAccent"
         app:cardCornerRadius="16dp">
 
@@ -63,11 +63,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/projects"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:layout_weight="1"
-        android:id="@+id/projects"
         android:backgroundTint="@color/colorAccent"
         app:cardCornerRadius="16dp">
 
