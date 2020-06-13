@@ -20,6 +20,7 @@ import com.learn.android.R;
 import com.learn.android.adapters.CourseAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DisplayCoursesTemplateFragment extends Fragment {
 
@@ -59,6 +60,7 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 				ArrayList<String> courses = new ArrayList<>();
 				for (DataSnapshot snapshot : dataSnapshot.getChildren())
 					courses.add(String.valueOf(snapshot.getValue()));
+				Collections.sort(courses);
 				recyclerView.setAdapter(new CourseAdapter(requireContext(), courses));
 			}
 

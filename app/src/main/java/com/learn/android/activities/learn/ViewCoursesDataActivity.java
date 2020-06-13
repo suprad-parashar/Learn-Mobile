@@ -2,6 +2,7 @@ package com.learn.android.activities.learn;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,5 +69,13 @@ public class ViewCoursesDataActivity extends AppCompatActivity {
 				Log.e("Database Error", databaseError.toString());
 			}
 		});
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+		}
+		return true;
 	}
 }

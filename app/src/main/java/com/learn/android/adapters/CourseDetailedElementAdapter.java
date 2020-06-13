@@ -103,7 +103,7 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 		});
 		Glide.with(context)
 				.load(element.getIconUrl())
-				.placeholder(R.drawable.ic_person)
+				.placeholder(R.mipmap.ic_launcher)
 				.into(holder.icon);
 	}
 

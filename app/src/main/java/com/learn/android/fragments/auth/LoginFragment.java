@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
+import com.learn.android.activities.AuthActivity;
 import com.learn.android.activities.HomeActivity;
 
 public class LoginFragment extends Fragment {
@@ -73,12 +74,14 @@ public class LoginFragment extends Fragment {
 
 		//Disable Loading Icon.
 		load.setVisibility(View.GONE);
+		googleSignInButton.setVisibility(View.VISIBLE);
 
 		//Handle Click on Login Button.
 		loginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				load.setVisibility(View.VISIBLE);
+				googleSignInButton.setVisibility(View.GONE);
 				String email = emailEditText.getText().toString().trim();
 				String password = passwordEditText.getText().toString();
 				if (email.equals("")) {
@@ -102,17 +105,20 @@ public class LoginFragment extends Fragment {
 										if (user.isEmailVerified()) {
 											insertDefaultUserProfileDataInFirebaseDatabase();
 											load.setVisibility(View.GONE);
+											googleSignInButton.setVisibility(View.VISIBLE);
 											Intent intent = new Intent(requireContext(), HomeActivity.class);
 											intent.putExtra("signIn", true);
 											startActivity(intent);
 											requireActivity().finish();
 										} else {
 											load.setVisibility(View.GONE);
+											googleSignInButton.setVisibility(View.VISIBLE);
 											Toast.makeText(requireContext(), "Verify your email before logging in", Toast.LENGTH_LONG).show();
 											auth.signOut();
 										}
 									} else {
 										load.setVisibility(View.GONE);
+										googleSignInButton.setVisibility(View.VISIBLE);
 										passwordEditText.setError("Incorrect Credentials");
 										passwordEditText.requestFocus();
 									}
@@ -120,6 +126,7 @@ public class LoginFragment extends Fragment {
 							});
 				}
 				load.setVisibility(View.GONE);
+				googleSignInButton.setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -127,6 +134,7 @@ public class LoginFragment extends Fragment {
 		signUpButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				AuthActivity.isOnLoginPage = false;
 				getParentFragmentManager()
 						.beginTransaction()
 						.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
@@ -147,6 +155,7 @@ public class LoginFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				load.setVisibility(View.VISIBLE);
+				googleSignInButton.setVisibility(View.GONE);
 				Intent signInIntent = client.getSignInIntent();
 				startActivityForResult(signInIntent, GOOGLE_SIGN_IN_RC);
 			}
@@ -194,6 +203,7 @@ public class LoginFragment extends Fragment {
 							assert user != null;
 							insertDefaultUserProfileDataInFirebaseDatabase();
 							load.setVisibility(View.GONE);
+							googleSignInButton.setVisibility(View.VISIBLE);
 							Intent intent = new Intent(requireActivity(), HomeActivity.class);
 							intent.putExtra("signIn", true);
 							startActivity(intent);
@@ -201,10 +211,12 @@ public class LoginFragment extends Fragment {
 						} else {
 							Toast.makeText(requireContext(), "Authentication Failed.", Toast.LENGTH_LONG).show();
 							load.setVisibility(View.GONE);
+							googleSignInButton.setVisibility(View.VISIBLE);
 						}
 					}
 				});
 		load.setVisibility(View.GONE);
+		googleSignInButton.setVisibility(View.VISIBLE);
 	}
 
 	@Override

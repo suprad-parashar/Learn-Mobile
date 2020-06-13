@@ -12,6 +12,8 @@ import com.learn.android.fragments.auth.LoginFragment;
 
 public class AuthActivity extends AppCompatActivity {
 
+	public static boolean isOnLoginPage = true;
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -32,5 +34,19 @@ public class AuthActivity extends AppCompatActivity {
 				.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
 				.replace(R.id.auth_fragment, new LoginFragment())
 				.commit();
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (isOnLoginPage) {
+			super.onBackPressed();
+		} else {
+			//Change to Login Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+					.replace(R.id.auth_fragment, new LoginFragment())
+					.commit();
+		}
 	}
 }

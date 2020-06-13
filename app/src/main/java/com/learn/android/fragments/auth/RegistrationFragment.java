@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.learn.android.R;
+import com.learn.android.activities.AuthActivity;
 
 public class RegistrationFragment extends Fragment {
 
@@ -105,6 +106,7 @@ public class RegistrationFragment extends Fragment {
 
 										Toast.makeText(requireContext(), "You are registered! Verification email sent. Check your Inbox", Toast.LENGTH_LONG).show();
 
+										AuthActivity.isOnLoginPage = true;
 										getParentFragmentManager()
 												.beginTransaction()
 												.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
@@ -123,6 +125,7 @@ public class RegistrationFragment extends Fragment {
 		signInButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				AuthActivity.isOnLoginPage = true;
 				getParentFragmentManager()
 						.beginTransaction()
 						.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
