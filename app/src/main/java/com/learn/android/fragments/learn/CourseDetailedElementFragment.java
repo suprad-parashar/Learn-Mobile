@@ -31,7 +31,7 @@ public class CourseDetailedElementFragment extends Fragment {
 
 	//Declare UI Variables.
 	private RecyclerView detailsListView;
-	private String title;
+	private String title, titleReference;
 	ImageView image;
 	TextView titleTextView;
 
@@ -40,6 +40,7 @@ public class CourseDetailedElementFragment extends Fragment {
 	}
 
 	CourseDetailedElementFragment(String title) {
+		titleReference = title.replace("#", "Sharp");
 		this.title = title;
 	}
 
@@ -66,7 +67,7 @@ public class CourseDetailedElementFragment extends Fragment {
 		titleTextView.setText(title);
 
 		//Initialise Firebase Variables.
-		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("links").child(title);
+		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("links").child(titleReference);
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

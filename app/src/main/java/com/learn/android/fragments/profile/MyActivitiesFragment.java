@@ -22,6 +22,7 @@ import com.learn.android.adapters.MyActivitiesAdapter;
 import com.learn.android.objects.Activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class MyActivitiesFragment extends Fragment {
@@ -55,7 +56,7 @@ public class MyActivitiesFragment extends Fragment {
 				ArrayList<Activity> activities = new ArrayList<>();
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 					Activity activity = snapshot.getValue(Activity.class);
-					activities.add(activity);
+					activities.add(0, activity);
 				}
 				recyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities));
 			}
