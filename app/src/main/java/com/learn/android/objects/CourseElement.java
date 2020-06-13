@@ -14,6 +14,7 @@ public class CourseElement {
 	private String link;
 	private String from;
 	private Type type;
+	private String iconUrl;
 	private int[] ratings;
 	private String[] prerequisites;
 	private DatabaseReference reference;
@@ -26,6 +27,14 @@ public class CourseElement {
 
 	public void setPlaylist(boolean playlist) {
 		isPlaylist = playlist;
+	}
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	}
 
 	public ArrayList<String> getVideoNames() {

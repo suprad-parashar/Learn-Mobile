@@ -53,10 +53,6 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 		manager.setOrientation(RecyclerView.VERTICAL);
 		recyclerView.setLayoutManager(manager);
 
-		if (reference == null) {
-			Log.e("NULLLLL", "NULL");
-		}
-
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

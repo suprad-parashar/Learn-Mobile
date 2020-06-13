@@ -2,16 +2,19 @@ package com.learn.android.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseDocumentViewActivity;
 import com.learn.android.activities.learn.CourseVideoViewActivity;
@@ -99,6 +102,12 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 				}
 			}
 		});
+//		holder.icon.setImageURI(null);
+//		holder.icon.setImageURI(Uri.parse(element.getIconUrl()));
+		Glide.with(context)
+				.load(element.getIconUrl())
+				.placeholder(R.drawable.ic_person)
+				.into(holder.icon);
 	}
 
 	@Override
@@ -106,10 +115,11 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 		return courseElements.size();
 	}
 
-	public class ElementViewHolder extends RecyclerView.ViewHolder {
+	public static class ElementViewHolder extends RecyclerView.ViewHolder {
 
 		TextView name, rating, from, noPrerequisites, prerequisitesText;
 		RecyclerView prerequisites;
+		ImageView icon;
 
 		public ElementViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -119,6 +129,7 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 			rating = itemView.findViewById(R.id.rating);
 			prerequisitesText = itemView.findViewById(R.id.prerequisites_text);
 			from = itemView.findViewById(R.id.from);
+			icon = itemView.findViewById(R.id.image);
 		}
 	}
 }

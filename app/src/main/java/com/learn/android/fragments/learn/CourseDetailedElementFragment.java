@@ -154,6 +154,7 @@ public class CourseDetailedElementFragment extends Fragment {
 		element.setName((String) snapshot.child("name").getValue());
 		element.setFrom((String) snapshot.child("from").getValue());
 		element.setLink((String) snapshot.child("link").getValue());
+		element.setIconUrl((String) snapshot.child("icon").getValue());
 		element.setType(type);
 		if (type == Type.VIDEO) {
 			boolean isPlaylist = Boolean.parseBoolean(String.valueOf(snapshot.child("playlist").getValue()));
