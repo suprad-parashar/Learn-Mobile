@@ -36,7 +36,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	public static NavController navController;
 	private DrawerLayout drawerLayout;
 	private AppBarConfiguration appBarConfiguration;
-	private TextView settings;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		navigationView.setNavigationItemSelectedListener(this);
 
 		//Setup Settings
-		settings = navigationView.findViewById(R.id.settings);
+		TextView settings = navigationView.findViewById(R.id.settings);
 		settings.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
