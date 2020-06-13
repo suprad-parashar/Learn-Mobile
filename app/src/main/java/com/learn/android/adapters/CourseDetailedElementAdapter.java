@@ -2,7 +2,6 @@ package com.learn.android.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,8 +101,6 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 				}
 			}
 		});
-//		holder.icon.setImageURI(null);
-//		holder.icon.setImageURI(Uri.parse(element.getIconUrl()));
 		Glide.with(context)
 				.load(element.getIconUrl())
 				.placeholder(R.drawable.ic_person)

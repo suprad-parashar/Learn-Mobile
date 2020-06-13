@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +32,7 @@ public class CourseDetailedElementFragment extends Fragment {
 	//Declare UI Variables.
 	private RecyclerView detailsListView;
 	private String title;
+	ImageView image;
 	TextView titleTextView;
 
 	public CourseDetailedElementFragment() {
@@ -51,6 +54,7 @@ public class CourseDetailedElementFragment extends Fragment {
 		//Initialise UI Variables.
 		detailsListView = view.findViewById(R.id.course_detailed_list_view);
 		titleTextView = view.findViewById(R.id.title);
+		image = view.findViewById(R.id.display_image);
 		final ArrayList<CourseElement> courseElements = new ArrayList<>();
 
 		//Setup Recycler View.
@@ -63,6 +67,20 @@ public class CourseDetailedElementFragment extends Fragment {
 
 		//Initialise Firebase Variables.
 		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("links").child(title);
+		reference.addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+				Glide.with(requireContext())
+						.load(String.valueOf(dataSnapshot.child("image").getValue()))
+						.centerCrop()
+						.into(image);
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError databaseError) {
+
+			}
+		});
 
 		//Populate Data.
 		switch (CourseViewActivity.type) {
