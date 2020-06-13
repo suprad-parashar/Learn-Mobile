@@ -100,6 +100,7 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 						intent.putExtra("name", activity.getName());
 						intent.putExtra("from", activity.getFrom());
 						intent.putExtra("link", activity.getLink());
+						intent.putExtra("reference", activity.getReference());
 						context.startActivity(intent);
 					}
 				});
