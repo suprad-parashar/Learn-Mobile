@@ -1,7 +1,10 @@
 package com.learn.android.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	public static NavController navController;
 	private DrawerLayout drawerLayout;
 	private AppBarConfiguration appBarConfiguration;
+	private TextView settings;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		drawerLayout = findViewById(R.id.container);
 		NavigationView navigationView = findViewById(R.id.main_sidebar);
 		navigationView.setNavigationItemSelectedListener(this);
+
+		//Setup Settings
+		settings = navigationView.findViewById(R.id.settings);
+		settings.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+			}
+		});
 
 		//Setup Toolbar with NavController.
 		appBarConfiguration = new AppBarConfiguration.Builder(

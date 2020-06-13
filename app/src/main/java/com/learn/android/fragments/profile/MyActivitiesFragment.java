@@ -22,7 +22,6 @@ import com.learn.android.adapters.MyActivitiesAdapter;
 import com.learn.android.objects.Activity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Objects;
 
 public class MyActivitiesFragment extends Fragment {
