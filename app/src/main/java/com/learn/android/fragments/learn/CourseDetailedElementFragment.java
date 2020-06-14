@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public class CourseDetailedElementFragment extends Fragment {
 	private String title, titleReference;
 	ImageView image;
 	TextView titleTextView;
+	LinearLayout emptyView;
 
 	public CourseDetailedElementFragment() {
 		//Required Default Public Constructor.
@@ -56,6 +58,7 @@ public class CourseDetailedElementFragment extends Fragment {
 		detailsListView = view.findViewById(R.id.course_detailed_list_view);
 		titleTextView = view.findViewById(R.id.title);
 		image = view.findViewById(R.id.display_image);
+		emptyView = view.findViewById(R.id.empty_view);
 		final ArrayList<CourseElement> courseElements = new ArrayList<>();
 
 		//Setup Recycler View.
@@ -95,7 +98,12 @@ public class CourseDetailedElementFragment extends Fragment {
 							CourseElement element = getCourseElement(snapshot, Type.VIDEO);
 							courseElements.add(element);
 						}
-						detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+						if (courseElements.size() == 0) {
+							emptyView.setVisibility(View.VISIBLE);
+							detailsListView.setVisibility(View.GONE);
+						} else {
+							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+						}
 					}
 
 					@Override
@@ -113,7 +121,12 @@ public class CourseDetailedElementFragment extends Fragment {
 							CourseElement element = getCourseElement(snapshot, Type.DOCUMENT);
 							courseElements.add(element);
 						}
-						detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+						if (courseElements.size() == 0) {
+							emptyView.setVisibility(View.VISIBLE);
+							detailsListView.setVisibility(View.GONE);
+						} else {
+							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+						}
 					}
 
 					@Override
@@ -131,7 +144,12 @@ public class CourseDetailedElementFragment extends Fragment {
 							CourseElement element = getCourseElement(snapshot, Type.COURSE);
 							courseElements.add(element);
 						}
-						detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+						if (courseElements.size() == 0) {
+							emptyView.setVisibility(View.VISIBLE);
+							detailsListView.setVisibility(View.GONE);
+						} else {
+							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+						}
 					}
 
 					@Override
@@ -149,7 +167,12 @@ public class CourseDetailedElementFragment extends Fragment {
 							CourseElement element = getCourseElement(snapshot, Type.PROJECT);
 							courseElements.add(element);
 						}
-						detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+						if (courseElements.size() == 0) {
+							emptyView.setVisibility(View.VISIBLE);
+							detailsListView.setVisibility(View.GONE);
+						} else {
+							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+						}
 					}
 
 					@Override
