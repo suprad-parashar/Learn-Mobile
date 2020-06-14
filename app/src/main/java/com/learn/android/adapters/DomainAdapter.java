@@ -1,14 +1,18 @@
 package com.learn.android.adapters;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.learn.android.R;
 import com.learn.android.fragments.learn.BranchFragment;
 
@@ -18,11 +22,15 @@ public class DomainAdapter extends RecyclerView.Adapter<DomainAdapter.DomainHold
 
 	//Declare UI Variables
 	private ArrayList<String> domains;
+	private ArrayList<String> imageURLs;
+	private Context context;
 	private FragmentManager fragmentManager;
 
-	public DomainAdapter(ArrayList<String> domains, FragmentManager fragmentManager) {
+	public DomainAdapter(Context context, ArrayList<String> domains, ArrayList<String> imageURLs, FragmentManager fragmentManager) {
 		this.domains = domains;
 		this.fragmentManager = fragmentManager;
+		this.context = context;
+		this.imageURLs = imageURLs;
 	}
 
 	@NonNull
@@ -35,6 +43,12 @@ public class DomainAdapter extends RecyclerView.Adapter<DomainAdapter.DomainHold
 	@Override
 	public void onBindViewHolder(@NonNull DomainHolder holder, final int position) {
 		holder.domain.setText(domains.get(position));
+		Log.e("IMAGE", imageURLs.get(position));
+		Glide.with(context)
+				.load(imageURLs.get(position))
+				.placeholder(R.drawable.button_filled)
+				.fitCenter()
+				.into(holder.image);
 		holder.itemView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -53,10 +67,12 @@ public class DomainAdapter extends RecyclerView.Adapter<DomainAdapter.DomainHold
 
 	static class DomainHolder extends RecyclerView.ViewHolder {
 		TextView domain;
+		ImageView image;
 
 		DomainHolder(@NonNull View itemView) {
 			super(itemView);
 			domain = itemView.findViewById(R.id.domain);
+			image = itemView.findViewById(R.id.image);
 		}
 	}
 }

@@ -54,12 +54,12 @@ public class DomainFragment extends Fragment {
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				ArrayList<String> domains = new ArrayList<>();
-				domains.add("My Syllabus");
+				ArrayList<String> domains = new ArrayList<>(), imageURLs = new ArrayList<>();
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 					domains.add(snapshot.getKey());
+					imageURLs.add(String.valueOf(snapshot.child("image").getValue()));
 				}
-				domainView.setAdapter(new DomainAdapter(domains, getParentFragmentManager()));
+				domainView.setAdapter(new DomainAdapter(requireContext(), domains, imageURLs, getParentFragmentManager()));
 				loading.setVisibility(View.GONE);
 			}
 

@@ -74,6 +74,7 @@ public class CourseDetailedElementFragment extends Fragment {
 				Glide.with(requireContext())
 						.load(String.valueOf(dataSnapshot.child("image").getValue()))
 						.centerCrop()
+						.placeholder(R.drawable.illustration_1_analyse)
 						.into(image);
 			}
 
