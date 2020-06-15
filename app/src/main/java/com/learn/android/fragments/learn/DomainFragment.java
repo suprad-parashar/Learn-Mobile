@@ -22,6 +22,7 @@ import com.learn.android.R;
 import com.learn.android.adapters.DomainAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class DomainFragment extends Fragment {
@@ -59,6 +60,7 @@ public class DomainFragment extends Fragment {
 					domains.add(snapshot.getKey());
 					imageURLs.add(String.valueOf(snapshot.child("image").getValue()));
 				}
+				Collections.sort(domains);
 				domainView.setAdapter(new DomainAdapter(requireContext(), domains, imageURLs, getParentFragmentManager()));
 				loading.setVisibility(View.GONE);
 			}

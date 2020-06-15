@@ -27,10 +27,13 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 	//Declare UI Variables.
 	private ArrayList<CourseElement> courseElements;
 	private Activity context;
+	private String domain, branch;
 
-	public CourseDetailedElementAdapter(Activity context, ArrayList<CourseElement> courseElements) {
+	public CourseDetailedElementAdapter(Activity context, ArrayList<CourseElement> courseElements, String domain, String branch) {
 		this.context = context;
 		this.courseElements = courseElements;
+		this.domain = domain;
+		this.branch = branch;
 	}
 
 	@NonNull
@@ -57,7 +60,7 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 			holder.noPrerequisites.setVisibility(View.GONE);
 			holder.prerequisites.setVisibility(View.VISIBLE);
 			holder.prerequisitesText.setVisibility(View.VISIBLE);
-			holder.prerequisites.setAdapter(new PrerequisitesAdapter(context, prerequisites));
+			holder.prerequisites.setAdapter(new PrerequisitesAdapter(context, prerequisites, domain, branch));
 		}
 
 		//Populate Data

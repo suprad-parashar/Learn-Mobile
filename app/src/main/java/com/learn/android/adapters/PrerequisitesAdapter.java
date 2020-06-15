@@ -18,10 +18,13 @@ public class PrerequisitesAdapter extends RecyclerView.Adapter<PrerequisitesAdap
 	//Declare UI Variables
 	private Context context;
 	private String[] prerequisites;
+	private String domain, branch;
 
-	public PrerequisitesAdapter(Context context, String[] prerequisites) {
+	public PrerequisitesAdapter(Context context, String[] prerequisites, String domain, String branch) {
 		this.context = context;
 		this.prerequisites = prerequisites;
+		this.domain = domain;
+		this.branch = branch;
 	}
 
 	@NonNull
@@ -39,6 +42,8 @@ public class PrerequisitesAdapter extends RecyclerView.Adapter<PrerequisitesAdap
 			public void onClick(View v) {
 				Intent intent = new Intent(context, CourseViewActivity.class);
 				intent.putExtra("title", prerequisites[position]);
+				intent.putExtra("domain", domain);
+				intent.putExtra("branch", branch);
 				context.startActivity(intent);
 			}
 		});

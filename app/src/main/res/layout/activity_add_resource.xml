@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundBold"
@@ -15,25 +16,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.4" />
+        app:title="@string/add_resource" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:layout_editor_absoluteX="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,7 +53,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/name"
+                    android:id="@+id/resource_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_box_border"
@@ -73,9 +70,9 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
                     android:background="@color/backgroundBold"
-                    android:labelFor="@id/name"
+                    android:labelFor="@id/resource_title"
                     android:padding="4dp"
-                    android:text="@string/name"
+                    android:text="@string/title"
                     android:textColor="@color/textColorBold"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +95,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
-                    android:id="@+id/currently_in"
+                    android:id="@+id/resource_domain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_box_border"
@@ -113,10 +110,10 @@
                     android:layout_marginEnd="16dp"
                     android:contentDescription="@string/dropdown"
                     android:src="@drawable/ic_drop_down"
-                    app:layout_constraintBottom_toBottomOf="@id/currently_in"
+                    app:layout_constraintBottom_toBottomOf="@id/resource_domain"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/currently_in" />
+                    app:layout_constraintTop_toTopOf="@id/resource_domain" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -124,60 +121,9 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
                     android:background="@color/backgroundBold"
-                    android:labelFor="@id/currently_in"
+                    android:labelFor="@id/resource_domain"
                     android:padding="4dp"
-                    android:text="@string/currently_in"
-                    android:textColor="@color/textColorBold"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:orientation="vertical">
-
-                <View
-                    android:id="@+id/blank_stream"
-                    android:layout_width="match_parent"
-                    android:layout_height="14dp"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Spinner
-                    android:id="@+id/view_profile_stream"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_box_border"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:spinnerMode="dialog"
-                    app:layout_constraintTop_toBottomOf="@id/blank_stream" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="16dp"
-                    android:contentDescription="@string/dropdown"
-                    android:src="@drawable/ic_drop_down"
-                    app:layout_constraintBottom_toBottomOf="@id/view_profile_stream"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/view_profile_stream" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="4dp"
-                    android:background="@color/backgroundBold"
-                    android:labelFor="@id/resource_title"
-                    android:padding="4dp"
-                    android:text="@string/stream"
+                    android:text="@string/domain"
                     android:textColor="@color/textColorBold"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -200,7 +146,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
-                    android:id="@+id/branch"
+                    android:id="@+id/resource_branch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_box_border"
@@ -216,10 +162,10 @@
                     android:layout_marginEnd="16dp"
                     android:contentDescription="@string/dropdown"
                     android:src="@drawable/ic_drop_down"
-                    app:layout_constraintBottom_toBottomOf="@id/branch"
+                    app:layout_constraintBottom_toBottomOf="@id/resource_branch"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/branch" />
+                    app:layout_constraintTop_toTopOf="@id/resource_branch" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -246,13 +192,65 @@
                 android:orientation="vertical">
 
                 <View
+                    android:id="@+id/blank_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/resource_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_box_border"
+                    android:dropDownSelector="@drawable/ic_drop_down"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintTop_toBottomOf="@id/blank_course" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/dropdown"
+                    android:src="@drawable/ic_drop_down"
+                    app:layout_constraintBottom_toBottomOf="@id/resource_course"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/resource_course" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/backgroundBold"
+                    android:labelFor="@id/resource_course"
+                    android:padding="4dp"
+                    android:text="@string/course"
+                    android:textColor="@color/textColorBold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <View
                     android:id="@+id/blank_board_university"
                     android:layout_width="match_parent"
                     android:layout_height="14dp"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
-                    android:id="@+id/board_university"
+                    android:id="@+id/resource_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_box_border"
@@ -268,21 +266,20 @@
                     android:layout_marginEnd="16dp"
                     android:contentDescription="@string/dropdown"
                     android:src="@drawable/ic_drop_down"
-                    app:layout_constraintBottom_toBottomOf="@id/board_university"
+                    app:layout_constraintBottom_toBottomOf="@id/resource_type"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/board_university" />
+                    app:layout_constraintTop_toTopOf="@id/resource_type" />
 
                 <TextView
-                    android:id="@+id/board_university_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
                     android:background="@color/backgroundBold"
-                    android:labelFor="@id/board_university"
+                    android:labelFor="@id/resource_title"
                     android:padding="4dp"
-                    android:text="@string/university"
+                    android:text="@string/type"
                     android:textColor="@color/textColorBold"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -305,7 +302,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/institution"
+                    android:id="@+id/resource_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_box_border"
@@ -322,9 +319,9 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
                     android:background="@color/backgroundBold"
-                    android:labelFor="@id/institution"
+                    android:labelFor="@id/resource_link"
                     android:padding="4dp"
-                    android:text="@string/college_name"
+                    android:text="@string/link"
                     android:textColor="@color/textColorBold"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -341,32 +338,22 @@
                 android:orientation="vertical">
 
                 <View
-                    android:id="@+id/blank_semester"
+                    android:id="@+id/blank_pre"
                     android:layout_width="match_parent"
                     android:layout_height="14dp"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Spinner
-                    android:id="@+id/view_profile_semester"
+                <EditText
+                    android:id="@+id/resource_prerequisites"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_box_border"
-                    android:dropDownSelector="@drawable/ic_drop_down"
-                    android:paddingStart="8dp"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:padding="12dp"
+                    android:paddingStart="16dp"
                     android:paddingEnd="8dp"
-                    android:spinnerMode="dialog"
-                    app:layout_constraintTop_toBottomOf="@id/blank_semester" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="16dp"
-                    android:contentDescription="@string/dropdown"
-                    android:src="@drawable/ic_drop_down"
-                    app:layout_constraintBottom_toBottomOf="@id/view_profile_semester"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/view_profile_semester" />
+                    app:layout_constraintTop_toBottomOf="@id/blank_pre" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -374,14 +361,24 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
                     android:background="@color/backgroundBold"
-                    android:labelFor="@id/resource_title"
+                    android:labelFor="@id/resource_prerequisites"
                     android:padding="4dp"
-                    android:text="@string/semester"
+                    android:text="@string/prerequisites"
                     android:textColor="@color/textColorBold"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/save_resource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/button_filled"
+                android:padding="16dp"
+                android:text="@string/add_resource" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

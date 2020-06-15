@@ -112,6 +112,12 @@
     <string name="no_resources_available">No Resources Available😭</string>
     <string name="help_message_resources">Have any good resource to share with fellow students? Help us!</string>
     <string name="add_resource">Add Resource</string>
+    <string name="title">Title</string>
+    <string name="domain">Domain</string>
+    <string name="type">Type</string>
+    <string name="link">Link</string>
+    <string name="from">From</string>
+    <string name="course">Course</string>
 
     <string-array name="branch_science">
         <item>PCM + Biology</item>

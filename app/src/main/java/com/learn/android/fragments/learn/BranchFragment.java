@@ -22,6 +22,7 @@ import com.learn.android.R;
 import com.learn.android.adapters.BranchAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BranchFragment extends Fragment {
 
@@ -62,7 +63,9 @@ public class BranchFragment extends Fragment {
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 					branches.add(snapshot.getKey());
 				}
-				branchView.setAdapter(new BranchAdapter(requireContext(), branches, reference));
+				branches.remove("image");
+				Collections.sort(branches);
+				branchView.setAdapter(new BranchAdapter(requireContext(), branches, reference, domain));
 				loading.setVisibility(View.GONE);
 			}
 

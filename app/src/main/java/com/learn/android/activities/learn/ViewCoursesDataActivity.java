@@ -36,7 +36,8 @@ public class ViewCoursesDataActivity extends AppCompatActivity {
 		//Get Data from Intent.
 		String name = getIntent().getStringExtra("name");
 		String referencePath = getIntent().getStringExtra("reference");
-
+		final String domain = getIntent().getStringExtra("domain");
+		final String branch = getIntent().getStringExtra("branch");
 		//Setup Toolbar.
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -58,7 +59,7 @@ public class ViewCoursesDataActivity extends AppCompatActivity {
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 					String heading = snapshot.getKey();
 					assert heading != null;
-					adapter.addFragment(new DisplayCoursesTemplateFragment(reference.child(heading)), heading);
+					adapter.addFragment(new DisplayCoursesTemplateFragment(reference.child(heading), domain, branch), heading);
 				}
 				pager.setAdapter(adapter);
 				tabLayout.setupWithViewPager(pager);

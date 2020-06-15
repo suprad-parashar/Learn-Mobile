@@ -1,9 +1,11 @@
 package com.learn.android.fragments.learn;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
+import com.learn.android.activities.AddResourceActivity;
 import com.learn.android.activities.learn.CourseViewActivity;
 import com.learn.android.activities.learn.Type;
 import com.learn.android.adapters.CourseDetailedElementAdapter;
@@ -32,18 +35,23 @@ public class CourseDetailedElementFragment extends Fragment {
 
 	//Declare UI Variables.
 	private RecyclerView detailsListView;
-	private String title, titleReference;
 	ImageView image;
 	TextView titleTextView;
 	LinearLayout emptyView;
+	Button addResourceButton;
+
+	//Declare Data Variables
+	private String title, titleReference, domain, branch;
 
 	public CourseDetailedElementFragment() {
 		//Required Default Public Constructor.
 	}
 
-	CourseDetailedElementFragment(String title) {
+	public CourseDetailedElementFragment(String title, String domain, String branch) {
 		titleReference = title.replace("#", "Sharp");
 		this.title = title;
+		this.domain = domain;
+		this.branch = branch;
 	}
 
 	@Nullable
@@ -59,6 +67,7 @@ public class CourseDetailedElementFragment extends Fragment {
 		titleTextView = view.findViewById(R.id.title);
 		image = view.findViewById(R.id.display_image);
 		emptyView = view.findViewById(R.id.empty_view);
+		addResourceButton = view.findViewById(R.id.add_resource_button);
 		final ArrayList<CourseElement> courseElements = new ArrayList<>();
 
 		//Setup Recycler View.
@@ -102,7 +111,7 @@ public class CourseDetailedElementFragment extends Fragment {
 							emptyView.setVisibility(View.VISIBLE);
 							detailsListView.setVisibility(View.GONE);
 						} else {
-							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
 						}
 					}
 
@@ -125,7 +134,7 @@ public class CourseDetailedElementFragment extends Fragment {
 							emptyView.setVisibility(View.VISIBLE);
 							detailsListView.setVisibility(View.GONE);
 						} else {
-							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
 						}
 					}
 
@@ -148,7 +157,7 @@ public class CourseDetailedElementFragment extends Fragment {
 							emptyView.setVisibility(View.VISIBLE);
 							detailsListView.setVisibility(View.GONE);
 						} else {
-							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
 						}
 					}
 
@@ -171,7 +180,7 @@ public class CourseDetailedElementFragment extends Fragment {
 							emptyView.setVisibility(View.VISIBLE);
 							detailsListView.setVisibility(View.GONE);
 						} else {
-							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements));
+							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
 						}
 					}
 
@@ -182,6 +191,18 @@ public class CourseDetailedElementFragment extends Fragment {
 				});
 				break;
 		}
+
+		addResourceButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(requireContext(), AddResourceActivity.class);
+				intent.putExtra("domain", domain);
+				intent.putExtra("branch", branch);
+				intent.putExtra("course", title);
+				intent.putExtra("type", CourseViewActivity.type.toString());
+				startActivity(intent);
+			}
+		});
 	}
 
 	/**

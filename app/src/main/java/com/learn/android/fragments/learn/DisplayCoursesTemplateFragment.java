@@ -1,7 +1,6 @@
 package com.learn.android.fragments.learn;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +29,17 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 	//Declare Firebase Variables.
 	DatabaseReference reference;
 
+	//Declare Data Variables
+	String domain, branch;
+
 	public DisplayCoursesTemplateFragment() {
 		//Required Empty Constructor.
 	}
 
-	public DisplayCoursesTemplateFragment(@ NonNull DatabaseReference reference) {
+	public DisplayCoursesTemplateFragment(@NonNull DatabaseReference reference, String domain, String branch) {
 		this.reference = reference;
+		this.domain = domain;
+		this.branch = branch;
 	}
 
 	@Nullable
@@ -61,7 +65,7 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 				for (DataSnapshot snapshot : dataSnapshot.getChildren())
 					courses.add(String.valueOf(snapshot.getValue()));
 				Collections.sort(courses);
-				recyclerView.setAdapter(new CourseAdapter(requireContext(), courses));
+				recyclerView.setAdapter(new CourseAdapter(requireContext(), courses, domain, branch));
 			}
 
 			@Override

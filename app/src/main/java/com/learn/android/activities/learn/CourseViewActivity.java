@@ -14,7 +14,7 @@ import java.util.Objects;
 public class CourseViewActivity extends AppCompatActivity {
 
 	//Initialise UI Variables
-	public String title;
+	public String title, domain, branch;
 	public static Type type;
 
 	@Override
@@ -24,11 +24,13 @@ public class CourseViewActivity extends AppCompatActivity {
 
 		//Get Title
 		title = getIntent().getStringExtra("title");
+		domain = getIntent().getStringExtra("domain");
+		branch = getIntent().getStringExtra("branch");
 
 		//Show Course Overview.
 		getSupportFragmentManager()
 				.beginTransaction()
-				.replace(R.id.course_view_fragment, new CourseOverViewFragment(title))
+				.replace(R.id.course_view_fragment, new CourseOverViewFragment(title, domain, branch))
 				.commit();
 
 		//Setup Toolbar.

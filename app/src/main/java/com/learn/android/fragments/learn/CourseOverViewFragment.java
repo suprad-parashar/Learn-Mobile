@@ -17,14 +17,16 @@ import com.learn.android.activities.learn.Type;
 public class CourseOverViewFragment extends Fragment {
 
 	//Declare Data Variables.
-	private String title;
+	private String title, domain, branch;
 
 	public CourseOverViewFragment() {
 		//Required Public Default Constructor.
 	}
 
-	public CourseOverViewFragment(String title) {
+	public CourseOverViewFragment(String title, String domain, String branch) {
 		this.title = title;
+		this.domain = domain;
+		this.branch = branch;
 	}
 
 	@Nullable
@@ -49,7 +51,7 @@ public class CourseOverViewFragment extends Fragment {
 				requireActivity()
 						.getSupportFragmentManager()
 						.beginTransaction()
-						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title))
+						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 						.commit();
 			}
 		});
@@ -61,7 +63,7 @@ public class CourseOverViewFragment extends Fragment {
 				requireActivity()
 						.getSupportFragmentManager()
 						.beginTransaction()
-						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title))
+						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 						.commit();
 			}
 		});
@@ -73,7 +75,7 @@ public class CourseOverViewFragment extends Fragment {
 				requireActivity()
 						.getSupportFragmentManager()
 						.beginTransaction()
-						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title))
+						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 						.commit();
 			}
 		});
@@ -85,7 +87,7 @@ public class CourseOverViewFragment extends Fragment {
 				requireActivity()
 						.getSupportFragmentManager()
 						.beginTransaction()
-						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title))
+						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 						.commit();
 			}
 		});

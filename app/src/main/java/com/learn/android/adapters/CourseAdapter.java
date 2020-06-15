@@ -21,10 +21,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
 	//Declare UI Variables
 	private Context context;
 	private ArrayList<String> courses;
+	String domain, branch;
 
-	public CourseAdapter(Context context, ArrayList<String> courses) {
+	public CourseAdapter(Context context, ArrayList<String> courses, String domain, String branch) {
 		this.context = context;
 		this.courses = courses;
+		this.domain = domain;
+		this.branch = branch;
 	}
 
 	@NonNull
@@ -42,6 +45,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
 			public void onClick(View v) {
 				Intent intent = new Intent(context, CourseViewActivity.class);
 				intent.putExtra("title", courses.get(position));
+				intent.putExtra("domain", domain);
+				intent.putExtra("branch", branch);
 				context.startActivity(intent);
 			}
 		});

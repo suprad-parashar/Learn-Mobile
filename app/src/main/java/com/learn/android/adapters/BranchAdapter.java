@@ -22,11 +22,13 @@ public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.BranchHold
 	private Context context;
 	private ArrayList<String> branches;
 	private DatabaseReference reference;
+	String domain;
 
-	public BranchAdapter(Context context, ArrayList<String> domains, DatabaseReference reference) {
+	public BranchAdapter(Context context, ArrayList<String> domains, DatabaseReference reference, String domain) {
 		this.context = context;
 		this.branches = domains;
 		this.reference = reference;
+		this.domain = domain;
 	}
 
 	@NonNull
@@ -45,6 +47,8 @@ public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.BranchHold
 				Intent intent = new Intent(context, ViewCoursesDataActivity.class);
 				intent.putExtra("reference", reference.toString());
 				intent.putExtra("name", branches.get(position));
+				intent.putExtra("domain", domain);
+				intent.putExtra("branch", branches.get(position));
 				context.startActivity(intent);
 			}
 		});
