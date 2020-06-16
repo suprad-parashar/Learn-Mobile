@@ -8,9 +8,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "1. Bug Fixes" +
-			"\n2. Added Images and Icons to CourseView and CourseElements" +
-			"\n3. Added Settings to Navigation Drawer";
+	public static final String CHANGE_MESSAGE = "1. Added New Resource Addition Support" +
+			"\n2. Removed Internal Loading of Document Resources.";
 
 	public static int isDark;
 
