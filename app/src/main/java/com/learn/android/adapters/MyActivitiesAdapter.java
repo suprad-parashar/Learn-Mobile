@@ -2,6 +2,7 @@ package com.learn.android.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,23 +97,44 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 				holder.button.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Intent intent = new Intent(context, CourseDocumentViewActivity.class);
-						intent.putExtra("name", activity.getName());
-						intent.putExtra("from", activity.getFrom());
-						intent.putExtra("link", activity.getLink());
-						intent.putExtra("reference", activity.getReference());
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(activity.getLink()));
 						context.startActivity(intent);
 					}
 				});
 				break;
 			case COURSE:
 				buttonText = "Go to Course";
+				holder.button.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(activity.getLink()));
+						context.startActivity(intent);
+					}
+				});
 				break;
 			case PROJECT:
 				buttonText = "View Project";
+				holder.button.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(activity.getLink()));
+						context.startActivity(intent);
+					}
+				});
 				break;
 			default:
 				buttonText = "Go to Link";
+				holder.button.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(activity.getLink()));
+						context.startActivity(intent);
+					}
+				});
 				break;
 		}
 		holder.button.setText(buttonText);

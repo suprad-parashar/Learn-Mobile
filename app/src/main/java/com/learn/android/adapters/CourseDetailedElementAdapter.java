@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.learn.android.R;
-import com.learn.android.activities.learn.CourseDocumentViewActivity;
 import com.learn.android.activities.learn.CourseVideoViewActivity;
 import com.learn.android.activities.learn.Type;
 import com.learn.android.objects.CourseElement;
@@ -87,17 +86,8 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 					intent.putExtra("reference", element.getReference().toString());
 					context.startActivity(intent);
 					context.finish();
-				} else if (element.getType() == Type.DOCUMENT) {
-					//Document
-					Intent intent = new Intent(context, CourseDocumentViewActivity.class);
-					intent.putExtra("link", element.getLink());
-					intent.putExtra("name", element.getName());
-					intent.putExtra("from", element.getFrom());
-					intent.putExtra("reference", element.getReference().toString());
-					context.startActivity(intent);
-					context.finish();
 				} else {
-					//Courses and Projects
+					//Documents, Courses and Projects
 					Intent intent = new Intent(Intent.ACTION_VIEW);
 					intent.setData(Uri.parse(element.getLink()));
 					context.startActivity(intent);
