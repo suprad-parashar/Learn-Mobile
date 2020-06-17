@@ -23,7 +23,6 @@
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:textColor="@color/textColorBold"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/display_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

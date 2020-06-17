@@ -118,6 +118,10 @@
     <string name="link">Link</string>
     <string name="from">From</string>
     <string name="course">Course</string>
+    <string name="what_learn_today">What do you wanna learn today?</string>
+    <string name="welcome_back">Welcome Back, </string>
+    <string name="exclamation">!</string>
+    <string name="recent_activities">Recent Activities</string>
 
     <string-array name="branch_science">
         <item>PCM + Biology</item>

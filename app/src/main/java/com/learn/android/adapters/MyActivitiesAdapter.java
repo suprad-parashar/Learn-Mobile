@@ -3,7 +3,6 @@ package com.learn.android.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
-import com.learn.android.activities.learn.CourseDocumentViewActivity;
 import com.learn.android.activities.learn.CourseVideoViewActivity;
 import com.learn.android.objects.Activity;
 
@@ -175,7 +173,7 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 		MyActivitiesHolder(@NonNull View itemView) {
 			super(itemView);
 			title = itemView.findViewById(R.id.title);
-			date = itemView.findViewById(R.id.date);
+			date = itemView.findViewById(R.id.from);
 			button = itemView.findViewById(R.id.button);
 		}
 	}

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment {
 
 	//Declare UI Variables.
 	RecyclerView homeActivitiesRecyclerView;
+	TextView nameView;
 
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {
@@ -39,14 +41,18 @@ public class HomeFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		//Hide Bottom Navigation Bar
+		//Display Name
+		nameView = view.findViewById(R.id.person_name);
+		nameView.setText(Objects.requireNonNull(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName()).split(" ")[0]);
+
+		//Show Bottom Navigation Bar
 		BottomNavigationView bottomBar = requireActivity().findViewById(R.id.nav_view);
 		bottomBar.setVisibility(View.VISIBLE);
 
 		//Setup Recycler View.
 		homeActivitiesRecyclerView = view.findViewById(R.id.home_cards_list);
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
-		manager.setOrientation(RecyclerView.VERTICAL);
+		manager.setOrientation(RecyclerView.HORIZONTAL);
 		homeActivitiesRecyclerView.setLayoutManager(manager);
 
 		DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
