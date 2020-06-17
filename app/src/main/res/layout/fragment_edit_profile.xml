@@ -27,13 +27,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.4" />
 
+    <TextView
+        android:id="@+id/change_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/change_photo"
+        app:layout_constraintTop_toBottomOf="@id/profile_image" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image">
+        app:layout_constraintTop_toBottomOf="@id/change_photo">
 
         <LinearLayout
             android:layout_width="match_parent"
