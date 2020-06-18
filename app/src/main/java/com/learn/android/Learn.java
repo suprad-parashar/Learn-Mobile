@@ -8,11 +8,11 @@ import android.os.Build;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "1. Redesigned Home Page";
+	public static final String CHANGE_MESSAGE = "1. Redesigned Home Page" +
+			"\n2. Added Profile Picture Functionality";
 
 	public static int isDark;
 
