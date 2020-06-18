@@ -5,7 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -51,9 +53,14 @@ import com.learn.android.R;
 import com.learn.android.activities.HomeActivity;
 import com.yalantis.ucrop.UCrop;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -162,6 +169,35 @@ public class EditProfileFragment extends Fragment {
 				wait.setVisibility(View.GONE);
 			}
 		});
+
+		//Set Profile Image
+		try {
+			File file = new File(requireContext().getFilesDir(), "profile.jpg");
+			Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+			profileImage.setImageBitmap(bitmap);
+		} catch (FileNotFoundException e) {
+			final File file = new File(requireContext().getFilesDir(), "profile.jpg");
+			StorageReference reference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
+			reference.getFile(file)
+					.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+						@Override
+						public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+							try {
+								Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+								profileImage.setImageBitmap(bitmap);
+							} catch (FileNotFoundException ex) {
+								ex.printStackTrace();
+							}
+						}
+					})
+					.addOnFailureListener(new OnFailureListener() {
+						@Override
+						public void onFailure(@NonNull Exception e) {
+							e.printStackTrace();
+						}
+					});
+			e.printStackTrace();
+		}
 
 		//Handle Profile Image Change
 		profileImage.setOnClickListener(new View.OnClickListener() {
@@ -283,6 +319,14 @@ public class EditProfileFragment extends Fragment {
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
 				bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
 				byte[] byteArray = stream.toByteArray();
+				try {
+					File file = new File(requireContext().getFilesDir(), "profile.jpg");
+					FileOutputStream outputStream = new FileOutputStream(file);
+					outputStream.write(byteArray);
+					outputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				FirebaseStorage storage = FirebaseStorage.getInstance();
 				StorageReference reference = storage.getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
 				UploadTask task = reference.putBytes(byteArray);

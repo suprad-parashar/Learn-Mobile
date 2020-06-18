@@ -1,6 +1,8 @@
 package com.learn.android.fragments.profile;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,11 +29,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.AuthActivity;
 import com.learn.android.activities.HomeActivity;
 import com.learn.android.activities.SettingsActivity;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class ProfileFragment extends Fragment {
 
@@ -39,6 +51,7 @@ public class ProfileFragment extends Fragment {
 	//Declare UI Variables.
 	private TextView pointsTextView;
 	private ProgressBar wait;
+	private ImageView profileImage;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_profile, container, false);
@@ -60,6 +73,36 @@ public class ProfileFragment extends Fragment {
 		pointsTextView = view.findViewById(R.id.profile_user_bp);
 		ImageButton settings = view.findViewById(R.id.settings);
 		ListView profileLinks = view.findViewById(R.id.profile_links);
+		profileImage = view.findViewById(R.id.profile_image);
+
+		//Set Profile Image
+		try {
+			File file = new File(requireContext().getFilesDir(), "profile.jpg");
+			Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+			profileImage.setImageBitmap(bitmap);
+		} catch (FileNotFoundException e) {
+			final File file = new File(requireContext().getFilesDir(), "profile.jpg");
+			StorageReference reference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
+			reference.getFile(file)
+					.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+						@Override
+						public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+							try {
+								Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+								profileImage.setImageBitmap(bitmap);
+							} catch (FileNotFoundException ex) {
+								ex.printStackTrace();
+							}
+						}
+					})
+					.addOnFailureListener(new OnFailureListener() {
+						@Override
+						public void onFailure(@NonNull Exception e) {
+							e.printStackTrace();
+						}
+					});
+			e.printStackTrace();
+		}
 
 		//Handle Settings Click.
 		settings.setOnClickListener(new View.OnClickListener() {
