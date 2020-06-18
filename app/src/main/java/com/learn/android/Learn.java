@@ -8,11 +8,11 @@ import android.os.Build;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.bumptech.glide.load.engine.Resource;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "1. Added New Resource Addition Support" +
-			"\n2. Removed Internal Loading of Document Resources.";
+	public static final String CHANGE_MESSAGE = "1. Redesigned Home Page";
 
 	public static int isDark;
 

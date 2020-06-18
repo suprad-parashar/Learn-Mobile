@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
 					count--;
 					activities.add(activity);
 				}
-				homeActivitiesRecyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities));
+				homeActivitiesRecyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities, false));
 			}
 
 			@Override

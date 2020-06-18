@@ -57,7 +57,7 @@ public class MyActivitiesFragment extends Fragment {
 					Activity activity = snapshot.getValue(Activity.class);
 					activities.add(0, activity);
 				}
-				recyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities));
+				recyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities, true));
 			}
 
 			@Override

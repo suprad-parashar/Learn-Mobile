@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,10 +28,12 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 	//Declare UI Variables
 	private Context context;
 	private ArrayList<Activity> activities;
+	private boolean isList;
 
-	public MyActivitiesAdapter(Context context, ArrayList<Activity> activities) {
+	public MyActivitiesAdapter(Context context, ArrayList<Activity> activities, boolean isList) {
 		this.context = context;
 		this.activities = activities;
+		this.isList = isList;
 	}
 
 	@NonNull
@@ -43,6 +46,8 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 	@Override
 	public void onBindViewHolder(@NonNull MyActivitiesHolder holder, final int position) {
 		final Activity activity = activities.get(position);
+		if (!isList)
+			holder.mainLayout.setMaxWidth(750);
 		holder.title.setText(getTitle(activity));
 		holder.date.setText(activity.getDate());
 		String buttonText;
@@ -169,12 +174,14 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 	static class MyActivitiesHolder extends RecyclerView.ViewHolder {
 		TextView title, date;
 		Button button;
+		ConstraintLayout mainLayout;
 
 		MyActivitiesHolder(@NonNull View itemView) {
 			super(itemView);
 			title = itemView.findViewById(R.id.title);
 			date = itemView.findViewById(R.id.from);
 			button = itemView.findViewById(R.id.button);
+			mainLayout = itemView.findViewById(R.id.main_layout);
 		}
 	}
 }
