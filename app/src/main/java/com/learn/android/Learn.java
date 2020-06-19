@@ -21,6 +21,7 @@ public class Learn extends Application {
 			"\n2. Added Profile Picture Functionality";
 
 	public static final String DAILY_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnDailyReminder";
+	public static final String SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnScheduledReminder";
 
 	public static int isDark;
 
@@ -29,6 +30,7 @@ public class Learn extends Application {
 		super.onCreate();
 		FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 		createNotificationChannel("Daily Reminder", "Daily Reminders to help you learn something new everyday", DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
+		createNotificationChannel("Reminders", "Scheduled Reminders set by you for learning something new", SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID);
 		SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
 		if (!settings.contains("darkMode"))
 			settings.edit().putInt("darkMode", AppCompatDelegate.MODE_NIGHT_NO).apply();

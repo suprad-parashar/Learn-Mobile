@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="16dp"
     android:orientation="vertical">
 
@@ -89,7 +88,8 @@
                 android:layout_height="0dp"
                 android:contentDescription="@string/reminders"
                 android:padding="12dp"
-                android:src="@drawable/ic_person"
+                android:src="@drawable/ic_reminder"
+                android:tint="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="@id/reminders_title"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,54 +107,16 @@
                 app:layout_constraintTop_toBottomOf="@id/reminders_title" />
 
             <TextView
-                android:id="@+id/reminder_toggle_text"
-                android:layout_width="0dp"
+                android:id="@+id/toggle_reminders"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_margin="16dp"
+                android:drawableEnd="@drawable/ic_link_arrow"
                 android:padding="8dp"
-                android:text="@string/turn_on_reminders"
+                android:text="@string/turn_reminders_on_off"
                 android:textColor="@color/textColorFade"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toStartOf="@id/reminders_switch"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/reminders_bar" />
-
-            <Switch
-                android:id="@+id/reminders_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/reminder_toggle_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/reminder_toggle_text" />
-
-            <TextView
-                android:id="@+id/reminder_time_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:padding="8dp"
-                android:text="@string/reminder_time"
-                android:textColor="@color/textColorFade"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toStartOf="@id/reminders_time"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/reminders_switch" />
-
-            <TextView
-                android:id="@+id/reminders_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                tools:text="10:00"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@id/reminder_time_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/reminder_time_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/remind_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/date_pick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:drawableStart="@drawable/ic_date"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/colorPrimary"
+        android:hint="@string/choose_date"
+        android:importantForAutofill="no"
+        android:inputType="date"
+        android:padding="16dp" />
+
+    <EditText
+        android:id="@+id/time_pick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_pick"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:drawableStart="@drawable/ic_time"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/colorPrimary"
+        android:hint="@string/choose_time"
+        android:importantForAutofill="no"
+        android:inputType="time"
+        android:padding="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/time_pick"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="16dp"
+        android:text="@string/strict_reminder"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/strict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:layout_below="@id/time_pick"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

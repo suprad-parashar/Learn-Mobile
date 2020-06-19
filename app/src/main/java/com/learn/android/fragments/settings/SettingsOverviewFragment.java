@@ -29,8 +29,8 @@ import com.learn.android.activities.SettingsActivity;
 public class SettingsOverviewFragment extends Fragment {
 
 	//Declare UI Variables.
-	Switch darkMode, reminders;
-	TextView changePassword, openSourceLibraries, reminderTime;
+	Switch darkMode;
+	TextView changePassword, openSourceLibraries, reminders;
 
 	@Nullable
 	@Override
@@ -46,17 +46,7 @@ public class SettingsOverviewFragment extends Fragment {
 		darkMode = view.findViewById(R.id.dark_mode);
 		changePassword = view.findViewById(R.id.change_password);
 		openSourceLibraries = view.findViewById(R.id.osl);
-		reminders = view.findViewById(R.id.reminders_switch);
-		reminderTime = view.findViewById(R.id.reminders_time);
-
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			NotificationManager manager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
-			assert manager != null;
-			NotificationChannel channel = manager.getNotificationChannel(Learn.DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
-			reminders.setChecked(channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
-		} else {
-			reminders.setChecked(NotificationManagerCompat.from(requireContext()).areNotificationsEnabled());
-		}
+		reminders = view.findViewById(R.id.toggle_reminders);
 
 		reminders.setOnClickListener(new View.OnClickListener() {
 			@Override

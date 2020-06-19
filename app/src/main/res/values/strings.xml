@@ -127,6 +127,13 @@
     <string name="turn_on_reminders">Turn on Daily Reminders</string>
     <string name="reminder_time">Reminder Time</string>
     <string name="_10_00">10:00</string>
+    <string name="turn_reminders_on_off">Turn Reminders On/Off</string>
+    <string name="options_three_dots">⋮</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="remind_me_on">Remind Me on...</string>
+    <string name="choose_date">Choose Date</string>
+    <string name="choose_time">Choose Time</string>
+    <string name="strict_reminder">Strict Reminder</string>
 
     <string-array name="branch_science">
         <item>PCM + Biology</item>

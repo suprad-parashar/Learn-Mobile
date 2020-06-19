@@ -33,14 +33,27 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_toStartOf="@id/rating"
-            android:drawableEnd="@drawable/ic_link_arrow"
             android:padding="8dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/options"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Python Documentation" />
+
+        <TextView
+            android:id="@+id/options"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:text="@string/options_three_dots"
+            android:textAppearance="?android:textAppearanceLarge"
+            app:layout_constraintBottom_toBottomOf="@id/name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/name" />
 
         <TextView
             android:id="@+id/prerequisites_none"
