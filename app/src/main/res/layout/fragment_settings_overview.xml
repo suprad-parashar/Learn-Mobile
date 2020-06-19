@@ -2,169 +2,279 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="16dp"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/account_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/account"
-            android:textColor="@color/textColorBold"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/account_image"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/account_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@string/account"
-            android:padding="12dp"
-            android:src="@drawable/ic_person"
-            app:layout_constraintBottom_toBottomOf="@id/account_title"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/account_title" />
-
-        <View
-            android:id="@+id/account_bar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            android:background="@color/backgroundFade"
-            app:layout_constraintTop_toBottomOf="@id/account_title" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/change_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:drawableEnd="@drawable/ic_link_arrow"
-            android:padding="8dp"
-            android:text="@string/change_password"
-            android:textColor="@color/textColorFade"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/account_bar" />
+            <TextView
+                android:id="@+id/account_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/account"
+                android:textColor="@color/textColorBold"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/account_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/theme_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:padding="8dp"
-            android:text="@string/theme"
-            android:textColor="@color/textColorBold"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/theme_image"
-            app:layout_constraintTop_toBottomOf="@id/change_password" />
+            <ImageView
+                android:id="@+id/account_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/account"
+                android:padding="12dp"
+                android:src="@drawable/ic_person"
+                app:layout_constraintBottom_toBottomOf="@id/account_title"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/account_title" />
 
-        <ImageView
-            android:id="@+id/theme_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@string/theme"
-            android:padding="12dp"
-            android:src="@drawable/ic_eye"
-            app:layout_constraintBottom_toBottomOf="@id/theme_title"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/theme_title" />
+            <View
+                android:id="@+id/account_bar"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/backgroundFade"
+                app:layout_constraintTop_toBottomOf="@id/account_title" />
 
-        <View
-            android:id="@+id/theme_bar"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            android:background="@color/backgroundFade"
-            app:layout_constraintTop_toBottomOf="@id/theme_title" />
+            <TextView
+                android:id="@+id/change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:drawableEnd="@drawable/ic_link_arrow"
+                android:padding="8dp"
+                android:text="@string/change_password"
+                android:textColor="@color/textColorFade"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/account_bar" />
 
-        <TextView
-            android:id="@+id/dark_mode_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:padding="8dp"
-            android:text="@string/dark_mode"
-            android:textColor="@color/textColorFade"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@id/dark_mode"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/theme_bar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Switch
-            android:id="@+id/dark_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/dark_mode_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/dark_mode_label" />
-
-        <TextView
-            android:id="@+id/more_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:padding="8dp"
-            android:text="@string/more"
-            android:textColor="@color/textColorBold"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/more_image"
-            app:layout_constraintTop_toBottomOf="@id/dark_mode" />
-
-        <ImageView
-            android:id="@+id/more_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@string/more"
-            android:padding="12dp"
-            android:src="@drawable/ic_more"
-            app:layout_constraintBottom_toBottomOf="@id/more_title"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/more_title" />
-
-        <View
-            android:id="@+id/more_bar"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            android:background="@color/backgroundFade"
-            app:layout_constraintTop_toBottomOf="@id/more_title" />
-
-        <TextView
-            android:id="@+id/osl"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:drawableEnd="@drawable/ic_link_arrow"
-            android:padding="8dp"
-            android:text="@string/osl"
-            android:textColor="@color/textColorFade"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/more_bar" />
+            android:layout_marginTop="32dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/reminders_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/reminders"
+                android:textColor="@color/textColorBold"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/reminders_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/reminders_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/reminders"
+                android:padding="12dp"
+                android:src="@drawable/ic_person"
+                app:layout_constraintBottom_toBottomOf="@id/reminders_title"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/reminders_title" />
+
+            <View
+                android:id="@+id/reminders_bar"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/backgroundFade"
+                app:layout_constraintTop_toBottomOf="@id/reminders_title" />
+
+            <TextView
+                android:id="@+id/reminder_toggle_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:padding="8dp"
+                android:text="@string/turn_on_reminders"
+                android:textColor="@color/textColorFade"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/reminders_switch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/reminders_bar" />
+
+            <Switch
+                android:id="@+id/reminders_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/reminder_toggle_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/reminder_toggle_text" />
+
+            <TextView
+                android:id="@+id/reminder_time_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:padding="8dp"
+                android:text="@string/reminder_time"
+                android:textColor="@color/textColorFade"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/reminders_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/reminders_switch" />
+
+            <TextView
+                android:id="@+id/reminders_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                tools:text="10:00"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/reminder_time_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/reminder_time_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:id="@+id/theme_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/theme"
+                android:textColor="@color/textColorBold"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/theme_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/theme_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/theme"
+                android:padding="12dp"
+                android:src="@drawable/ic_eye"
+                app:layout_constraintBottom_toBottomOf="@id/theme_title"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/theme_title" />
+
+            <View
+                android:id="@+id/theme_bar"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/backgroundFade"
+                app:layout_constraintTop_toBottomOf="@id/theme_title" />
+
+            <TextView
+                android:id="@+id/dark_mode_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="8dp"
+                android:text="@string/dark_mode"
+                android:textColor="@color/textColorFade"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/dark_mode"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/theme_bar" />
+
+            <Switch
+                android:id="@+id/dark_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/dark_mode_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/dark_mode_label" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:id="@+id/more_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/more"
+                android:textColor="@color/textColorBold"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/more_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/more_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/more"
+                android:padding="12dp"
+                android:src="@drawable/ic_more"
+                app:layout_constraintBottom_toBottomOf="@id/more_title"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/more_title" />
+
+            <View
+                android:id="@+id/more_bar"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/backgroundFade"
+                app:layout_constraintTop_toBottomOf="@id/more_title" />
+
+            <TextView
+                android:id="@+id/osl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:drawableEnd="@drawable/ic_link_arrow"
+                android:padding="8dp"
+                android:text="@string/osl"
+                android:textColor="@color/textColorFade"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/more_bar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

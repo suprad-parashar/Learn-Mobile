@@ -123,6 +123,10 @@
     <string name="exclamation">!</string>
     <string name="recent_activities">Recent Activities</string>
     <string name="change_photo">Change Photo</string>
+    <string name="reminders">Reminders</string>
+    <string name="turn_on_reminders">Turn on Daily Reminders</string>
+    <string name="reminder_time">Reminder Time</string>
+    <string name="_10_00">10:00</string>
 
     <string-array name="branch_science">
         <item>PCM + Biology</item>

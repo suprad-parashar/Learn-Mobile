@@ -1,9 +1,14 @@
 package com.learn.android.fragments.settings;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.learn.android.Learn;
@@ -23,8 +29,8 @@ import com.learn.android.activities.SettingsActivity;
 public class SettingsOverviewFragment extends Fragment {
 
 	//Declare UI Variables.
-	Switch darkMode;
-	TextView changePassword, openSourceLibraries;
+	Switch darkMode, reminders;
+	TextView changePassword, openSourceLibraries, reminderTime;
 
 	@Nullable
 	@Override
@@ -40,6 +46,34 @@ public class SettingsOverviewFragment extends Fragment {
 		darkMode = view.findViewById(R.id.dark_mode);
 		changePassword = view.findViewById(R.id.change_password);
 		openSourceLibraries = view.findViewById(R.id.osl);
+		reminders = view.findViewById(R.id.reminders_switch);
+		reminderTime = view.findViewById(R.id.reminders_time);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			NotificationManager manager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
+			assert manager != null;
+			NotificationChannel channel = manager.getNotificationChannel(Learn.DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
+			reminders.setChecked(channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+		} else {
+			reminders.setChecked(NotificationManagerCompat.from(requireContext()).areNotificationsEnabled());
+		}
+
+		reminders.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+					intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+					intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().getPackageName());
+					intent.putExtra(Settings.EXTRA_CHANNEL_ID, Learn.DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
+					startActivity(intent);
+				} else {
+					intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+					intent.putExtra("app_package", requireContext().getPackageName());
+					intent.putExtra("app_uid", requireContext().getApplicationInfo().uid);
+				}
+			}
+		});
 
 		//Handle Change Password.
 		changePassword.setOnClickListener(new View.OnClickListener() {
