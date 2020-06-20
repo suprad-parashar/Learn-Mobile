@@ -7,8 +7,8 @@ android {
         applicationId "com.example.android.learn"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 2
-        versionName "2.3.0 Alpha"
+        versionCode 3
+        versionName "3.0.0 Alpha"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
