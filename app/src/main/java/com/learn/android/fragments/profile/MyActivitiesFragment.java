@@ -45,6 +45,7 @@ public class MyActivitiesFragment extends Fragment {
 		manager.setOrientation(RecyclerView.VERTICAL);
 		recyclerView.setLayoutManager(manager);
 
+		//Set Data
 		final DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
 				.child("users")
 				.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())

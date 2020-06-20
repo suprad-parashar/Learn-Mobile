@@ -38,6 +38,7 @@ public class ViewCoursesDataActivity extends AppCompatActivity {
 		String referencePath = getIntent().getStringExtra("reference");
 		final String domain = getIntent().getStringExtra("domain");
 		final String branch = getIntent().getStringExtra("branch");
+
 		//Setup Toolbar.
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);

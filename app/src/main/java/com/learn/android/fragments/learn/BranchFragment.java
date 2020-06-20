@@ -29,6 +29,8 @@ public class BranchFragment extends Fragment {
 	//Declare UI Variables.
 	RecyclerView branchView;
 	ProgressBar loading;
+
+	//Declare Data Variables.
 	String domain;
 
 	public BranchFragment(String domain) {
@@ -55,6 +57,7 @@ public class BranchFragment extends Fragment {
 		manager.setOrientation(RecyclerView.VERTICAL);
 		branchView.setLayoutManager(manager);
 
+		//Add Data.
 		final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("domain").child(domain);
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override

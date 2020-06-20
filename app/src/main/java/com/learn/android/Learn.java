@@ -29,6 +29,8 @@ public class Learn extends Application {
 	public void onCreate() {
 		super.onCreate();
 		FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+		//Create Notification Channels.
 		createNotificationChannel("Daily Reminder", "Daily Reminders to help you learn something new everyday", DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
 		createNotificationChannel("Reminders", "Scheduled Reminders set by you for learning something new", SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID);
 		SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
@@ -38,6 +40,9 @@ public class Learn extends Application {
 		sendDailyNotifications();
 	}
 
+	/**
+	 * Sends a daily notification.
+	 */
 	private void sendDailyNotifications() {
 		Intent intent = new Intent(this, NotificationReceiver.class);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 736, intent, PendingIntent.FLAG_UPDATE_CURRENT);

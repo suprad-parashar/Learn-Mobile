@@ -12,6 +12,7 @@ import com.learn.android.fragments.auth.LoginFragment;
 
 public class AuthActivity extends AppCompatActivity {
 
+	//Declare UI Variables
 	public static boolean isOnLoginPage = true;
 
 	@Override

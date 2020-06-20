@@ -17,6 +17,8 @@ public class SyllabusViewActivity extends AppCompatActivity {
 
 	//Declare UI Variables.
 	ListView syllabusList;
+
+	//Declare Data Variables
 	ArrayList<String> syllabus;
 
 	@Override

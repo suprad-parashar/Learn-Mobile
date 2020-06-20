@@ -38,6 +38,7 @@ public class OpenSourceLibrariesFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		//Set Toolbar
 		Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("Open Source Libraries");
 
 		//Setup Recycler View
@@ -46,9 +47,8 @@ public class OpenSourceLibrariesFragment extends Fragment {
 		manager.setOrientation(RecyclerView.VERTICAL);
 		librariesView.setLayoutManager(manager);
 
-		final ArrayList<OpenSourceLibrary> libraries = new ArrayList<>();
-
 		//Get Libraries from Database.
+		final ArrayList<OpenSourceLibrary> libraries = new ArrayList<>();
 		FirebaseDatabase.getInstance().getReference().child("osl").child("android").addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

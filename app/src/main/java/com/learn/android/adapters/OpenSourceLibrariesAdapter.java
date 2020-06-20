@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class OpenSourceLibrariesAdapter extends RecyclerView.Adapter<OpenSourceLibrariesAdapter.OpenSourceLibrariesViewHolder> {
 
-	//Declare UI Variables
+	//Declare Data Variables
 	private Context context;
 	private ArrayList<OpenSourceLibrary> libraries;
 
@@ -41,17 +41,15 @@ public class OpenSourceLibrariesAdapter extends RecyclerView.Adapter<OpenSourceL
 		holder.name.setText(libraries.get(position).getName());
 		holder.from.setText(libraries.get(position).getFrom());
 
+		//Underline the Link.
 		SpannableString content = new SpannableString(libraries.get(position).getLink());
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 		holder.link.setText(content);
 
-		holder.link.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				intent.setData(Uri.parse(libraries.get(position).getLink()));
-				context.startActivity(intent);
-			}
+		holder.link.setOnClickListener(v -> {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(libraries.get(position).getLink()));
+			context.startActivity(intent);
 		});
 
 		holder.licence.setText(libraries.get(position).getLicence());

@@ -112,5 +112,4 @@
             tools:text="4.8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

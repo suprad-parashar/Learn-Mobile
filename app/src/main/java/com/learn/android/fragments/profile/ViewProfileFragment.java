@@ -78,21 +78,10 @@ public class ViewProfileFragment extends Fragment {
 
 			@Override
 			public void onCancelled(@NonNull DatabaseError databaseError) {
-				Toast.makeText(getActivity(), "An error occured while fetching Data", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), "An error occurred while fetching Data", Toast.LENGTH_LONG).show();
 				wait.setVisibility(View.GONE);
 			}
 		});
-	}
-
-	/**
-	 * Simplified Method to fetch Data from Firebase.
-	 *
-	 * @param dataSnapshot The Data Snapshot from Firebase Database.
-	 * @param key          The key of the data to be fetched.
-	 * @return The value of the key if exists else Unknown.
-	 */
-	private String getDataFromFirebase(DataSnapshot dataSnapshot, String key) {
-		return dataSnapshot.child(key).exists() ? (String) dataSnapshot.child(key).getValue() : getString(R.string.unknown);
 	}
 
 	@Override
@@ -112,5 +101,16 @@ public class ViewProfileFragment extends Fragment {
 				break;
 		}
 		return true;
+	}
+
+	/**
+	 * Simplified Method to fetch Data from Firebase.
+	 *
+	 * @param dataSnapshot The Data Snapshot from Firebase Database.
+	 * @param key          The key of the data to be fetched.
+	 * @return The value of the key if exists else Unknown.
+	 */
+	private String getDataFromFirebase(DataSnapshot dataSnapshot, String key) {
+		return dataSnapshot.child(key).exists() ? (String) dataSnapshot.child(key).getValue() : getString(R.string.unknown);
 	}
 }

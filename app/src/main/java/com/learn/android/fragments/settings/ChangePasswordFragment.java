@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -51,61 +49,52 @@ public class ChangePasswordFragment extends Fragment {
 		Button saveButton = view.findViewById(R.id.save_password_button);
 
 		//Handle Password Change.
-		saveButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				final String currentPassword = Objects.requireNonNull(currentPasswordEditText.getText()).toString();
-				final String newPassword = Objects.requireNonNull(newPasswordEditText.getText()).toString();
-				String confirmPassword = Objects.requireNonNull(confirmPasswordEditText.getText()).toString();
-				int value;
-				if (currentPassword.equals("")) {
-					currentPasswordEditText.setError("Enter your current Password");
-					currentPasswordEditText.requestFocus();
-				} else if ((value = RegistrationFragment.isValidPassword(newPassword)) != 0) {
-					switch (value) {
-						case 1:
-							newPasswordEditText.setError("Enter a password");
-							newPasswordEditText.requestFocus();
-							break;
-						case 2:
-							newPasswordEditText.setError("Password must have a minimum length of 8 characters");
-							newPasswordEditText.requestFocus();
-							break;
-						case 3:
-							newPasswordEditText.setError("Password must contain at least one UPPERCASE, lowercase, digit and special Character");
-							newPasswordEditText.requestFocus();
-							break;
-					}
-				} else if (confirmPassword.equals("")) {
-					confirmPasswordEditText.setError("Enter password again!");
-					confirmPasswordEditText.requestFocus();
-				} else if (!confirmPassword.equals(newPassword)) {
-					confirmPasswordEditText.setError("Passwords do not match");
-					confirmPasswordEditText.requestFocus();
-				} else {
-					final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-					assert user != null;
-					AuthCredential credential = EmailAuthProvider.getCredential(Objects.requireNonNull(user.getEmail()), currentPassword);
-					user.reauthenticate(credential)
-							.addOnCompleteListener(new OnCompleteListener<Void>() {
-								@Override
-								public void onComplete(@NonNull Task<Void> task) {
-									if (task.isSuccessful()) {
-										user.updatePassword(newPassword)
-												.addOnCompleteListener(new OnCompleteListener<Void>() {
-													@Override
-													public void onComplete(@NonNull Task<Void> task) {
-														Toast.makeText(getContext(), "Password Changed", Toast.LENGTH_LONG).show();
-														HomeActivity.navController.navigate(R.id.navigation_profile);
-													}
-												});
-									} else {
-										currentPasswordEditText.setError("Incorrect Password");
-										currentPasswordEditText.requestFocus();
-									}
-								}
-							});
+		saveButton.setOnClickListener(v -> {
+			final String currentPassword = Objects.requireNonNull(currentPasswordEditText.getText()).toString();
+			final String newPassword = Objects.requireNonNull(newPasswordEditText.getText()).toString();
+			String confirmPassword = Objects.requireNonNull(confirmPasswordEditText.getText()).toString();
+			int value;
+			if (currentPassword.equals("")) {
+				currentPasswordEditText.setError("Enter your current Password");
+				currentPasswordEditText.requestFocus();
+			} else if ((value = RegistrationFragment.isValidPassword(newPassword)) != 0) {
+				switch (value) {
+					case 1:
+						newPasswordEditText.setError("Enter a password");
+						newPasswordEditText.requestFocus();
+						break;
+					case 2:
+						newPasswordEditText.setError("Password must have a minimum length of 8 characters");
+						newPasswordEditText.requestFocus();
+						break;
+					case 3:
+						newPasswordEditText.setError("Password must contain at least one UPPERCASE, lowercase, digit and special Character");
+						newPasswordEditText.requestFocus();
+						break;
 				}
+			} else if (confirmPassword.equals("")) {
+				confirmPasswordEditText.setError("Enter password again!");
+				confirmPasswordEditText.requestFocus();
+			} else if (!confirmPassword.equals(newPassword)) {
+				confirmPasswordEditText.setError("Passwords do not match");
+				confirmPasswordEditText.requestFocus();
+			} else {
+				final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				assert user != null;
+				AuthCredential credential = EmailAuthProvider.getCredential(Objects.requireNonNull(user.getEmail()), currentPassword);
+				user.reauthenticate(credential)
+						.addOnCompleteListener(task -> {
+							if (task.isSuccessful()) {
+								user.updatePassword(newPassword)
+										.addOnCompleteListener(task1 -> {
+											Toast.makeText(getContext(), "Password Changed", Toast.LENGTH_LONG).show();
+											HomeActivity.navController.navigate(R.id.navigation_profile);
+										});
+							} else {
+								currentPasswordEditText.setError("Incorrect Password");
+								currentPasswordEditText.requestFocus();
+							}
+						});
 			}
 		});
 	}

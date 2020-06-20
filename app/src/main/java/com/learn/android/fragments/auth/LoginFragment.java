@@ -22,10 +22,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -63,6 +61,7 @@ public class LoginFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
 		//Initialise Views.
 		emailEditText = view.findViewById(R.id.email);
 		passwordEditText = view.findViewById(R.id.password);
@@ -77,70 +76,61 @@ public class LoginFragment extends Fragment {
 		googleSignInButton.setVisibility(View.VISIBLE);
 
 		//Handle Click on Login Button.
-		loginButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				load.setVisibility(View.VISIBLE);
-				googleSignInButton.setVisibility(View.GONE);
-				String email = emailEditText.getText().toString().trim();
-				String password = passwordEditText.getText().toString();
-				if (email.equals("")) {
-					emailEditText.setError("Enter Email Address");
-					emailEditText.requestFocus();
-				} else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-					emailEditText.setError("Invalid Email Address");
-					emailEditText.requestFocus();
-				} else if (password.equals("")) {
-					passwordEditText.setError("Enter a password");
-					passwordEditText.requestFocus();
-				} else {
-					//Sign In Using Email and Password.
-					auth.signInWithEmailAndPassword(email, password)
-							.addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-								@Override
-								public void onComplete(@NonNull Task<AuthResult> task) {
-									if (task.isSuccessful()) {
-										FirebaseUser user = auth.getCurrentUser();
-										assert user != null;
-										if (user.isEmailVerified()) {
-											insertDefaultUserProfileDataInFirebaseDatabase();
-											load.setVisibility(View.GONE);
-											googleSignInButton.setVisibility(View.VISIBLE);
-											Intent intent = new Intent(requireContext(), HomeActivity.class);
-											intent.putExtra("signIn", true);
-											startActivity(intent);
-											requireActivity().finish();
-										} else {
-											load.setVisibility(View.GONE);
-											googleSignInButton.setVisibility(View.VISIBLE);
-											Toast.makeText(requireContext(), "Verify your email before logging in", Toast.LENGTH_LONG).show();
-											auth.signOut();
-										}
-									} else {
-										load.setVisibility(View.GONE);
-										googleSignInButton.setVisibility(View.VISIBLE);
-										passwordEditText.setError("Incorrect Credentials");
-										passwordEditText.requestFocus();
-									}
+		loginButton.setOnClickListener(v -> {
+			load.setVisibility(View.VISIBLE);
+			googleSignInButton.setVisibility(View.GONE);
+			String email = emailEditText.getText().toString().trim();
+			String password = passwordEditText.getText().toString();
+			if (email.equals("")) {
+				emailEditText.setError("Enter Email Address");
+				emailEditText.requestFocus();
+			} else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+				emailEditText.setError("Invalid Email Address");
+				emailEditText.requestFocus();
+			} else if (password.equals("")) {
+				passwordEditText.setError("Enter a password");
+				passwordEditText.requestFocus();
+			} else {
+				//Sign In Using Email and Password.
+				auth.signInWithEmailAndPassword(email, password)
+						.addOnCompleteListener(requireActivity(), task -> {
+							if (task.isSuccessful()) {
+								FirebaseUser user = auth.getCurrentUser();
+								assert user != null;
+								if (user.isEmailVerified()) {
+									insertDefaultUserProfileDataInFirebaseDatabase();
+									load.setVisibility(View.GONE);
+									googleSignInButton.setVisibility(View.VISIBLE);
+									Intent intent = new Intent(requireContext(), HomeActivity.class);
+									intent.putExtra("signIn", true);
+									startActivity(intent);
+									requireActivity().finish();
+								} else {
+									load.setVisibility(View.GONE);
+									googleSignInButton.setVisibility(View.VISIBLE);
+									Toast.makeText(requireContext(), "Verify your email before logging in", Toast.LENGTH_LONG).show();
+									auth.signOut();
 								}
-							});
-				}
-				load.setVisibility(View.GONE);
-				googleSignInButton.setVisibility(View.VISIBLE);
+							} else {
+								load.setVisibility(View.GONE);
+								googleSignInButton.setVisibility(View.VISIBLE);
+								passwordEditText.setError("Incorrect Credentials");
+								passwordEditText.requestFocus();
+							}
+						});
 			}
+			load.setVisibility(View.GONE);
+			googleSignInButton.setVisibility(View.VISIBLE);
 		});
 
 		//Handle Sign Up Button Clicks.
-		signUpButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AuthActivity.isOnLoginPage = false;
-				getParentFragmentManager()
-						.beginTransaction()
-						.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
-						.replace(R.id.auth_fragment, new RegistrationFragment())
-						.commit();
-			}
+		signUpButton.setOnClickListener(v -> {
+			AuthActivity.isOnLoginPage = false;
+			getParentFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+					.replace(R.id.auth_fragment, new RegistrationFragment())
+					.commit();
 		});
 
 		//Google Sign In Options for Google Sign In Authentication.
@@ -151,72 +141,31 @@ public class LoginFragment extends Fragment {
 		client = GoogleSignIn.getClient(requireActivity(), gso);
 
 		//Sign In Using Google.
-		googleSignInButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				load.setVisibility(View.VISIBLE);
-				googleSignInButton.setVisibility(View.GONE);
-				Intent signInIntent = client.getSignInIntent();
-				startActivityForResult(signInIntent, GOOGLE_SIGN_IN_RC);
-			}
+		googleSignInButton.setOnClickListener(v -> {
+			load.setVisibility(View.VISIBLE);
+			googleSignInButton.setVisibility(View.GONE);
+			Intent signInIntent = client.getSignInIntent();
+			startActivityForResult(signInIntent, GOOGLE_SIGN_IN_RC);
 		});
 
 		//Handle Forgot Password Clicks.
-		forgotPassword.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				final String email = emailEditText.getText().toString().trim();
-				//Check if email address is valid.
-				if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-					emailEditText.setError("Invalid Email Address");
-					emailEditText.requestFocus();
-				} else {
-					auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-						@Override
-						public void onComplete(@NonNull Task<Void> task) {
-							if (task.isSuccessful())
-								Toast.makeText(requireContext(), "Reset Link sent to mail.", Toast.LENGTH_LONG).show();
-							else {
-								emailEditText.setError("Email Address not Registered! Register now.");
-								emailEditText.requestFocus();
-							}
-						}
-					});
-				}
-			}
-		});
-	}
-
-	/**
-	 * Authenticate user using Firebase with a Google Account.
-	 *
-	 * @param acct The GoogleSignInAccount object which stores the User Data.
-	 */
-	private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
-		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-		auth.signInWithCredential(credential)
-				.addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-					@Override
-					public void onComplete(@NonNull Task<AuthResult> task) {
-						if (task.isSuccessful()) {
-							FirebaseUser user = auth.getCurrentUser();
-							assert user != null;
-							insertDefaultUserProfileDataInFirebaseDatabase();
-							load.setVisibility(View.GONE);
-							googleSignInButton.setVisibility(View.VISIBLE);
-							Intent intent = new Intent(requireActivity(), HomeActivity.class);
-							intent.putExtra("signIn", true);
-							startActivity(intent);
-							requireActivity().finish();
-						} else {
-							Toast.makeText(requireContext(), "Authentication Failed.", Toast.LENGTH_LONG).show();
-							load.setVisibility(View.GONE);
-							googleSignInButton.setVisibility(View.VISIBLE);
-						}
+		forgotPassword.setOnClickListener(v -> {
+			final String email = emailEditText.getText().toString().trim();
+			//Check if email address is valid.
+			if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+				emailEditText.setError("Invalid Email Address");
+				emailEditText.requestFocus();
+			} else {
+				auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+					if (task.isSuccessful())
+						Toast.makeText(requireContext(), "Reset Link sent to mail.", Toast.LENGTH_LONG).show();
+					else {
+						emailEditText.setError("Email Address not Registered! Register now.");
+						emailEditText.requestFocus();
 					}
 				});
-		load.setVisibility(View.GONE);
-		googleSignInButton.setVisibility(View.VISIBLE);
+			}
+		});
 	}
 
 	@Override
@@ -232,6 +181,35 @@ public class LoginFragment extends Fragment {
 				Toast.makeText(requireActivity(), "Authentication Failed.", Toast.LENGTH_LONG).show();
 			}
 		}
+	}
+
+	/**
+	 * Authenticate user using Firebase with a Google Account.
+	 *
+	 * @param acct The GoogleSignInAccount object which stores the User Data.
+	 */
+	private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
+		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+		auth.signInWithCredential(credential)
+				.addOnCompleteListener(requireActivity(), task -> {
+					if (task.isSuccessful()) {
+						FirebaseUser user = auth.getCurrentUser();
+						assert user != null;
+						insertDefaultUserProfileDataInFirebaseDatabase();
+						load.setVisibility(View.GONE);
+						googleSignInButton.setVisibility(View.VISIBLE);
+						Intent intent = new Intent(requireActivity(), HomeActivity.class);
+						intent.putExtra("signIn", true);
+						startActivity(intent);
+						requireActivity().finish();
+					} else {
+						Toast.makeText(requireContext(), "Authentication Failed.", Toast.LENGTH_LONG).show();
+						load.setVisibility(View.GONE);
+						googleSignInButton.setVisibility(View.VISIBLE);
+					}
+				});
+		load.setVisibility(View.GONE);
+		googleSignInButton.setVisibility(View.VISIBLE);
 	}
 
 	/**

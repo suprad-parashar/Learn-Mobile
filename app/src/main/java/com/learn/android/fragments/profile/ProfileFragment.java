@@ -4,23 +4,22 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,7 +28,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.learn.android.R;
@@ -84,33 +82,22 @@ public class ProfileFragment extends Fragment {
 			final File file = new File(requireContext().getFilesDir(), "profile.jpg");
 			StorageReference reference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
 			reference.getFile(file)
-					.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-						@Override
-						public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-							try {
-								Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-								profileImage.setImageBitmap(bitmap);
-							} catch (FileNotFoundException ex) {
-								ex.printStackTrace();
-							}
+					.addOnSuccessListener(taskSnapshot -> {
+						try {
+							Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+							profileImage.setImageBitmap(bitmap);
+						} catch (FileNotFoundException ignored) {
+
 						}
 					})
-					.addOnFailureListener(new OnFailureListener() {
-						@Override
-						public void onFailure(@NonNull Exception e) {
-							e.printStackTrace();
-						}
+					.addOnFailureListener(e1 -> {
+						Toast.makeText(requireContext(), "An error occurred while loading the profile picture", Toast.LENGTH_SHORT).show();
+						Log.e("Failure Error", e1.toString());
 					});
-			e.printStackTrace();
 		}
 
 		//Handle Settings Click.
-		settings.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(requireActivity(), SettingsActivity.class));
-			}
-		});
+		settings.setOnClickListener(v -> startActivity(new Intent(requireActivity(), SettingsActivity.class)));
 
 		//Set ProgressBar
 		wait.setVisibility(View.VISIBLE);
@@ -140,25 +127,22 @@ public class ProfileFragment extends Fragment {
 		//Setup Profile Links.
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, PROFILE_LINKS_LIST);
 		profileLinks.setAdapter(arrayAdapter);
-		profileLinks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				switch (PROFILE_LINKS_LIST[position]) {
-					case "My Profile":
-						HomeActivity.navController.navigate(R.id.navigation_view_profile);
-						break;
-					case "About":
-						startActivity(new Intent(requireActivity(), AboutActivity.class));
-						break;
-					case "Logout":
-						auth.signOut();
-						startActivity(new Intent(getActivity(), AuthActivity.class));
-						requireActivity().finish();
-						break;
-					case "My Activity":
-						HomeActivity.navController.navigate(R.id.navigation_my_activity);
-						break;
-				}
+		profileLinks.setOnItemClickListener((parent, view1, position, id) -> {
+			switch (PROFILE_LINKS_LIST[position]) {
+				case "My Profile":
+					HomeActivity.navController.navigate(R.id.navigation_view_profile);
+					break;
+				case "About":
+					startActivity(new Intent(requireActivity(), AboutActivity.class));
+					break;
+				case "Logout":
+					auth.signOut();
+					startActivity(new Intent(getActivity(), AuthActivity.class));
+					requireActivity().finish();
+					break;
+				case "My Activity":
+					HomeActivity.navController.navigate(R.id.navigation_my_activity);
+					break;
 			}
 		});
 	}

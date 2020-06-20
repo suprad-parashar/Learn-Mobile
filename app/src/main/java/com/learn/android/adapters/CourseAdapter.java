@@ -2,7 +2,6 @@ package com.learn.android.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHolder> {
 
-	//Declare UI Variables
+	//Declare Data Variables
 	private Context context;
 	private ArrayList<String> courses;
 	String domain, branch;
@@ -40,15 +39,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
 	@Override
 	public void onBindViewHolder(@NonNull CourseHolder holder, final int position) {
 		holder.branch.setText(courses.get(position));
-		holder.itemView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, CourseViewActivity.class);
-				intent.putExtra("title", courses.get(position));
-				intent.putExtra("domain", domain);
-				intent.putExtra("branch", branch);
-				context.startActivity(intent);
-			}
+		holder.itemView.setOnClickListener(v -> {
+			Intent intent = new Intent(context, CourseViewActivity.class);
+			intent.putExtra("title", courses.get(position));
+			intent.putExtra("domain", domain);
+			intent.putExtra("branch", branch);
+			context.startActivity(intent);
 		});
 	}
 

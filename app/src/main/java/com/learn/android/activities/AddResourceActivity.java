@@ -3,7 +3,6 @@ package com.learn.android.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.URLUtil;
@@ -34,7 +33,9 @@ import java.util.Objects;
 
 public class AddResourceActivity extends AppCompatActivity {
 
+	//Define Constants
 	private static final int MAIL_INTENT_RC = 647;
+
 	//Declare UI Variables
 	EditText titleEditText, linkEditText, prerequisitesEditText;
 	Spinner domainSpinner, branchSpinner, courseSpinner, typeSpinner;
@@ -62,14 +63,17 @@ public class AddResourceActivity extends AppCompatActivity {
 		addResourceButton = findViewById(R.id.save_resource);
 		loading = findViewById(R.id.wait);
 
+		//Get Data from Intent
 		final String domain = getIntent().getStringExtra("domain");
 		final String branch = getIntent().getStringExtra("branch");
 		final String course = getIntent().getStringExtra("course");
 		String type = getIntent().getStringExtra("type");
 
+		//Setup Type Spinner
 		typeSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, Type.values()));
 		typeSpinner.setSelection(Type.valueOf(type).ordinal());
 
+		//Populate Domains
 		final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("domain");
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
@@ -88,6 +92,7 @@ public class AddResourceActivity extends AppCompatActivity {
 			}
 		});
 
+		//Populate Branches
 		domainSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -118,6 +123,7 @@ public class AddResourceActivity extends AppCompatActivity {
 			}
 		});
 
+		//Populate Courses
 		branchSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -131,7 +137,6 @@ public class AddResourceActivity extends AppCompatActivity {
 							for (DataSnapshot snapshot : typeSnapshot.getChildren())
 								courses.add(String.valueOf(snapshot.getValue()));
 						Collections.sort(courses);
-						Log.e("COURSES", courses.toString());
 						courseSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.support_simple_spinner_dropdown_item, courses));
 						if (branchSelected.equals(branch))
 							courseSpinner.setSelection(courses.indexOf(course));
@@ -140,7 +145,7 @@ public class AddResourceActivity extends AppCompatActivity {
 
 					@Override
 					public void onCancelled(@NonNull DatabaseError databaseError) {
-
+						Toast.makeText(AddResourceActivity.this, "Database Error", Toast.LENGTH_LONG).show();
 					}
 				});
 			}
@@ -151,37 +156,35 @@ public class AddResourceActivity extends AppCompatActivity {
 			}
 		});
 
-		addResourceButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String title = titleEditText.getText().toString().trim();
-				String link = linkEditText.getText().toString().trim();
-				String prerequisites = prerequisitesEditText.getText().toString().trim();
-				prerequisites = prerequisites.equals("") ? "None" : prerequisites;
-				if (title.equals("")) {
-					titleEditText.setError("Please add a Title to the Resource");
-					titleEditText.requestFocus();
-				} else if (!URLUtil.isValidUrl(link)) {
-					linkEditText.setError("Invalid URL");
-					linkEditText.requestFocus();
-				} else {
-					Intent mailIntent = new Intent(Intent.ACTION_SENDTO);
-					mailIntent.setData(Uri.parse("mailto:"));
-					String type = typeSpinner.getSelectedItem().toString();
-					mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"learnhelp@googlegroups.com"});
-					mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Add " + type + " Resource");
-					String body = "Hi there," +
-							"\nI would like to contribute to this Project and help others by suggesting the following " + type + "." +
-							"\n\nInformation about the " + type + ":" +
-							"\n\tName: " + title +
-							"\n\tLink: " + link +
-							"\n\tDomain: " + domainSpinner.getSelectedItem().toString() +
-							"\n\tBranch: " + branchSpinner.getSelectedItem().toString() +
-							"\n\tCourse: " + courseSpinner.getSelectedItem().toString() +
-							"\n\tPrerequisites: " + prerequisites;
-					mailIntent.putExtra(Intent.EXTRA_TEXT, body);
-					startActivityForResult(mailIntent, MAIL_INTENT_RC);
-				}
+		//Add Resource
+		addResourceButton.setOnClickListener(v -> {
+			String title = titleEditText.getText().toString().trim();
+			String link = linkEditText.getText().toString().trim();
+			String prerequisites = prerequisitesEditText.getText().toString().trim();
+			prerequisites = prerequisites.equals("") ? "None" : prerequisites;
+			if (title.equals("")) {
+				titleEditText.setError("Please add a Title to the Resource");
+				titleEditText.requestFocus();
+			} else if (!URLUtil.isValidUrl(link)) {
+				linkEditText.setError("Invalid URL");
+				linkEditText.requestFocus();
+			} else {
+				Intent mailIntent = new Intent(Intent.ACTION_SENDTO);
+				mailIntent.setData(Uri.parse("mailto:"));
+				String type1 = typeSpinner.getSelectedItem().toString();
+				mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"learnhelp@googlegroups.com"});
+				mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Add " + type1 + " Resource");
+				String body = "Hi there," +
+						"\nI would like to contribute to this Project and help others by suggesting the following " + type1 + "." +
+						"\n\nInformation about the " + type1 + ":" +
+						"\n\tName: " + title +
+						"\n\tLink: " + link +
+						"\n\tDomain: " + domainSpinner.getSelectedItem().toString() +
+						"\n\tBranch: " + branchSpinner.getSelectedItem().toString() +
+						"\n\tCourse: " + courseSpinner.getSelectedItem().toString() +
+						"\n\tPrerequisites: " + prerequisites;
+				mailIntent.putExtra(Intent.EXTRA_TEXT, body);
+				startActivityForResult(mailIntent, MAIL_INTENT_RC);
 			}
 		});
 	}

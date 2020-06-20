@@ -1,13 +1,14 @@
 package com.learn.android.activities;
 
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -47,7 +48,8 @@ public class AboutActivity extends AppCompatActivity {
 			PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 			version.setText(pInfo.versionName);
 		} catch (PackageManager.NameNotFoundException e) {
-			e.printStackTrace();
+			Log.e("PackageManager Error", e.toString());
+			Toast.makeText(AboutActivity.this, "Error occurred while fetching the version", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -67,12 +69,7 @@ public class AboutActivity extends AppCompatActivity {
 			builder.setTitle("What's New")
 					.setMessage(Learn.CHANGE_MESSAGE)
 					.setCancelable(true)
-					.setPositiveButton("Close", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					});
+					.setPositiveButton("Close", (dialog, which) -> dialog.dismiss());
 			builder.create().show();
 		}
 		return true;

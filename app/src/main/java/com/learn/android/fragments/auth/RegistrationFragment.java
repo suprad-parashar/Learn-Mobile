@@ -13,9 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -54,84 +51,75 @@ public class RegistrationFragment extends Fragment {
 		signInButton = view.findViewById(R.id.sign_in_button);
 
 		//Handle Register Button Clicks
-		registerButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				final String firstName = firstNameEditText.getText().toString().trim();
-				final String lastName = lastNameEditText.getText().toString().trim();
-				final String email = emailEditText.getText().toString().trim();
-				final String password = passwordEditText.getText().toString();
-				int value;
-				if (firstName.equals("")) {
-					firstNameEditText.setError("Please Enter your Name");
-					firstNameEditText.requestFocus();
-				} else if (lastName.equals("")) {
-					lastNameEditText.setError("Please Enter a last Name");
-					lastNameEditText.requestFocus();
-				} else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-					emailEditText.setError("Invalid Email Address");
-					emailEditText.requestFocus();
-				} else if ((value = isValidPassword(password)) != 0) {
-					switch (value) {
-						case 1:
-							passwordEditText.setError("Enter a password");
-							passwordEditText.requestFocus();
-							break;
-						case 2:
-							passwordEditText.setError("Password must have a minimum length of 8 characters");
-							passwordEditText.requestFocus();
-							break;
-						case 3:
-							passwordEditText.setError("Password must contain at least one UPPERCASE, lowercase, Digit and a special Character");
-							passwordEditText.requestFocus();
-							break;
-					}
-				} else {
-					//Create new user using Email and Password.
-					auth.createUserWithEmailAndPassword(email, password)
-							.addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-								@Override
-								public void onComplete(@NonNull Task<AuthResult> task) {
-									if (task.isSuccessful()) {
-										FirebaseUser user = auth.getCurrentUser();
-										assert user != null;
-
-										//Update Name
-										UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-												.setDisplayName(firstName + " " + lastName).build();
-										user.updateProfile(profileUpdates);
-
-										user.sendEmailVerification();
-										auth.signOut();
-
-										Toast.makeText(requireContext(), "You are registered! Verification email sent. Check your Inbox", Toast.LENGTH_LONG).show();
-
-										AuthActivity.isOnLoginPage = true;
-										getParentFragmentManager()
-												.beginTransaction()
-												.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
-												.replace(R.id.auth_fragment, new LoginFragment())
-												.commit();
-									} else {
-										Toast.makeText(requireContext(), "Email Already Registered", Toast.LENGTH_LONG).show();
-									}
-								}
-							});
+		registerButton.setOnClickListener(v -> {
+			final String firstName = firstNameEditText.getText().toString().trim();
+			final String lastName = lastNameEditText.getText().toString().trim();
+			final String email = emailEditText.getText().toString().trim();
+			final String password = passwordEditText.getText().toString();
+			int value;
+			if (firstName.equals("")) {
+				firstNameEditText.setError("Please Enter your Name");
+				firstNameEditText.requestFocus();
+			} else if (lastName.equals("")) {
+				lastNameEditText.setError("Please Enter a last Name");
+				lastNameEditText.requestFocus();
+			} else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+				emailEditText.setError("Invalid Email Address");
+				emailEditText.requestFocus();
+			} else if ((value = isValidPassword(password)) != 0) {
+				switch (value) {
+					case 1:
+						passwordEditText.setError("Enter a password");
+						passwordEditText.requestFocus();
+						break;
+					case 2:
+						passwordEditText.setError("Password must have a minimum length of 8 characters");
+						passwordEditText.requestFocus();
+						break;
+					case 3:
+						passwordEditText.setError("Password must contain at least one UPPERCASE, lowercase, Digit and a special Character");
+						passwordEditText.requestFocus();
+						break;
 				}
+			} else {
+				//Create new user using Email and Password.
+				auth.createUserWithEmailAndPassword(email, password)
+						.addOnCompleteListener(requireActivity(), task -> {
+							if (task.isSuccessful()) {
+								FirebaseUser user = auth.getCurrentUser();
+								assert user != null;
+
+								//Update Name
+								UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+										.setDisplayName(firstName + " " + lastName).build();
+								user.updateProfile(profileUpdates);
+
+								user.sendEmailVerification();
+								auth.signOut();
+
+								Toast.makeText(requireContext(), "You are registered! Verification email sent. Check your Inbox", Toast.LENGTH_LONG).show();
+
+								AuthActivity.isOnLoginPage = true;
+								getParentFragmentManager()
+										.beginTransaction()
+										.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+										.replace(R.id.auth_fragment, new LoginFragment())
+										.commit();
+							} else {
+								Toast.makeText(requireContext(), "Email Already Registered", Toast.LENGTH_LONG).show();
+							}
+						});
 			}
 		});
 
 		//Go back to Sign In Page
-		signInButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AuthActivity.isOnLoginPage = true;
-				getParentFragmentManager()
-						.beginTransaction()
-						.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
-						.replace(R.id.auth_fragment, new LoginFragment())
-						.commit();
-			}
+		signInButton.setOnClickListener(v -> {
+			AuthActivity.isOnLoginPage = true;
+			getParentFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+					.replace(R.id.auth_fragment, new LoginFragment())
+					.commit();
 		});
 	}
 

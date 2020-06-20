@@ -99,7 +99,6 @@ public class CourseDetailedElementFragment extends Fragment {
 		//Populate Data.
 		switch (CourseViewActivity.type) {
 			case VIDEO:
-				//Videos
 				reference.child("Videos").addListenerForSingleValueEvent(new ValueEventListener() {
 					@Override
 					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -122,7 +121,6 @@ public class CourseDetailedElementFragment extends Fragment {
 				});
 				break;
 			case DOCUMENT:
-				//Documents
 				reference.child("Documents").addListenerForSingleValueEvent(new ValueEventListener() {
 					@Override
 					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -145,7 +143,6 @@ public class CourseDetailedElementFragment extends Fragment {
 				});
 				break;
 			case COURSE:
-				//Courses
 				reference.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
 					@Override
 					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -168,7 +165,6 @@ public class CourseDetailedElementFragment extends Fragment {
 				});
 				break;
 			case PROJECT:
-				//Projects
 				reference.child("Projects").addListenerForSingleValueEvent(new ValueEventListener() {
 					@Override
 					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -192,16 +188,13 @@ public class CourseDetailedElementFragment extends Fragment {
 				break;
 		}
 
-		addResourceButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(requireContext(), AddResourceActivity.class);
-				intent.putExtra("domain", domain);
-				intent.putExtra("branch", branch);
-				intent.putExtra("course", title);
-				intent.putExtra("type", CourseViewActivity.type.toString());
-				startActivity(intent);
-			}
+		addResourceButton.setOnClickListener(v -> {
+			Intent intent = new Intent(requireContext(), AddResourceActivity.class);
+			intent.putExtra("domain", domain);
+			intent.putExtra("branch", branch);
+			intent.putExtra("course", title);
+			intent.putExtra("type", CourseViewActivity.type.toString());
+			startActivity(intent);
 		});
 	}
 

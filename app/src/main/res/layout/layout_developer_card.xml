@@ -80,7 +80,5 @@
                 android:src="@drawable/ic_logo_instagram" />
 
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

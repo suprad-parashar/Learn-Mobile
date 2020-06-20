@@ -16,14 +16,14 @@
         android:icon="@drawable/ic_social"
         android:title="@string/title_social" />
 
-<!--    <item-->
-<!--        android:id="@+id/navigation_tools"-->
-<!--        android:icon="@drawable/ic_tools"-->
-<!--        android:title="@string/title_tools" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/navigation_tools"-->
+    <!--        android:icon="@drawable/ic_tools"-->
+    <!--        android:title="@string/title_tools" />-->
 
-<!--    <item-->
-<!--        android:id="@+id/navigation_profile"-->
-<!--        android:icon="@drawable/ic_profile"-->
-<!--        android:title="@string/title_profile" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/navigation_profile"-->
+    <!--        android:icon="@drawable/ic_profile"-->
+    <!--        android:title="@string/title_profile" />-->
 
 </menu>

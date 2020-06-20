@@ -23,7 +23,6 @@ import com.learn.android.adapters.DomainAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 public class DomainFragment extends Fragment {
 
@@ -51,6 +50,7 @@ public class DomainFragment extends Fragment {
 		manager.setOrientation(RecyclerView.VERTICAL);
 		domainView.setLayoutManager(manager);
 
+		//Set Data
 		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("domain");
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override

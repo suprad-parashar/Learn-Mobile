@@ -29,8 +29,8 @@
                 android:id="@+id/about_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
                 android:justificationMode="inter_word"
+                android:padding="8dp"
                 android:text="@string/lorem"
                 android:textSize="18sp" />
 
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/textColorBold"
         android:padding="8dp"
+        android:textColor="@color/textColorBold"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,8 +32,7 @@ public class HomeFragment extends Fragment {
 	RecyclerView homeActivitiesRecyclerView;
 	TextView nameView;
 
-	public View onCreateView(@NonNull LayoutInflater inflater,
-							 ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_home, container, false);
 	}
 
@@ -55,6 +54,7 @@ public class HomeFragment extends Fragment {
 		manager.setOrientation(RecyclerView.HORIZONTAL);
 		homeActivitiesRecyclerView.setLayoutManager(manager);
 
+		//Set Activities Data.
 		DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
 				.child("users")
 				.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())

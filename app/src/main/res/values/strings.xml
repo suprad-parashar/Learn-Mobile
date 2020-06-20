@@ -26,6 +26,7 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="dropdown">Dropdown</string>
+    <string name="title_my_activity">My Activity</string>
 
     <!-- Developer Details-->
     <string name="developers">Developers</string>
@@ -90,25 +91,6 @@
     <string name="illustration">Illustration</string>
     <string name="create_account">Create Account</string>
     <string name="account_already">Already have an Account?</string>
-
-    <string-array name="currently_in">
-        <!--        <item>Class 11</item>-->
-        <!--        <item>Class 12</item>-->
-        <item>Undergraduate</item>
-    </string-array>
-
-    <string-array name="stream_school">
-        <item>Science</item>
-        <item>Others</item>
-    </string-array>
-
-    <string-array name="stream_undergraduate">
-        <item>Engineering</item>
-        <!--        <item>Others</item>-->
-    </string-array>
-
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dictum fringilla nulla, non molestie dui gravida vitae. Sed eget convallis ante. Mauris sit amet leo sit amet sem pretium cursus non ac lorem. Praesent tempor, est a scelerisque bibendum, tellus dolor tincidunt massa, eget tincidunt erat est vel mi. Nam sodales scelerisque felis, nec faucibus magna iaculis eget. Fusce sed auctor quam. Nunc mollis orci et nunc lobortis sodales. Nulla sagittis nisl eu nibh consequat cursus. Maecenas ornare neque id viverra laoreet.</string>
-    <string name="title_my_activity">My Activity</string>
     <string name="no_resources_available">No Resources Available😭</string>
     <string name="help_message_resources">Have any good resource to share with fellow students? Help us!</string>
     <string name="add_resource">Add Resource</string>
@@ -130,10 +112,28 @@
     <string name="turn_reminders_on_off">Turn Reminders On/Off</string>
     <string name="options_three_dots">⋮</string>
     <string name="set_reminder">Set Reminder</string>
-    <string name="remind_me_on">Remind Me on...</string>
+    <string name="remind_me_on">Remind Me on…</string>
     <string name="choose_date">Choose Date</string>
     <string name="choose_time">Choose Time</string>
     <string name="strict_reminder">Strict Reminder</string>
+
+    <string-array name="currently_in">
+        <!--        <item>Class 11</item>-->
+        <!--        <item>Class 12</item>-->
+        <item>Undergraduate</item>
+    </string-array>
+
+    <string-array name="stream_school">
+        <item>Science</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="stream_undergraduate">
+        <item>Engineering</item>
+        <!--        <item>Others</item>-->
+    </string-array>
+
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dictum fringilla nulla, non molestie dui gravida vitae. Sed eget convallis ante. Mauris sit amet leo sit amet sem pretium cursus non ac lorem. Praesent tempor, est a scelerisque bibendum, tellus dolor tincidunt massa, eget tincidunt erat est vel mi. Nam sodales scelerisque felis, nec faucibus magna iaculis eget. Fusce sed auctor quam. Nunc mollis orci et nunc lobortis sodales. Nulla sagittis nisl eu nibh consequat cursus. Maecenas ornare neque id viverra laoreet.</string>
 
     <string-array name="branch_science">
         <item>PCM + Biology</item>
@@ -179,6 +179,4 @@
         <item>My Syllabus</item>
         <item>Engineering</item>
     </string-array>
-
-
 </resources>

@@ -44,52 +44,43 @@ public class CourseOverViewFragment extends Fragment {
 		CardView projectsCard = view.findViewById(R.id.projects);
 
 		//Courses Card
-		coursesCard.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				CourseViewActivity.type = Type.COURSE;
-				requireActivity()
-						.getSupportFragmentManager()
-						.beginTransaction()
-						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
-						.commit();
-			}
+		coursesCard.setOnClickListener(v -> {
+			CourseViewActivity.type = Type.COURSE;
+			requireActivity()
+					.getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
+					.commit();
 		});
+
 		//Videos Card
-		videosCard.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				CourseViewActivity.type = Type.VIDEO;
-				requireActivity()
-						.getSupportFragmentManager()
-						.beginTransaction()
-						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
-						.commit();
-			}
+		videosCard.setOnClickListener(v -> {
+			CourseViewActivity.type = Type.VIDEO;
+			requireActivity()
+					.getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
+					.commit();
 		});
+
 		//Documents Card
-		documentsCard.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				CourseViewActivity.type = Type.DOCUMENT;
-				requireActivity()
-						.getSupportFragmentManager()
-						.beginTransaction()
-						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
-						.commit();
-			}
+		documentsCard.setOnClickListener(v -> {
+			CourseViewActivity.type = Type.DOCUMENT;
+			requireActivity()
+					.getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
+					.commit();
 		});
+
 		//Projects Card
-		projectsCard.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				CourseViewActivity.type = Type.PROJECT;
-				requireActivity()
-						.getSupportFragmentManager()
-						.beginTransaction()
-						.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
-						.commit();
-			}
+		projectsCard.setOnClickListener(v -> {
+			CourseViewActivity.type = Type.PROJECT;
+			requireActivity()
+					.getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
+					.commit();
 		});
 	}
 }

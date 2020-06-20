@@ -18,11 +18,6 @@ public class CoursesDataViewPagerAdapter extends FragmentPagerAdapter {
 		super(fm, behavior);
 	}
 
-	public void addFragment(Fragment fragment, String name) {
-		fragments.add(fragment);
-		titles.add(name);
-	}
-
 	@Nullable
 	@Override
 	public CharSequence getPageTitle(int position) {
@@ -38,5 +33,16 @@ public class CoursesDataViewPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 		return fragments.size();
+	}
+
+	/**
+	 * Adds a page to the Tab View.
+	 *
+	 * @param fragment The fragment of the page.
+	 * @param name     The title of the page.
+	 */
+	public void addFragment(Fragment fragment, String name) {
+		fragments.add(fragment);
+		titles.add(name);
 	}
 }

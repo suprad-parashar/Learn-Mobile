@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.BranchHolder> {
 
-	//Declare UI Variables
+	//Declare Data Variables
 	private Context context;
 	private ArrayList<String> branches;
 	private DatabaseReference reference;
@@ -41,16 +41,13 @@ public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.BranchHold
 	@Override
 	public void onBindViewHolder(@NonNull BranchHolder holder, final int position) {
 		holder.branch.setText(branches.get(position));
-		holder.itemView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, ViewCoursesDataActivity.class);
-				intent.putExtra("reference", reference.toString());
-				intent.putExtra("name", branches.get(position));
-				intent.putExtra("domain", domain);
-				intent.putExtra("branch", branches.get(position));
-				context.startActivity(intent);
-			}
+		holder.itemView.setOnClickListener(v -> {
+			Intent intent = new Intent(context, ViewCoursesDataActivity.class);
+			intent.putExtra("reference", reference.toString());
+			intent.putExtra("name", branches.get(position));
+			intent.putExtra("domain", domain);
+			intent.putExtra("branch", branches.get(position));
+			context.startActivity(intent);
 		});
 	}
 

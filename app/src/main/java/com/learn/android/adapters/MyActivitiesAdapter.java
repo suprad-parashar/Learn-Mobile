@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapter.MyActivitiesHolder> {
 
-	//Declare UI Variables
+	//Declare Data Variables
 	private Context context;
 	private ArrayList<Activity> activities;
 	private boolean isList;
@@ -46,97 +46,85 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 	@Override
 	public void onBindViewHolder(@NonNull MyActivitiesHolder holder, final int position) {
 		final Activity activity = activities.get(position);
+
+		//Check if Data presentation is a list or card.
 		if (!isList)
 			holder.mainLayout.setMaxWidth(750);
+
 		holder.title.setText(getTitle(activity));
 		holder.date.setText(activity.getDate());
 		String buttonText;
 		switch (activity.getType()) {
 			case VIDEO:
 				buttonText = (activity.isDone()) ? "Watch Again" : "Resume";
-				holder.button.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						final Intent intent = new Intent(context, CourseVideoViewActivity.class);
-						intent.putExtra("name", activity.getName());
-						intent.putExtra("link", activity.getLink());
-						intent.putExtra("from", activity.getFrom());
-						intent.putExtra("isPlaylist", activity.isPlaylist());
-						intent.putExtra("time", activity.getTime());
-						intent.putExtra("index", activity.getIndex());
-						intent.putExtra("reference", activity.getReference());
-						final ArrayList<String> videoNames = new ArrayList<>(), videoLinks = new ArrayList<>();
-						if (activity.isPlaylist()) {
-							FirebaseDatabase.getInstance()
-									.getReferenceFromUrl(activity.getReference())
-									.child("list")
-									.addListenerForSingleValueEvent(new ValueEventListener() {
-										@Override
-										public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-											for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-												videoNames.add(String.valueOf(snapshot.child("name").getValue()));
-												videoLinks.add(String.valueOf(snapshot.child("link").getValue()));
-											}
-											intent.putExtra("videoNames", videoNames);
-											intent.putExtra("videoLinks", videoLinks);
-											context.startActivity(intent);
+				holder.button.setOnClickListener(v -> {
+					final Intent intent = new Intent(context, CourseVideoViewActivity.class);
+					intent.putExtra("name", activity.getName());
+					intent.putExtra("link", activity.getLink());
+					intent.putExtra("from", activity.getFrom());
+					intent.putExtra("isPlaylist", activity.isPlaylist());
+					intent.putExtra("time", activity.getTime());
+					intent.putExtra("index", activity.getIndex());
+					intent.putExtra("reference", activity.getReference());
+					final ArrayList<String> videoNames = new ArrayList<>(), videoLinks = new ArrayList<>();
+					if (activity.isPlaylist()) {
+						FirebaseDatabase.getInstance()
+								.getReferenceFromUrl(activity.getReference())
+								.child("list")
+								.addListenerForSingleValueEvent(new ValueEventListener() {
+									@Override
+									public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+										for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+											videoNames.add(String.valueOf(snapshot.child("name").getValue()));
+											videoLinks.add(String.valueOf(snapshot.child("link").getValue()));
 										}
+										intent.putExtra("videoNames", videoNames);
+										intent.putExtra("videoLinks", videoLinks);
+										context.startActivity(intent);
+									}
 
-										@Override
-										public void onCancelled(@NonNull DatabaseError databaseError) {
+									@Override
+									public void onCancelled(@NonNull DatabaseError databaseError) {
 
-										}
-									});
-						} else {
-							intent.putExtra("videoNames", videoNames);
-							intent.putExtra("videoLinks", videoLinks);
-							context.startActivity(intent);
-						}
+									}
+								});
+					} else {
+						intent.putExtra("videoNames", videoNames);
+						intent.putExtra("videoLinks", videoLinks);
+						context.startActivity(intent);
 					}
 				});
 				break;
 			case DOCUMENT:
 				buttonText = "Read";
-				holder.button.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setData(Uri.parse(activity.getLink()));
-						context.startActivity(intent);
-					}
+				holder.button.setOnClickListener(v -> {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setData(Uri.parse(activity.getLink()));
+					context.startActivity(intent);
 				});
 				break;
 			case COURSE:
 				buttonText = "Go to Course";
-				holder.button.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setData(Uri.parse(activity.getLink()));
-						context.startActivity(intent);
-					}
+				holder.button.setOnClickListener(v -> {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setData(Uri.parse(activity.getLink()));
+					context.startActivity(intent);
 				});
 				break;
 			case PROJECT:
 				buttonText = "View Project";
-				holder.button.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setData(Uri.parse(activity.getLink()));
-						context.startActivity(intent);
-					}
+				holder.button.setOnClickListener(v -> {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setData(Uri.parse(activity.getLink()));
+					context.startActivity(intent);
 				});
 				break;
 			default:
 				buttonText = "Go to Link";
-				holder.button.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setData(Uri.parse(activity.getLink()));
-						context.startActivity(intent);
-					}
+				holder.button.setOnClickListener(v -> {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setData(Uri.parse(activity.getLink()));
+					context.startActivity(intent);
 				});
 				break;
 		}
@@ -148,6 +136,12 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 		return activities.size();
 	}
 
+	/**
+	 * Obtain the title of the Activity.
+	 *
+	 * @param activity The Activity for which the title is to be generated.
+	 * @return Title of the activity.
+	 */
 	private String getTitle(Activity activity) {
 		String title = "";
 		switch (activity.getType()) {

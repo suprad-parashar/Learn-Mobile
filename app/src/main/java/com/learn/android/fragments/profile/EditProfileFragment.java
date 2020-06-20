@@ -2,7 +2,6 @@ package com.learn.android.fragments.profile;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,8 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -40,7 +36,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -53,14 +48,12 @@ import com.learn.android.R;
 import com.learn.android.activities.HomeActivity;
 import com.yalantis.ucrop.UCrop;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -75,9 +68,10 @@ import static android.provider.MediaStore.ACTION_IMAGE_CAPTURE;
  */
 public class EditProfileFragment extends Fragment {
 
+	//Define Constants
 	private static final int RC_TAKE_PHOTO = 787;
 	private static final int RC_CHOOSE_IMAGE = 724;
-	private static final int RC_CROP_IMAGE = 725;
+
 	//Initialise Firebase Variables
 	private FirebaseAuth auth = FirebaseAuth.getInstance();
 	private FirebaseUser user = auth.getCurrentUser();
@@ -179,79 +173,60 @@ public class EditProfileFragment extends Fragment {
 			final File file = new File(requireContext().getFilesDir(), "profile.jpg");
 			StorageReference reference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
 			reference.getFile(file)
-					.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-						@Override
-						public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-							try {
-								Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-								profileImage.setImageBitmap(bitmap);
-							} catch (FileNotFoundException ex) {
-								ex.printStackTrace();
-							}
+					.addOnSuccessListener(taskSnapshot -> {
+						try {
+							Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+							profileImage.setImageBitmap(bitmap);
+						} catch (FileNotFoundException ignored) {
+
 						}
 					})
-					.addOnFailureListener(new OnFailureListener() {
-						@Override
-						public void onFailure(@NonNull Exception e) {
-							e.printStackTrace();
-						}
+					.addOnFailureListener(e1 -> {
+						Toast.makeText(requireContext(), "An Error Occurred while loading Profile Picture", Toast.LENGTH_SHORT).show();
+						Log.e("Failure Error", e1.toString());
 					});
-			e.printStackTrace();
 		}
 
 		//Handle Profile Image Change
-		profileImage.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Dexter.withContext(requireContext())
-						.withPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-						.withListener(new MultiplePermissionsListener() {
-							@Override
-							public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-								if (multiplePermissionsReport.areAllPermissionsGranted()) {
-									AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-									builder.setTitle("Select Mode")
-											.setItems(new String[]{
-													"Take Photo",
-													"Choose From Gallery"
-											}, new DialogInterface.OnClickListener() {
-												@Override
-												public void onClick(DialogInterface dialog, int which) {
-													if (which == 0) {
-														Intent intent = new Intent(ACTION_IMAGE_CAPTURE);
-														startActivityForResult(intent, RC_TAKE_PHOTO);
-													} else {
-														Intent intent = new Intent();
-														intent.setType("image/*");
-														intent.setAction(Intent.ACTION_GET_CONTENT);
-														startActivityForResult(intent, RC_CHOOSE_IMAGE);
-													}
-												}
-											})
-											.setCancelable(true);
-									builder.create().show();
-								} else {
-									AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-									builder.setTitle("Permissions Required")
-											.setMessage("Storage and Camera Permissions are required for obtaining Image.")
-											.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-												@Override
-												public void onClick(DialogInterface dialog, int which) {
-													dialog.dismiss();
-												}
-											})
-											.setCancelable(false);
-									builder.create().show();
-								}
-							}
+		profileImage.setOnClickListener(v -> Dexter.withContext(requireContext())
+				.withPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+				.withListener(new MultiplePermissionsListener() {
+					@Override
+					public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+						if (multiplePermissionsReport.areAllPermissionsGranted()) {
+							AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+							builder.setTitle("Select Mode")
+									.setItems(new String[]{
+											"Take Photo",
+											"Choose From Gallery"
+									}, (dialog, which) -> {
+										if (which == 0) {
+											Intent intent = new Intent(ACTION_IMAGE_CAPTURE);
+											startActivityForResult(intent, RC_TAKE_PHOTO);
+										} else {
+											Intent intent = new Intent();
+											intent.setType("image/*");
+											intent.setAction(Intent.ACTION_GET_CONTENT);
+											startActivityForResult(intent, RC_CHOOSE_IMAGE);
+										}
+									})
+									.setCancelable(true);
+							builder.create().show();
+						} else {
+							AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+							builder.setTitle("Permissions Required")
+									.setMessage("Storage and Camera Permissions are required for obtaining Image.")
+									.setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
+									.setCancelable(false);
+							builder.create().show();
+						}
+					}
 
-							@Override
-							public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
-								permissionToken.continuePermissionRequest();
-							}
-						}).check();
-			}
-		});
+					@Override
+					public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+						permissionToken.continuePermissionRequest();
+					}
+				}).check());
 
 		//Set Adapters
 		currentlyIn.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.currently_in)));
@@ -313,7 +288,8 @@ public class EditProfileFragment extends Fragment {
 					try {
 						bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);
 					} catch (IOException e) {
-						e.printStackTrace();
+						Log.e("IO Error", e.toString());
+						Toast.makeText(requireContext(), "An error occurred while saving profile picture", Toast.LENGTH_SHORT).show();
 					}
 				}
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -325,23 +301,15 @@ public class EditProfileFragment extends Fragment {
 					outputStream.write(byteArray);
 					outputStream.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					Log.e("IO Error", e.toString());
+					Toast.makeText(requireContext(), "An error occurred while saving profile picture", Toast.LENGTH_SHORT).show();
 				}
 				FirebaseStorage storage = FirebaseStorage.getInstance();
 				StorageReference reference = storage.getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
 				UploadTask task = reference.putBytes(byteArray);
-				task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-					@Override
-					public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-						Toast.makeText(requireContext(), "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
-					}
-				}).addOnFailureListener(new OnFailureListener() {
-					@Override
-					public void onFailure(@NonNull Exception e) {
-						Log.e("UPLOAD", e.toString());
-						Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show();
-					}
-				});
+				task.addOnSuccessListener(taskSnapshot ->
+						Toast.makeText(requireContext(), "Profile Picture Uploaded", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
+						Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show());
 
 				HomeActivity.navController.navigate(R.id.navigation_view_profile);
 		}
@@ -364,46 +332,6 @@ public class EditProfileFragment extends Fragment {
 			Glide.with(requireContext())
 					.load(imageUri)
 					.into(profileImage);
-//			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//			assert bitmap != null;
-//			bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-//			byte[] byteArray = stream.toByteArray();
-//			FirebaseStorage storage = FirebaseStorage.getInstance();
-//			StorageReference reference = storage.getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
-//			UploadTask task = reference.putBytes(byteArray);
-//			task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//				@Override
-//				public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//					Toast.makeText(requireContext(), "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
-//				}
-//			}).addOnFailureListener(new OnFailureListener() {
-//				@Override
-//				public void onFailure(@NonNull Exception e) {
-//					Log.e("UPLOAD", e.toString());
-//					Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show();
-//				}
-//			});
-		} else if (requestCode == RC_CROP_IMAGE) {
-			Toast.makeText(requireContext(), "HELLLO", Toast.LENGTH_LONG).show();
-//			assert data != null;
-//			Uri uri = UCrop.getOutput(data);
-//			Glide.with(requireContext())
-//					.load(uri)
-//					.into(profileImage);
-//			FirebaseStorage storage = FirebaseStorage.getInstance();
-//			StorageReference reference = storage.getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
-//			UploadTask task = reference.putFile(destinationUri);
-//			task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//				@Override
-//				public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//					Toast.makeText(requireContext(), "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
-//				}
-//			}).addOnFailureListener(new OnFailureListener() {
-//				@Override
-//				public void onFailure(@NonNull Exception e) {
-//					Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show();
-//				}
-//			});
 		}
 	}
 

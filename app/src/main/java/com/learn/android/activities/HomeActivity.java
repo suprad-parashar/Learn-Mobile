@@ -3,7 +3,6 @@ package com.learn.android.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
+		//Setup Toolbar
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
@@ -53,12 +53,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 		//Setup Settings
 		TextView settings = navigationView.findViewById(R.id.settings);
-		settings.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
-			}
-		});
+		settings.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, SettingsActivity.class)));
 
 		//Setup Toolbar with NavController.
 		appBarConfiguration = new AppBarConfiguration.Builder(

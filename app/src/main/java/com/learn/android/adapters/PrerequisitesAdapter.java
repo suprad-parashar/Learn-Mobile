@@ -15,7 +15,7 @@ import com.learn.android.activities.learn.CourseViewActivity;
 
 public class PrerequisitesAdapter extends RecyclerView.Adapter<PrerequisitesAdapter.PrerequisitesHolder> {
 
-	//Declare UI Variables
+	//Declare Data Variables
 	private Context context;
 	private String[] prerequisites;
 	private String domain, branch;
@@ -37,15 +37,12 @@ public class PrerequisitesAdapter extends RecyclerView.Adapter<PrerequisitesAdap
 	@Override
 	public void onBindViewHolder(@NonNull PrerequisitesHolder holder, final int position) {
 		holder.prerequisite.setText(prerequisites[position]);
-		holder.itemView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, CourseViewActivity.class);
-				intent.putExtra("title", prerequisites[position]);
-				intent.putExtra("domain", domain);
-				intent.putExtra("branch", branch);
-				context.startActivity(intent);
-			}
+		holder.itemView.setOnClickListener(v -> {
+			Intent intent = new Intent(context, CourseViewActivity.class);
+			intent.putExtra("title", prerequisites[position]);
+			intent.putExtra("domain", domain);
+			intent.putExtra("branch", branch);
+			context.startActivity(intent);
 		});
 	}
 

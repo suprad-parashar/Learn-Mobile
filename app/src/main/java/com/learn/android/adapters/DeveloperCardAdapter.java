@@ -16,12 +16,8 @@ import com.learn.android.R;
 
 public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdapter.DeveloperCardViewHolder> {
 
-	//Declare UI Variables
+	//Declare Data Variables
 	private Context context;
-
-	public DeveloperCardAdapter(Context context) {
-		this.context = context;
-	}
 
 	//Names of Developers
 	private String[] names = {
@@ -58,6 +54,10 @@ public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdap
 			"https://www.instagram.com/sandeep_n_s/"
 	};
 
+	public DeveloperCardAdapter(Context context) {
+		this.context = context;
+	}
+
 	@NonNull
 	@Override
 	public DeveloperCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,29 +69,20 @@ public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdap
 	public void onBindViewHolder(@NonNull DeveloperCardViewHolder holder, final int position) {
 		holder.name.setText(names[position]);
 		holder.job.setText(jobs[position]);
-		holder.github.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				intent.setData(Uri.parse(githubs[position]));
-				context.startActivity(intent);
-			}
+		holder.github.setOnClickListener(v -> {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(githubs[position]));
+			context.startActivity(intent);
 		});
-		holder.linkedIn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				intent.setData(Uri.parse(linkedIns[position]));
-				context.startActivity(intent);
-			}
+		holder.linkedIn.setOnClickListener(v -> {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(linkedIns[position]));
+			context.startActivity(intent);
 		});
-		holder.instagram.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				intent.setData(Uri.parse(instagrams[position]));
-				context.startActivity(intent);
-			}
+		holder.instagram.setOnClickListener(v -> {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(instagrams[position]));
+			context.startActivity(intent);
 		});
 	}
 

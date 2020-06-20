@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -96,6 +95,8 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 				assert videoLinks != null;
 				String id = extractVideoIdFromLink((isPlaylist) ? videoLinks.get(videoIndex) : link);
 				mYouTubePlayer.loadVideo(id, loadTime);
+
+				//Setup Playlist
 				if (isPlaylist) {
 					videosPlaylist.setVisibility(View.VISIBLE);
 					assert videoNames != null;
@@ -104,12 +105,9 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 					videosPlaylist.setAdapter(new ArrayAdapter<>(CourseVideoViewActivity.this, android.R.layout.simple_list_item_activated_1, videoNames));
 					videosPlaylist.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 					videosPlaylist.setItemChecked(videoIndex, true);
-					videosPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-						@Override
-						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-							mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(position)), 0);
-							videoIndex = position;
-						}
+					videosPlaylist.setOnItemClickListener((parent, view, position, id1) -> {
+						mYouTubePlayer.loadVideo(extractVideoIdFromLink(videoLinks.get(position)), 0);
+						videoIndex = position;
 					});
 				} else {
 					nameTextView.setText(name);
@@ -188,29 +186,21 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		});
 
 		//Save Rating
-		ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-			@Override
-			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-				databaseReference.child(user.getUid()).setValue(rating);
-			}
-		});
+		ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> databaseReference.child(user.getUid()).setValue(rating));
 
 		//Share
-		shareButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent sendIntent = new Intent();
-				sendIntent.setAction(Intent.ACTION_SEND);
+		shareButton.setOnClickListener(v -> {
+			Intent sendIntent = new Intent();
+			sendIntent.setAction(Intent.ACTION_SEND);
 
-				String shareMessage = "Hey there! I am learning " + name + " from " + from + " on Learn!" +
-						"\nURL: " + link +
-						"\nWhy don't you join me on Learn!";
-				sendIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-				sendIntent.setType("text/plain");
+			String shareMessage = "Hey there! I am learning " + name + " from " + from + " on Learn!" +
+					"\nURL: " + link +
+					"\nWhy don't you join me on Learn!";
+			sendIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+			sendIntent.setType("text/plain");
 
-				Intent shareIntent = Intent.createChooser(sendIntent, null);
-				startActivity(shareIntent);
-			}
+			Intent shareIntent = Intent.createChooser(sendIntent, null);
+			startActivity(shareIntent);
 		});
 
 		//Set Data
