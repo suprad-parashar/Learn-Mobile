@@ -24,21 +24,38 @@ public class Learn extends Application {
 	public static final String DAILY_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnDailyReminder";
 	public static final String SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnScheduledReminder";
 
+	public static int randomVideoNumber;
 	public static int isDark;
+
+	public static SharedPreferences settings;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		//Set Caching of Firebase Database Data.
 		FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+		//Setup Settings SharedPreferences.
+		settings = getSharedPreferences("settings", MODE_PRIVATE);
+
+		//RandomVideoNumber Data.
+		if (settings.contains("randomVideoNumber"))
+			randomVideoNumber = settings.getInt("randomVideoNumber", 0);
+		else {
+			settings.edit().putInt("randomVideoNumber", 0).apply();
+			randomVideoNumber = 0;
+		}
 
 		//Create Notification Channels.
 		createNotificationChannel("Daily Reminder", "Daily Reminders to help you learn something new everyday", DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
 		createNotificationChannel("Reminders", "Scheduled Reminders set by you for learning something new", SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID);
-		SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+		sendDailyNotifications();
+
+		//Dark Mode
 		if (!settings.contains("darkMode"))
 			settings.edit().putInt("darkMode", AppCompatDelegate.MODE_NIGHT_NO).apply();
 		isDark = settings.getInt("darkMode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-		sendDailyNotifications();
 	}
 
 	/**
@@ -69,5 +86,9 @@ public class Learn extends Application {
 			assert notificationManager != null;
 			notificationManager.createNotificationChannel(channel);
 		}
+	}
+
+	public static void incrementRandomVideoNumber() {
+		settings.edit().putInt("randomVideoNumber", ++randomVideoNumber).apply();
 	}
 }
