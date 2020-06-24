@@ -60,7 +60,8 @@ public class HomeFragment extends Fragment {
 					if (videoNumber >= snapshot.getChildrenCount()) {
 						Random random = new Random();
 						videoNumber = random.nextInt((int) snapshot.getChildrenCount());
-					}
+					} else
+						Learn.incrementRandomVideoNumber();
 					DataSnapshot dataSnapshot = snapshot.child(String.valueOf(videoNumber));
 					Intent intent = new Intent(requireActivity(), CourseVideoViewActivity.class);
 					intent.putExtra("link", String.valueOf(dataSnapshot.child("link").getValue()));
@@ -70,7 +71,6 @@ public class HomeFragment extends Fragment {
 					intent.putExtra("index", 0);
 					intent.putExtra("isPlaylist", false);
 					intent.putExtra("reference", dataSnapshot.getRef().toString());
-					Learn.incrementRandomVideoNumber();
 					startActivity(intent);
 				}
 

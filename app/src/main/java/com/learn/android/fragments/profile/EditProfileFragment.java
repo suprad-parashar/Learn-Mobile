@@ -15,12 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -54,7 +50,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,13 +75,14 @@ public class EditProfileFragment extends Fragment {
 
 	//Declare UI Variables.
 	private EditText userNameEditText, collegeNameEditText;
-	private Spinner currentlyIn, stream, branch, boardUniversity, semester;
-	private TextView boardUniversityLabel;
+	//	private Spinner currentlyIn, stream, branch, boardUniversity, semester;
+//	private TextView boardUniversityLabel;
 	CircleImageView profileImage;
 
 	//Initialise Data Variables.
 	Bitmap bitmap = null;
 	private Uri imageUri;
+	boolean isPhotoChanged = false;
 
 	@Nullable
 	@Override
@@ -101,60 +97,60 @@ public class EditProfileFragment extends Fragment {
 		final ProgressBar wait = view.findViewById(R.id.wait);
 		userNameEditText = view.findViewById(R.id.name);
 		collegeNameEditText = view.findViewById(R.id.institution);
-		currentlyIn = view.findViewById(R.id.currently_in);
-		stream = view.findViewById(R.id.view_profile_stream);
-		branch = view.findViewById(R.id.branch);
-		boardUniversity = view.findViewById(R.id.board_university);
-		boardUniversityLabel = view.findViewById(R.id.board_university_label);
-		semester = view.findViewById(R.id.view_profile_semester);
+//		currentlyIn = view.findViewById(R.id.currently_in);
+//		stream = view.findViewById(R.id.view_profile_stream);
+//		branch = view.findViewById(R.id.branch);
+//		boardUniversity = view.findViewById(R.id.board_university);
+//		boardUniversityLabel = view.findViewById(R.id.board_university_label);
+//		semester = view.findViewById(R.id.view_profile_semester);
 		profileImage = view.findViewById(R.id.profile_image);
 
 		//Set Progressbar.
 		wait.setVisibility(View.VISIBLE);
 
-		//Initialise Maps to get and set Spinners.
-		final HashMap<String, Integer> currentlyInList = new HashMap<>();
-		HashMap<String, Integer> streamSchoolList = new HashMap<>();
-		HashMap<String, Integer> streamUndergraduateList = new HashMap<>();
-		HashMap<String, Integer> branchScienceList = new HashMap<>();
-		final HashMap<String, Integer> branchEngineeringList = new HashMap<>();
-		HashMap<String, Integer> boardsList = new HashMap<>();
-		HashMap<String, Integer> universitiesList = new HashMap<>();
-
-		int i = 0;
-		for (String s : getResources().getStringArray(R.array.currently_in))
-			currentlyInList.put(s, i++);
-		i = 0;
-		for (String s : getResources().getStringArray(R.array.stream_school))
-			streamSchoolList.put(s, i++);
-		i = 0;
-		for (String s : getResources().getStringArray(R.array.stream_undergraduate))
-			streamUndergraduateList.put(s, i++);
-		i = 0;
-		for (String s : getResources().getStringArray(R.array.branch_science))
-			branchScienceList.put(s, i++);
-		i = 0;
-		for (String s : getResources().getStringArray(R.array.branch_engineering))
-			branchEngineeringList.put(s, i++);
-		i = 0;
-		for (String s : getResources().getStringArray(R.array.boards))
-			boardsList.put(s, i++);
-		i = 0;
-		for (String s : getResources().getStringArray(R.array.universities))
-			universitiesList.put(s, i++);
+//		//Initialise Maps to get and set Spinners.
+//		final HashMap<String, Integer> currentlyInList = new HashMap<>();
+//		HashMap<String, Integer> streamSchoolList = new HashMap<>();
+//		HashMap<String, Integer> streamUndergraduateList = new HashMap<>();
+//		HashMap<String, Integer> branchScienceList = new HashMap<>();
+//		final HashMap<String, Integer> branchEngineeringList = new HashMap<>();
+//		HashMap<String, Integer> boardsList = new HashMap<>();
+//		HashMap<String, Integer> universitiesList = new HashMap<>();
+//
+//		int i = 0;
+//		for (String s : getResources().getStringArray(R.array.currently_in))
+//			currentlyInList.put(s, i++);
+//		i = 0;
+//		for (String s : getResources().getStringArray(R.array.stream_school))
+//			streamSchoolList.put(s, i++);
+//		i = 0;
+//		for (String s : getResources().getStringArray(R.array.stream_undergraduate))
+//			streamUndergraduateList.put(s, i++);
+//		i = 0;
+//		for (String s : getResources().getStringArray(R.array.branch_science))
+//			branchScienceList.put(s, i++);
+//		i = 0;
+//		for (String s : getResources().getStringArray(R.array.branch_engineering))
+//			branchEngineeringList.put(s, i++);
+//		i = 0;
+//		for (String s : getResources().getStringArray(R.array.boards))
+//			boardsList.put(s, i++);
+//		i = 0;
+//		for (String s : getResources().getStringArray(R.array.universities))
+//			universitiesList.put(s, i++);
 
 		//Set the user data to the fields.
 		userNameEditText.setText(user.getDisplayName());
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				if (Objects.equals(dataSnapshot.child("type").getValue(), "Student")) {
-					if (Objects.equals(dataSnapshot.child("stream").getValue(), "Engineering")) {
-						branch.setSelection(dataSnapshot.child("branch").exists() ? branchEngineeringList.get(dataSnapshot.child("branch").getValue()) : 0);
-						semester.setSelection(dataSnapshot.child("semester").exists() ? Integer.parseInt(((String) Objects.requireNonNull(dataSnapshot.child("semester").getValue())).split(" ")[1]) - 1 : 0);
-					}
-					collegeNameEditText.setText(dataSnapshot.child("institution").exists() ? (String) dataSnapshot.child("institution").getValue() : "");
-				}
+//				if (Objects.equals(dataSnapshot.child("type").getValue(), "Student")) {
+//					if (Objects.equals(dataSnapshot.child("stream").getValue(), "Engineering")) {
+//						branch.setSelection(dataSnapshot.child("branch").exists() ? branchEngineeringList.get(dataSnapshot.child("branch").getValue()) : 0);
+//						semester.setSelection(dataSnapshot.child("semester").exists() ? Integer.parseInt(((String) Objects.requireNonNull(dataSnapshot.child("semester").getValue())).split(" ")[1]) - 1 : 0);
+//					}
+//				}
+				collegeNameEditText.setText(dataSnapshot.child("institution").exists() ? (String) dataSnapshot.child("institution").getValue() : "");
 				wait.setVisibility(View.GONE);
 			}
 
@@ -165,27 +161,21 @@ public class EditProfileFragment extends Fragment {
 		});
 
 		//Set Profile Image
-		try {
-			File file = new File(requireContext().getFilesDir(), "profile.jpg");
-			Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-			profileImage.setImageBitmap(bitmap);
-		} catch (FileNotFoundException e) {
-			final File file = new File(requireContext().getFilesDir(), "profile.jpg");
-			StorageReference reference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
-			reference.getFile(file)
-					.addOnSuccessListener(taskSnapshot -> {
-						try {
-							Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-							profileImage.setImageBitmap(bitmap);
-						} catch (FileNotFoundException ignored) {
+		final File file = new File(requireContext().getFilesDir(), "profile.jpg");
+		StorageReference profilePictureReference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
+		profilePictureReference.getFile(file)
+				.addOnSuccessListener(taskSnapshot -> {
+					try {
+						Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+						profileImage.setImageBitmap(bitmap);
+					} catch (FileNotFoundException ignored) {
 
-						}
-					})
-					.addOnFailureListener(e1 -> {
-						Toast.makeText(requireContext(), "An Error Occurred while loading Profile Picture", Toast.LENGTH_SHORT).show();
-						Log.e("Failure Error", e1.toString());
-					});
-		}
+					}
+				})
+				.addOnFailureListener(e1 -> {
+					Toast.makeText(requireContext(), "An error occurred while loading the profile picture", Toast.LENGTH_SHORT).show();
+					Log.e("Failure Error", e1.toString());
+				});
 
 		//Handle Profile Image Change
 		profileImage.setOnClickListener(v -> Dexter.withContext(requireContext())
@@ -228,27 +218,27 @@ public class EditProfileFragment extends Fragment {
 					}
 				}).check());
 
-		//Set Adapters
-		currentlyIn.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.currently_in)));
-		currentlyIn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				switch (position) {
-					case 0:
-						stream.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.stream_undergraduate)));
-						branch.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.branch_engineering)));
-						boardUniversityLabel.setText(R.string.university);
-						boardUniversity.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.universities)));
-						semester.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getSemestersArray(8)));
-						break;
-				}
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
+//		//Set Adapters
+//		currentlyIn.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.currently_in)));
+//		currentlyIn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//				switch (position) {
+//					case 0:
+//						stream.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.stream_undergraduate)));
+//						branch.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.branch_engineering)));
+//						boardUniversityLabel.setText(R.string.university);
+//						boardUniversity.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.universities)));
+//						semester.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.support_simple_spinner_dropdown_item, getSemestersArray(8)));
+//						break;
+//				}
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//
+//			}
+//		});
 	}
 
 	/**
@@ -278,39 +268,41 @@ public class EditProfileFragment extends Fragment {
 					user.updateProfile(profileUpdates);
 				}
 				reference.child("institution").setValue(collegeNameEditText.getText().toString());
-				reference.child("currently_in").setValue(currentlyIn.getSelectedItem().toString());
-				reference.child("stream").setValue(stream.getSelectedItem().toString());
-				reference.child("branch").setValue(branch.getSelectedItem().toString());
-				reference.child("board_university").setValue(boardUniversity.getSelectedItem().toString());
-				reference.child("semester").setValue(semester.getSelectedItem().toString());
+//				reference.child("currently_in").setValue(currentlyIn.getSelectedItem().toString());
+//				reference.child("stream").setValue(stream.getSelectedItem().toString());
+//				reference.child("branch").setValue(branch.getSelectedItem().toString());
+//				reference.child("board_university").setValue(boardUniversity.getSelectedItem().toString());
+//				reference.child("semester").setValue(semester.getSelectedItem().toString());
 
-				if (bitmap == null) {
+				if (isPhotoChanged) {
+
+					if (bitmap == null) {
+						try {
+							bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);
+						} catch (IOException e) {
+							Log.e("IO Error", e.toString());
+							Toast.makeText(requireContext(), "An error occurred while saving profile picture", Toast.LENGTH_SHORT).show();
+						}
+					}
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+					byte[] byteArray = stream.toByteArray();
 					try {
-						bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);
+						File file = new File(requireContext().getFilesDir(), "profile.jpg");
+						FileOutputStream outputStream = new FileOutputStream(file);
+						outputStream.write(byteArray);
+						outputStream.close();
 					} catch (IOException e) {
 						Log.e("IO Error", e.toString());
 						Toast.makeText(requireContext(), "An error occurred while saving profile picture", Toast.LENGTH_SHORT).show();
 					}
+					FirebaseStorage storage = FirebaseStorage.getInstance();
+					StorageReference reference = storage.getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
+					UploadTask task = reference.putBytes(byteArray);
+					task.addOnSuccessListener(taskSnapshot ->
+							Toast.makeText(requireContext(), "Profile Picture Uploaded", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
+							Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show());
 				}
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-				byte[] byteArray = stream.toByteArray();
-				try {
-					File file = new File(requireContext().getFilesDir(), "profile.jpg");
-					FileOutputStream outputStream = new FileOutputStream(file);
-					outputStream.write(byteArray);
-					outputStream.close();
-				} catch (IOException e) {
-					Log.e("IO Error", e.toString());
-					Toast.makeText(requireContext(), "An error occurred while saving profile picture", Toast.LENGTH_SHORT).show();
-				}
-				FirebaseStorage storage = FirebaseStorage.getInstance();
-				StorageReference reference = storage.getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
-				UploadTask task = reference.putBytes(byteArray);
-				task.addOnSuccessListener(taskSnapshot ->
-						Toast.makeText(requireContext(), "Profile Picture Uploaded", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
-						Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show());
-
 				HomeActivity.navController.navigate(R.id.navigation_view_profile);
 		}
 		return true;
@@ -319,11 +311,13 @@ public class EditProfileFragment extends Fragment {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 		if (requestCode == RC_TAKE_PHOTO && resultCode == RESULT_OK && data != null) {
+			isPhotoChanged = true;
 			bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
 			profileImage.setImageBitmap(bitmap);
 		} else if (requestCode == RC_CHOOSE_IMAGE && resultCode == RESULT_OK && data != null) {
 			Uri uri = data.getData();
 			assert uri != null;
+			isPhotoChanged = true;
 			imageUri = Uri.fromFile(new File(requireContext().getCacheDir(), "IMG_" + System.currentTimeMillis()));
 			UCrop.of(uri, imageUri)
 					.withAspectRatio(1, 1)
