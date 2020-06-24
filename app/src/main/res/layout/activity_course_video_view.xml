@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/primaryBackgroundColor"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/primaryBackgroundColor"
         app:titleTextColor="?attr/primaryTextColor" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -85,7 +87,9 @@
             android:id="@+id/videos_playlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rating_bar" />
+            android:layout_below="@id/rating_bar"
+            android:divider="@color/colorPrimary"
+            android:dividerHeight="1dp" />
 
     </RelativeLayout>
 </LinearLayout>

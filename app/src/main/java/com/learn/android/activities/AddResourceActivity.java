@@ -72,7 +72,7 @@ public class AddResourceActivity extends AppCompatActivity {
 		String type = getIntent().getStringExtra("type");
 
 		//Setup Type Spinner
-		typeSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, Type.values()));
+		typeSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.layout_resource_spinner, R.id.resource, Type.values()));
 		typeSpinner.setSelection(Type.valueOf(type).ordinal());
 
 		//Populate Domains
@@ -84,7 +84,7 @@ public class AddResourceActivity extends AppCompatActivity {
 				for (DataSnapshot snapshot : dataSnapshot.getChildren())
 					domains.add(snapshot.getKey());
 				Collections.sort(domains);
-				domainSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.support_simple_spinner_dropdown_item, domains));
+				domainSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.layout_resource_spinner, R.id.resource, domains));
 				domainSpinner.setSelection(domains.indexOf(domain));
 			}
 
@@ -108,7 +108,7 @@ public class AddResourceActivity extends AppCompatActivity {
 						branches.remove("image");
 						Collections.sort(branches);
 						if (domainSelected.equals(domain))
-							branchSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.support_simple_spinner_dropdown_item, branches));
+							branchSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.layout_resource_spinner, R.id.resource, branches));
 						branchSpinner.setSelection(branches.indexOf(branch));
 					}
 
@@ -139,7 +139,7 @@ public class AddResourceActivity extends AppCompatActivity {
 							for (DataSnapshot snapshot : typeSnapshot.getChildren())
 								courses.add(String.valueOf(snapshot.getValue()));
 						Collections.sort(courses);
-						courseSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.support_simple_spinner_dropdown_item, courses));
+						courseSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.layout_resource_spinner, R.id.resource, courses));
 						if (branchSelected.equals(branch))
 							courseSpinner.setSelection(courses.indexOf(course));
 						loading.setVisibility(View.GONE);

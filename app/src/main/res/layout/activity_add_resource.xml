@@ -63,6 +63,7 @@
                     android:padding="12dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="8dp"
+                    android:textColor="?attr/primaryTextColor"
                     android:textColorHint="?attr/secondaryTextColor"
                     app:layout_constraintTop_toBottomOf="@id/blank_name" />
 
@@ -313,6 +314,7 @@
                     android:padding="12dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="8dp"
+                    android:textColor="?attr/primaryTextColor"
                     android:textColorHint="?attr/secondaryTextColor"
                     app:layout_constraintTop_toBottomOf="@id/blank_institution" />
 
@@ -356,6 +358,7 @@
                     android:padding="12dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="8dp"
+                    android:textColor="?attr/primaryTextColor"
                     android:textColorHint="?attr/secondaryTextColor"
                     app:layout_constraintTop_toBottomOf="@id/blank_pre" />
 

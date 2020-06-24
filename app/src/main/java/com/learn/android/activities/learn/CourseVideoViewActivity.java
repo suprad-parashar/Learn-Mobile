@@ -104,7 +104,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 					assert videoNames != null;
 					nameTextView.setText(videoNames.get(videoIndex));
 					//Setup Playlist Data.
-					videosPlaylist.setAdapter(new ArrayAdapter<>(CourseVideoViewActivity.this, android.R.layout.simple_list_item_activated_1, videoNames));
+					videosPlaylist.setAdapter(new ArrayAdapter<>(CourseVideoViewActivity.this, R.layout.layout_video_playlist, R.id.video, videoNames));
 					videosPlaylist.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 					videosPlaylist.setItemChecked(videoIndex, true);
 					videosPlaylist.setOnItemClickListener((parent, view, position, id1) -> {
