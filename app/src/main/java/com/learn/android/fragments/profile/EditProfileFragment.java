@@ -160,22 +160,29 @@ public class EditProfileFragment extends Fragment {
 			}
 		});
 
-		//Set Profile Image
-		final File file = new File(requireContext().getFilesDir(), "profile.jpg");
-		StorageReference profilePictureReference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
-		profilePictureReference.getFile(file)
-				.addOnSuccessListener(taskSnapshot -> {
-					try {
-						Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-						profileImage.setImageBitmap(bitmap);
-					} catch (FileNotFoundException ignored) {
+		try {
+			File file = new File(requireContext().getFilesDir(), "profile.jpg");
+			Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+			profileImage.setImageBitmap(bitmap);
+		} catch (FileNotFoundException ignored) {
 
-					}
-				})
-				.addOnFailureListener(e1 -> {
-					Toast.makeText(requireContext(), "An error occurred while loading the profile picture", Toast.LENGTH_SHORT).show();
-					Log.e("Failure Error", e1.toString());
-				});
+		} finally {
+			final File file = new File(requireContext().getFilesDir(), "profile.jpg");
+			StorageReference profilePictureReference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
+			profilePictureReference.getFile(file)
+					.addOnSuccessListener(taskSnapshot -> {
+						try {
+							Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+							profileImage.setImageBitmap(bitmap);
+						} catch (FileNotFoundException ignored) {
+
+						}
+					})
+					.addOnFailureListener(e1 -> {
+						Toast.makeText(requireContext(), "An error occurred while loading the profile picture", Toast.LENGTH_SHORT).show();
+						Log.e("Failure Error", e1.toString());
+					});
+		}
 
 		//Handle Profile Image Change
 		profileImage.setOnClickListener(v -> Dexter.withContext(requireContext())

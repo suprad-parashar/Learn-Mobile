@@ -1,5 +1,6 @@
 package com.learn.android.fragments.learn;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseViewActivity;
 import com.learn.android.activities.learn.Type;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundBold"
+    android:background="?attr/primaryBackgroundColor"
     android:orientation="vertical">
 
     <ProgressBar
@@ -21,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/add_resource" />
+        app:title="@string/add_resource"
+        app:titleTextColor="?attr/primaryTextColor" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -62,6 +63,7 @@
                     android:padding="12dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="8dp"
+                    android:textColorHint="?attr/secondaryTextColor"
                     app:layout_constraintTop_toBottomOf="@id/blank_name" />
 
                 <TextView
@@ -69,11 +71,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="@color/backgroundBold"
+                    android:background="?attr/primaryBackgroundColor"
                     android:labelFor="@id/resource_title"
                     android:padding="4dp"
                     android:text="@string/title"
-                    android:textColor="@color/textColorBold"
+                    android:textColor="?attr/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -120,11 +122,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="@color/backgroundBold"
+                    android:background="?attr/primaryBackgroundColor"
                     android:labelFor="@id/resource_domain"
                     android:padding="4dp"
                     android:text="@string/domain"
-                    android:textColor="@color/textColorBold"
+                    android:textColor="?attr/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -172,11 +174,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="@color/backgroundBold"
+                    android:background="?attr/primaryBackgroundColor"
                     android:labelFor="@id/resource_title"
                     android:padding="4dp"
                     android:text="@string/branch"
-                    android:textColor="@color/textColorBold"
+                    android:textColor="?attr/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -224,11 +226,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="@color/backgroundBold"
+                    android:background="?attr/primaryBackgroundColor"
                     android:labelFor="@id/resource_course"
                     android:padding="4dp"
                     android:text="@string/course"
-                    android:textColor="@color/textColorBold"
+                    android:textColor="?attr/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -276,11 +278,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="@color/backgroundBold"
+                    android:background="?attr/primaryBackgroundColor"
                     android:labelFor="@id/resource_title"
                     android:padding="4dp"
                     android:text="@string/type"
-                    android:textColor="@color/textColorBold"
+                    android:textColor="?attr/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -311,6 +313,7 @@
                     android:padding="12dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="8dp"
+                    android:textColorHint="?attr/secondaryTextColor"
                     app:layout_constraintTop_toBottomOf="@id/blank_institution" />
 
                 <TextView
@@ -318,11 +321,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="@color/backgroundBold"
+                    android:background="?attr/primaryBackgroundColor"
                     android:labelFor="@id/resource_link"
                     android:padding="4dp"
                     android:text="@string/link"
-                    android:textColor="@color/textColorBold"
+                    android:textColor="?attr/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -353,6 +356,7 @@
                     android:padding="12dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="8dp"
+                    android:textColorHint="?attr/secondaryTextColor"
                     app:layout_constraintTop_toBottomOf="@id/blank_pre" />
 
                 <TextView
@@ -360,11 +364,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="@color/backgroundBold"
+                    android:background="?attr/primaryBackgroundColor"
                     android:labelFor="@id/resource_prerequisites"
                     android:padding="4dp"
                     android:text="@string/prerequisites"
-                    android:textColor="@color/textColorBold"
+                    android:textColor="?attr/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

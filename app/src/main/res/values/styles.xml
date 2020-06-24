@@ -1,11 +1,41 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LightMode" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="primaryTextColor">@color/primaryTextColorLight</item>
+        <item name="secondaryTextColor">@color/secondaryTextColorDark</item>
+        <item name="primaryBackgroundColor">@color/primaryBackgroundColorLight</item>
+        <item name="secondaryBackgroundColor">@color/secondaryBackgroundColorLight</item>
+        <item name="android:textColorSecondary">@color/primaryTextColorLight</item>
+        <item name="android:actionMenuTextColor">@color/primaryTextColorLight</item>
+        <item name="UIElementBackgroundColor">@color/primaryBackgroundColorLight</item>
+    </style>
+
+    <style name="DarkMode" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="primaryTextColor">@color/primaryTextColorDark</item>
+        <item name="secondaryTextColor">@color/secondaryTextColorDark</item>
+        <item name="primaryBackgroundColor">@color/primaryBackgroundColorDark</item>
+        <item name="secondaryBackgroundColor">@color/secondaryBackgroundColorDark</item>
+        <item name="android:textColorSecondary">@color/primaryTextColorDark</item>
+        <item name="android:actionMenuTextColor">@color/primaryTextColorDark</item>
+        <item name="UIElementBackgroundColor">@color/secondaryBackgroundColorDark</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundBold"
+    android:background="?attr/primaryBackgroundColor"
     tools:context="com.learn.android.activities.SettingsActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/settings" />
+        app:title="@string/settings"
+        app:titleTextColor="?attr/primaryTextColor" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/settings_fragment_view"

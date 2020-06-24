@@ -1,5 +1,6 @@
 package com.learn.android.fragments.settings;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -18,6 +20,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.activities.HomeActivity;
 import com.learn.android.fragments.auth.RegistrationFragment;
@@ -32,7 +35,9 @@ public class ChangePasswordFragment extends Fragment {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_change_password, container, false);
+		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), Learn.isDark ? R.style.DarkMode : R.style.LightMode);
+		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+		return localInflater.inflate(R.layout.fragment_change_password, container, false);
 	}
 
 	@Override

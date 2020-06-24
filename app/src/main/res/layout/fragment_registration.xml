@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <TextView
@@ -10,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/create_account"
-        android:textColor="@color/textColorBold"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="24sp" />
 
     <ScrollView
@@ -31,7 +30,8 @@
                 android:drawablePadding="8dp"
                 android:hint="@string/first_name"
                 android:inputType="textPersonName"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:textColorHint="?attr/secondaryTextColor" />
 
             <EditText
                 android:id="@+id/last_name"
@@ -43,7 +43,8 @@
                 android:drawablePadding="8dp"
                 android:hint="@string/last_name"
                 android:inputType="textPersonName"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:textColorHint="?attr/secondaryTextColor" />
 
             <EditText
                 android:id="@+id/email"
@@ -55,7 +56,8 @@
                 android:drawablePadding="8dp"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:textColorHint="?attr/secondaryTextColor" />
 
             <EditText
                 android:id="@+id/password"
@@ -67,7 +69,8 @@
                 android:drawablePadding="8dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:textColorHint="?attr/secondaryTextColor" />
 
             <Button
                 android:id="@+id/sign_up_button"
@@ -93,6 +96,7 @@
                     android:layout_gravity="center"
                     android:padding="4dp"
                     android:text="@string/account_already"
+                    android:textColor="?attr/secondaryTextColor"
                     android:textSize="18sp" />
 
                 <TextView

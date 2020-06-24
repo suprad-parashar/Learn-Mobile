@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundBold"
+    android:background="?attr/primaryBackgroundColor"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:titleTextColor="?attr/primaryTextColor"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/about" />
 
@@ -28,6 +29,7 @@
             <TextView
                 android:id="@+id/about_text"
                 android:layout_width="match_parent"
+                android:textColor="?attr/primaryTextColor"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@string/lorem"
@@ -38,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@string/developers"
-                android:textColor="@color/textColorBold"
+                android:textColor="?attr/primaryTextColor"
                 android:textSize="28sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -55,6 +57,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="8dp"
-        android:textColor="@color/textColorBold"
+        android:textColor="?attr/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

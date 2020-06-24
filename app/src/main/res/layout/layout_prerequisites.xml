@@ -12,6 +12,6 @@
     android:paddingTop="4dp"
     android:paddingEnd="8dp"
     android:paddingBottom="4dp"
-    android:textColor="@color/textColorBold"
+    android:textColor="#000000"
     android:textSize="18sp"
     android:textStyle="bold" />

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.learn.android.Learn;
 import com.learn.android.R;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class SyllabusViewActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_syllabus_view);
 

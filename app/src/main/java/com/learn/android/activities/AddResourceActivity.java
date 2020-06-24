@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.activities.learn.Type;
 
@@ -44,6 +45,7 @@ public class AddResourceActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_resource);
 

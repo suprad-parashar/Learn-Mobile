@@ -74,21 +74,29 @@ public class ProfileFragment extends Fragment {
 		profileImage = view.findViewById(R.id.profile_image);
 
 		//Set Profile Image
-		final File file = new File(requireContext().getFilesDir(), "profile.jpg");
-		StorageReference profilePictureReference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
-		profilePictureReference.getFile(file)
-				.addOnSuccessListener(taskSnapshot -> {
-					try {
-						Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-						profileImage.setImageBitmap(bitmap);
-					} catch (FileNotFoundException ignored) {
+		try {
+			File file = new File(requireContext().getFilesDir(), "profile.jpg");
+			Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+			profileImage.setImageBitmap(bitmap);
+		} catch (FileNotFoundException ignored) {
 
-					}
-				})
-				.addOnFailureListener(e1 -> {
-					Toast.makeText(requireContext(), "An error occurred while loading the profile picture", Toast.LENGTH_SHORT).show();
-					Log.e("Failure Error", e1.toString());
-				});
+		} finally {
+			final File file = new File(requireContext().getFilesDir(), "profile.jpg");
+			StorageReference profilePictureReference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
+			profilePictureReference.getFile(file)
+					.addOnSuccessListener(taskSnapshot -> {
+						try {
+							Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+							profileImage.setImageBitmap(bitmap);
+						} catch (FileNotFoundException ignored) {
+
+						}
+					})
+					.addOnFailureListener(e1 -> {
+						Toast.makeText(requireContext(), "An error occurred while loading the profile picture", Toast.LENGTH_SHORT).show();
+						Log.e("Failure Error", e1.toString());
+					});
+		}
 
 		//Handle Settings Click.
 		settings.setOnClickListener(v -> startActivity(new Intent(requireActivity(), SettingsActivity.class)));
@@ -119,7 +127,7 @@ public class ProfileFragment extends Fragment {
 		});
 
 		//Setup Profile Links.
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, PROFILE_LINKS_LIST);
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), R.layout.layout_profile_settings, R.id.setting, PROFILE_LINKS_LIST);
 		profileLinks.setAdapter(arrayAdapter);
 		profileLinks.setOnItemClickListener((parent, view1, position, id) -> {
 			switch (PROFILE_LINKS_LIST[position]) {

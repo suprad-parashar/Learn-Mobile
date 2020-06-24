@@ -2,7 +2,6 @@ package com.learn.android.fragments.settings;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -13,11 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.core.app.TaskStackBuilder;
 import androidx.fragment.app.Fragment;
 
 import com.learn.android.Learn;
 import com.learn.android.R;
+import com.learn.android.activities.HomeActivity;
 import com.learn.android.activities.SettingsActivity;
 
 public class SettingsOverviewFragment extends Fragment {
@@ -29,13 +30,15 @@ public class SettingsOverviewFragment extends Fragment {
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_settings_overview, container, false);
+		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), Learn.isDark ? R.style.DarkMode : R.style.LightMode);
+		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+		return localInflater.inflate(R.layout.fragment_settings_overview, container, false);
+//		return inflater.inflate(R.layout.fragment_settings_overview, container, false);
 	}
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-
 		//Initialise UI Variables.
 		darkMode = view.findViewById(R.id.dark_mode);
 		changePassword = view.findViewById(R.id.change_password);
@@ -65,25 +68,18 @@ public class SettingsOverviewFragment extends Fragment {
 				.commit());
 
 		//Set Dark Mode Switch
-		darkMode.setChecked(Learn.isDark != AppCompatDelegate.MODE_NIGHT_NO);
+		darkMode.setChecked(Learn.isDark);
 
 		//Handle Dark Mode Selection.
 		darkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
-			final SharedPreferences settings = requireActivity().getPreferences(Context.MODE_PRIVATE);
-			SharedPreferences.Editor editor = settings.edit();
-			if (isChecked) {
-				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-				Learn.isDark = AppCompatDelegate.MODE_NIGHT_YES;
-				editor.putInt("darkMode", AppCompatDelegate.MODE_NIGHT_YES);
-			} else {
-				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-				Learn.isDark = AppCompatDelegate.MODE_NIGHT_NO;
-				editor.putInt("darkMode", AppCompatDelegate.MODE_NIGHT_NO);
-			}
-			editor.apply();
-			editor.commit();
-			startActivity(new Intent(requireActivity(), SettingsActivity.class));
-			requireActivity().finish();
+			Learn.setApplicationTheme(isChecked);
+			requireActivity().setTheme(isChecked ? R.style.DarkMode : R.style.LightMode);
+			TaskStackBuilder.create(requireActivity())
+					.addNextIntent(new Intent(getActivity(), HomeActivity.class))
+					.addNextIntent(requireActivity().getIntent())
+					.startActivities();
+//			startActivity(new Intent(requireActivity(), SettingsActivity.class));
+//			requireActivity().finish();
 		});
 
 		//Handle OSL Click.

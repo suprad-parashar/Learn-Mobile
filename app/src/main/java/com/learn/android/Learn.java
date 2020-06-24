@@ -25,13 +25,15 @@ public class Learn extends Application {
 	public static final String SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnScheduledReminder";
 
 	public static int randomVideoNumber;
-	public static int isDark;
+	public static boolean isDark;
 
 	public static SharedPreferences settings;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 		//Set Caching of Firebase Database Data.
 		FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -54,8 +56,8 @@ public class Learn extends Application {
 
 		//Dark Mode
 		if (!settings.contains("darkMode"))
-			settings.edit().putInt("darkMode", AppCompatDelegate.MODE_NIGHT_NO).apply();
-		isDark = settings.getInt("darkMode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+			settings.edit().putBoolean("darkMode", false).apply();
+		isDark = settings.getBoolean("darkMode", false);
 	}
 
 	/**
@@ -88,7 +90,16 @@ public class Learn extends Application {
 		}
 	}
 
+	/**
+	 * Increments the Random Video Number of the user.
+	 * This helps in avoiding viewing of the repeated videos as well as help watch newly added videos.
+	 */
 	public static void incrementRandomVideoNumber() {
 		settings.edit().putInt("randomVideoNumber", ++randomVideoNumber).apply();
+	}
+
+	public static void setApplicationTheme(boolean isDark) {
+		settings.edit().putBoolean("darkMode", isDark).apply();
+		Learn.isDark = isDark;
 	}
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="primaryTextColor" format="reference" />
+    <attr name="secondaryTextColor" format="reference" />
+    <attr name="primaryBackgroundColor" format="reference" />
+    <attr name="secondaryBackgroundColor" format="reference" />
+    <attr name="UIElementBackgroundColor" format="reference" />
+</resources>

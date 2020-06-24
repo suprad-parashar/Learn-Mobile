@@ -20,7 +20,8 @@
         android:hint="@string/choose_date"
         android:importantForAutofill="no"
         android:inputType="date"
-        android:padding="16dp" />
+        android:padding="16dp"
+        android:textColorHint="?attr/secondaryTextColor" />
 
     <EditText
         android:id="@+id/time_pick"
@@ -37,7 +38,8 @@
         android:hint="@string/choose_time"
         android:importantForAutofill="no"
         android:inputType="time"
-        android:padding="16dp" />
+        android:padding="16dp"
+        android:textColorHint="?attr/secondaryTextColor" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,6 +50,7 @@
         android:layout_marginEnd="16dp"
         android:padding="16dp"
         android:text="@string/strict_reminder"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="18sp" />
 
     <Switch

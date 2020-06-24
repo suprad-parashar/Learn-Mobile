@@ -22,7 +22,7 @@
         android:padding="8dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:textColor="@color/textColorBold"
+        android:textColor="?attr/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="@id/display_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,5 +77,4 @@
             android:text="@string/add_resource" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

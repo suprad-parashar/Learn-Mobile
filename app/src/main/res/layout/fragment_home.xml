@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:src="@drawable/ic_random"
+        android:tint="?attr/primaryBackgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -24,10 +25,13 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_outline"
         android:drawableStart="@drawable/ic_search"
+        android:drawableTint="@color/colorPrimary"
         android:hint="@string/what_learn_today"
         android:importantForAutofill="no"
         android:inputType="text"
         android:padding="16dp"
+        android:textColor="?attr/primaryTextColor"
+        android:textColorHint="?attr/secondaryTextColor"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -47,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:text="@string/welcome_back"
-            android:textColor="@color/textColorBold"
+            android:textColor="?attr/primaryTextColor"
             android:textSize="18sp" />
 
         <TextView
@@ -66,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:text="@string/exclamation"
-            android:textColor="@color/textColorBold"
+            android:textColor="?attr/primaryTextColor"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -80,7 +84,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:text="@string/recent_activities"
-        android:textColor="@color/textColorBold"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="24sp"
         app:layout_constraintTop_toBottomOf="@id/name_layout" />
 
