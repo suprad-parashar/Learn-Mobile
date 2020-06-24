@@ -17,9 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.learn.android.utils.NotificationReceiver;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "1. Added Daily Notifications (Works only if app is in foreground)" +
-			"\n2. Added Scheduled Reminder Notifications (Works only if app is in foreground)" +
-			"\n3. Changed Primary Color";
+	public static final String CHANGE_MESSAGE = "1. Added a Fun Video Button in Home Page" +
+			"\n2. Added Dark Mode";
 
 	public static final String DAILY_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnDailyReminder";
 	public static final String SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnScheduledReminder";
