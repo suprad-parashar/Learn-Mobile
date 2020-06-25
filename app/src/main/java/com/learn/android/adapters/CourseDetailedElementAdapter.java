@@ -35,6 +35,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseVideoViewActivity;
@@ -244,6 +245,23 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 			} else {
 				//Documents, Courses and Projects
 				Intent intent = new Intent(Intent.ACTION_VIEW);
+				FirebaseDatabase.getInstance().getReference()
+						.child("users")
+						.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+						.child("data")
+						.child("points")
+						.addListenerForSingleValueEvent(new ValueEventListener() {
+							@Override
+							public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+								long points = (long) dataSnapshot.getValue();
+								dataSnapshot.getRef().setValue(points + 5);
+							}
+
+							@Override
+							public void onCancelled(@NonNull DatabaseError databaseError) {
+
+							}
+						});
 				intent.setData(Uri.parse(element.getLink()));
 				context.startActivity(intent);
 			}

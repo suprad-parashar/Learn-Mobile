@@ -120,7 +120,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			@Override
 			public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState playerState) {
 				if (playerState == PlayerConstants.PlayerState.PAUSED) {
-					updateActivity((int) Math.ceil(time / 300));
+					updateActivity((int) Math.ceil(time / 150));
 				}
 			}
 
@@ -305,7 +305,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
-		updateActivity((int) Math.ceil(time / 300));
+		updateActivity((int) Math.ceil(time / 150));
 		super.onBackPressed();
 	}
 }

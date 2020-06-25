@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,6 +23,7 @@ import com.learn.android.activities.learn.CourseVideoViewActivity;
 import com.learn.android.objects.Activity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapter.MyActivitiesHolder> {
 
@@ -89,6 +91,23 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 									}
 								});
 					} else {
+						FirebaseDatabase.getInstance().getReference()
+								.child("users")
+								.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+								.child("data")
+								.child("points")
+								.addListenerForSingleValueEvent(new ValueEventListener() {
+									@Override
+									public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+										long points = (long) dataSnapshot.getValue();
+										dataSnapshot.getRef().setValue(points + 5);
+									}
+
+									@Override
+									public void onCancelled(@NonNull DatabaseError databaseError) {
+
+									}
+								});
 						intent.putExtra("videoNames", videoNames);
 						intent.putExtra("videoLinks", videoLinks);
 						context.startActivity(intent);
