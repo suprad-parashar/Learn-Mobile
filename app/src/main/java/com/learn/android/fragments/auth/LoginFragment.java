@@ -224,9 +224,9 @@ public class LoginFragment extends Fragment {
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				checkAndAddData(reference, dataSnapshot, "points", 0);
+				checkAndAddData(reference, dataSnapshot, "points", 100);
 				checkAndAddData(reference, dataSnapshot, "status", "Newbie");
-				checkAndAddData(reference, dataSnapshot, "setup", false);
+				checkAndAddData(reference, dataSnapshot, "moderator", false);
 			}
 
 			@Override

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ public class MyActivitiesFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		//Setup Recycler View.
+		TextView emptyView = view.findViewById(R.id.empty_view);
 		recyclerView = view.findViewById(R.id.activities_list);
 		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
 		manager.setOrientation(RecyclerView.VERTICAL);
@@ -57,6 +59,10 @@ public class MyActivitiesFragment extends Fragment {
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 					Activity activity = snapshot.getValue(Activity.class);
 					activities.add(0, activity);
+				}
+				if (activities.size() == 0) {
+					emptyView.setVisibility(View.VISIBLE);
+					recyclerView.setVisibility(View.GONE);
 				}
 				recyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities, true));
 			}

@@ -134,6 +134,7 @@
     </string-array>
 
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dictum fringilla nulla, non molestie dui gravida vitae. Sed eget convallis ante. Mauris sit amet leo sit amet sem pretium cursus non ac lorem. Praesent tempor, est a scelerisque bibendum, tellus dolor tincidunt massa, eget tincidunt erat est vel mi. Nam sodales scelerisque felis, nec faucibus magna iaculis eget. Fusce sed auctor quam. Nunc mollis orci et nunc lobortis sodales. Nulla sagittis nisl eu nibh consequat cursus. Maecenas ornare neque id viverra laoreet.</string>
+    <string name="empty_activities">No Activities. Let\'s Learn</string>
 
     <string-array name="branch_science">
         <item>PCM + Biology</item>

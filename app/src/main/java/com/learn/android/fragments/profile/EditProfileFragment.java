@@ -282,7 +282,6 @@ public class EditProfileFragment extends Fragment {
 //				reference.child("semester").setValue(semester.getSelectedItem().toString());
 
 				if (isPhotoChanged) {
-
 					if (bitmap == null) {
 						try {
 							bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);

@@ -120,7 +120,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			@Override
 			public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState playerState) {
 				if (playerState == PlayerConstants.PlayerState.PAUSED) {
-					updateActivity();
+					updateActivity((int) Math.ceil(time / 300));
 				}
 			}
 
@@ -218,7 +218,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 	/**
 	 * Create or Update the User Activity.
 	 */
-	private void updateActivity() {
+	private void updateActivity(int extraPoints) {
 		activityReference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -264,6 +264,19 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 				Log.e("Database Error", databaseError.toString());
 			}
 		});
+		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("points");
+		reference.addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+				long points = (long) dataSnapshot.getValue();
+				reference.setValue(points + extraPoints);
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError databaseError) {
+
+			}
+		});
 	}
 
 	/**
@@ -292,7 +305,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
-		updateActivity();
+		updateActivity((int) Math.ceil(time / 300));
 		super.onBackPressed();
 	}
 }

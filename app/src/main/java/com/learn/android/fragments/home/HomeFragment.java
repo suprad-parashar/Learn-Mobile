@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment {
 	RecyclerView homeActivitiesRecyclerView;
 	TextView nameView;
 	FloatingActionButton randomFab;
+	LinearLayout activitiesLayout;
+	TextView emptyView;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_home, container, false);
@@ -45,6 +48,10 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		//Initialise UI Variables
+		activitiesLayout = view.findViewById(R.id.activities_layout);
+		emptyView = view.findViewById(R.id.empty_view);
 
 		//Set Random FAB
 		randomFab = view.findViewById(R.id.random_fab);
@@ -110,6 +117,10 @@ public class HomeFragment extends Fragment {
 					Activity activity = dataSnapshot.child(String.valueOf(index--)).getValue(Activity.class);
 					count--;
 					activities.add(activity);
+				}
+				if (activities.size() == 0) {
+					activitiesLayout.setVisibility(View.GONE);
+					emptyView.setVisibility(View.VISIBLE);
 				}
 				homeActivitiesRecyclerView.setAdapter(new MyActivitiesAdapter(requireContext(), activities, false));
 			}
