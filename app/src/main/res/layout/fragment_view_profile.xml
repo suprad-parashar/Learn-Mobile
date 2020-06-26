@@ -11,7 +11,8 @@
         android:id="@+id/wait_view_profile"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/user_name_view_profile"
@@ -45,104 +46,104 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/view_profile_currently_in_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/view_profile_currently_in_layout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:orientation="vertical">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="@string/currently_in"
-                    android:textColor="?attr/primaryTextColor" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_margin="4dp"-->
+            <!--                    android:text="@string/currently_in"-->
+            <!--                    android:textColor="?attr/primaryTextColor" />-->
 
-                <TextView
-                    android:id="@+id/user_currently_in_view_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Undergraduate" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/user_currently_in_view_profile"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:textColor="@color/colorAccent"-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    tools:text="Undergraduate" />-->
+            <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/view_profile_stream_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/view_profile_stream_layout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/view_profile_stream_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="@string/stream"
-                    android:textColor="?attr/primaryTextColor" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/view_profile_stream_label"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_margin="4dp"-->
+            <!--                    android:text="@string/stream"-->
+            <!--                    android:textColor="?attr/primaryTextColor" />-->
 
-                <TextView
-                    android:id="@+id/stream_view_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Engineering" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/stream_view_profile"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:textColor="@color/colorAccent"-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    tools:text="Engineering" />-->
+            <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/view_profile_branch_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/view_profile_branch_layout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/view_profile_branch_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="@string/branch"
-                    android:textColor="?attr/primaryTextColor" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/view_profile_branch_label"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_margin="4dp"-->
+            <!--                    android:text="@string/branch"-->
+            <!--                    android:textColor="?attr/primaryTextColor" />-->
 
-                <TextView
-                    android:id="@+id/branch_view_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Information Science and Engineering" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/branch_view_profile"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:textColor="@color/colorAccent"-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    tools:text="Information Science and Engineering" />-->
+            <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/view_profile_board_university_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/view_profile_board_university_layout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/resource_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="@string/university"
-                    android:textColor="?attr/primaryTextColor" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/resource_type"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_margin="4dp"-->
+            <!--                    android:text="@string/university"-->
+            <!--                    android:textColor="?attr/primaryTextColor" />-->
 
-                <TextView
-                    android:id="@+id/university_board_view_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Visvesvaraya Technological University" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/university_board_view_profile"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:textColor="@color/colorAccent"-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    tools:text="Visvesvaraya Technological University" />-->
+            <!--            </LinearLayout>-->
 
             <LinearLayout
                 android:id="@+id/view_profile_college_layout"
@@ -170,31 +171,31 @@
                     tools:text="SJB Institute of Technology" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/view_profile_semester_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/view_profile_semester_layout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/view_profile_semester_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:labelFor="@id/resource_link"
-                    android:text="@string/semester"
-                    android:textColor="?attr/primaryTextColor" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/view_profile_semester_label"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_margin="4dp"-->
+            <!--                    android:labelFor="@id/resource_link"-->
+            <!--                    android:text="@string/semester"-->
+            <!--                    android:textColor="?attr/primaryTextColor" />-->
 
-                <TextView
-                    android:id="@+id/semester_view_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    tools:text="Semester 6" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/semester_view_profile"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:textColor="@color/colorAccent"-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    tools:text="Semester 6" />-->
+            <!--            </LinearLayout>-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -52,6 +52,7 @@ public class CourseOverViewFragment extends Fragment {
 			requireActivity()
 					.getSupportFragmentManager()
 					.beginTransaction()
+					.addToBackStack(CourseOverViewFragment.class.getName())
 					.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 					.commit();
 		});
@@ -62,6 +63,7 @@ public class CourseOverViewFragment extends Fragment {
 			requireActivity()
 					.getSupportFragmentManager()
 					.beginTransaction()
+					.addToBackStack(CourseOverViewFragment.class.getName())
 					.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 					.commit();
 		});
@@ -72,6 +74,7 @@ public class CourseOverViewFragment extends Fragment {
 			requireActivity()
 					.getSupportFragmentManager()
 					.beginTransaction()
+					.addToBackStack(CourseOverViewFragment.class.getName())
 					.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 					.commit();
 		});
@@ -82,6 +85,7 @@ public class CourseOverViewFragment extends Fragment {
 			requireActivity()
 					.getSupportFragmentManager()
 					.beginTransaction()
+					.addToBackStack(CourseOverViewFragment.class.getName())
 					.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 					.commit();
 		});

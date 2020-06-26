@@ -49,6 +49,7 @@ public class CourseDetailedElementFragment extends Fragment {
 
 	public CourseDetailedElementFragment(String title, String domain, String branch) {
 		titleReference = title.replace("#", "Sharp");
+		titleReference = title.replace(".", "Dot");
 		this.title = title;
 		this.domain = domain;
 		this.branch = branch;

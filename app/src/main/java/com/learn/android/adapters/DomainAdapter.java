@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.learn.android.R;
 import com.learn.android.fragments.learn.BranchFragment;
+import com.learn.android.fragments.learn.DomainFragment;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,7 @@ public class DomainAdapter extends RecyclerView.Adapter<DomainAdapter.DomainHold
 				.into(holder.image);
 		holder.itemView.setOnClickListener(v -> fragmentManager
 				.beginTransaction()
+				.addToBackStack(DomainFragment.class.getName())
 				.replace(R.id.learn_fragment_view, new BranchFragment(domains.get(position)))
 				.commit());
 	}
