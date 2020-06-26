@@ -62,7 +62,8 @@ public class ViewCoursesDataActivity extends AppCompatActivity {
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 					String heading = snapshot.getKey();
 					assert heading != null;
-					adapter.addFragment(new DisplayCoursesTemplateFragment(reference.child(heading), domain, branch), heading);
+					if (!heading.equals("image"))
+						adapter.addFragment(new DisplayCoursesTemplateFragment(reference.child(heading), domain, branch), heading);
 				}
 				pager.setAdapter(adapter);
 				tabLayout.setupWithViewPager(pager);

@@ -5,17 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.learn.android.R;
 import com.learn.android.activities.learn.CourseViewActivity;
 
 import java.util.ArrayList;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHolder> {
+public class CourseAdapter extends BaseAdapter {
 
 	//Declare Data Variables
 	private Context context;
@@ -29,36 +27,34 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
 		this.branch = branch;
 	}
 
-	@NonNull
 	@Override
-	public CourseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_branch, parent, false);
-		return new CourseHolder(view);
+	public int getCount() {
+		return courses.size();
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull CourseHolder holder, final int position) {
-		holder.branch.setText(courses.get(position));
-		holder.itemView.setOnClickListener(v -> {
+	public Object getItem(int position) {
+		return null;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return 0;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		if (convertView == null)
+			convertView = LayoutInflater.from(context).inflate(R.layout.layout_course, parent, false);
+		TextView course = convertView.findViewById(R.id.course);
+		course.setText(courses.get(position));
+		convertView.setOnClickListener(v -> {
 			Intent intent = new Intent(context, CourseViewActivity.class);
 			intent.putExtra("title", courses.get(position));
 			intent.putExtra("domain", domain);
 			intent.putExtra("branch", branch);
 			context.startActivity(intent);
 		});
-	}
-
-	@Override
-	public int getItemCount() {
-		return courses.size();
-	}
-
-	static class CourseHolder extends RecyclerView.ViewHolder {
-		TextView branch;
-
-		CourseHolder(@NonNull View itemView) {
-			super(itemView);
-			branch = itemView.findViewById(R.id.branch);
-		}
+		return convertView;
 	}
 }

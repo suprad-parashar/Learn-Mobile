@@ -2,6 +2,7 @@ package com.learn.android.fragments.learn;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,8 @@ import com.learn.android.adapters.BranchAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Objects;
 
 public class BranchFragment extends Fragment {
 
@@ -53,7 +57,7 @@ public class BranchFragment extends Fragment {
 		loading.setVisibility(View.VISIBLE);
 
 		//Setup Recycler View.
-		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
+		GridLayoutManager manager = new GridLayoutManager(requireContext(), 2);
 		manager.setOrientation(RecyclerView.VERTICAL);
 		branchView.setLayoutManager(manager);
 
@@ -62,12 +66,13 @@ public class BranchFragment extends Fragment {
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				ArrayList<String> branches = new ArrayList<>();
+				ArrayList<Pair<String, String>> branches = new ArrayList<>();
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-					branches.add(snapshot.getKey());
+					if (!Objects.equals(snapshot.getKey(), "image")) {
+						branches.add(new Pair<>(snapshot.getKey(), String.valueOf(snapshot.child("image").getValue())));
+					}
 				}
-				branches.remove("image");
-				Collections.sort(branches);
+				Collections.sort(branches, Comparator.comparing(p -> p.first));
 				branchView.setAdapter(new BranchAdapter(requireContext(), branches, reference, domain));
 				loading.setVisibility(View.GONE);
 			}

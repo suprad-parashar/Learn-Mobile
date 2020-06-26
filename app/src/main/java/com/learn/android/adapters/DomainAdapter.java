@@ -1,6 +1,7 @@
 package com.learn.android.adapters;
 
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +22,14 @@ import java.util.ArrayList;
 public class DomainAdapter extends RecyclerView.Adapter<DomainAdapter.DomainHolder> {
 
 	//Declare Data Variables
-	private ArrayList<String> domains;
-	private ArrayList<String> imageURLs;
+	private ArrayList<Pair<String, String>> domains;
 	private Context context;
 	private FragmentManager fragmentManager;
 
-	public DomainAdapter(Context context, ArrayList<String> domains, ArrayList<String> imageURLs, FragmentManager fragmentManager) {
+	public DomainAdapter(Context context, ArrayList<Pair<String, String>> domains, FragmentManager fragmentManager) {
 		this.domains = domains;
 		this.fragmentManager = fragmentManager;
 		this.context = context;
-		this.imageURLs = imageURLs;
 	}
 
 	@NonNull
@@ -42,16 +41,16 @@ public class DomainAdapter extends RecyclerView.Adapter<DomainAdapter.DomainHold
 
 	@Override
 	public void onBindViewHolder(@NonNull DomainHolder holder, final int position) {
-		holder.domain.setText(domains.get(position));
+		holder.domain.setText(domains.get(position).first);
 		Glide.with(context)
-				.load(imageURLs.get(position))
+				.load(domains.get(position).second)
 				.placeholder(R.drawable.button_filled)
 				.fitCenter()
 				.into(holder.image);
 		holder.itemView.setOnClickListener(v -> fragmentManager
 				.beginTransaction()
 				.addToBackStack(DomainFragment.class.getName())
-				.replace(R.id.learn_fragment_view, new BranchFragment(domains.get(position)))
+				.replace(R.id.learn_fragment_view, new BranchFragment(domains.get(position).first))
 				.commit());
 	}
 

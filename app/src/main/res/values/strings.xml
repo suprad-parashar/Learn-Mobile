@@ -151,6 +151,7 @@
         <item>My Activity</item>
         <!--        <item>My Achievements</item>-->
         <item>About</item>
+        <item>FAQs</item>
         <item>Logout</item>
     </string-array>
 

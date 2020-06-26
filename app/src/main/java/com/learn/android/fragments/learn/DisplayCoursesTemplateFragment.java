@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,7 @@ import java.util.Collections;
 public class DisplayCoursesTemplateFragment extends Fragment {
 
 	//Declare UI Variables
-	RecyclerView recyclerView;
+	ListView listView;
 
 	//Declare Firebase Variables.
 	DatabaseReference reference;
@@ -53,10 +54,7 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		//Setup Recycler View.
-		recyclerView = view.findViewById(R.id.courses_list);
-		LinearLayoutManager manager = new LinearLayoutManager(requireContext());
-		manager.setOrientation(RecyclerView.VERTICAL);
-		recyclerView.setLayoutManager(manager);
+		listView = view.findViewById(R.id.courses_list);
 
 		//Add Data.
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -66,7 +64,7 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 				for (DataSnapshot snapshot : dataSnapshot.getChildren())
 					courses.add(String.valueOf(snapshot.getValue()));
 				Collections.sort(courses);
-				recyclerView.setAdapter(new CourseAdapter(requireContext(), courses, domain, branch));
+				listView.setAdapter(new CourseAdapter(requireContext(), courses, domain, branch));
 			}
 
 			@Override

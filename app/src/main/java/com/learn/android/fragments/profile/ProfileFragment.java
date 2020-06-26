@@ -33,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.learn.android.R;
 import com.learn.android.activities.AboutActivity;
 import com.learn.android.activities.AuthActivity;
+import com.learn.android.activities.FAQActivity;
 import com.learn.android.activities.HomeActivity;
 import com.learn.android.activities.SettingsActivity;
 
@@ -141,6 +142,9 @@ public class ProfileFragment extends Fragment {
 					auth.signOut();
 					startActivity(new Intent(getActivity(), AuthActivity.class));
 					requireActivity().finish();
+					break;
+				case "FAQs":
+					startActivity(new Intent(getActivity(), FAQActivity.class));
 					break;
 				case "My Activity":
 					HomeActivity.navController.navigate(R.id.navigation_my_activity);

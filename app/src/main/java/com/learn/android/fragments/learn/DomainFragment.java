@@ -2,6 +2,7 @@ package com.learn.android.fragments.learn;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.learn.android.adapters.DomainAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Objects;
 
 public class DomainFragment extends Fragment {
 
@@ -55,13 +58,13 @@ public class DomainFragment extends Fragment {
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				ArrayList<String> domains = new ArrayList<>(), imageURLs = new ArrayList<>();
+				ArrayList<Pair<String, String>> domains = new ArrayList<>();
 				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-					domains.add(snapshot.getKey());
-					imageURLs.add(String.valueOf(snapshot.child("image").getValue()));
+					if (!Objects.equals(snapshot.getKey(), "image"))
+						domains.add(new Pair<>(snapshot.getKey(), String.valueOf(snapshot.child("image").getValue())));
 				}
-				Collections.sort(domains);
-				domainView.setAdapter(new DomainAdapter(requireContext(), domains, imageURLs, getParentFragmentManager()));
+				Collections.sort(domains, Comparator.comparing(p -> p.first));
+				domainView.setAdapter(new DomainAdapter(requireContext(), domains, getParentFragmentManager()));
 				loading.setVisibility(View.GONE);
 			}
 
