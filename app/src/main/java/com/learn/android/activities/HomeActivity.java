@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
+//		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 

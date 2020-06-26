@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="@string/empty_activities"
-        android:textColor="?attr/primaryTextColor"
+        android:textColor="@color/primaryTextColor"
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

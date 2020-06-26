@@ -27,7 +27,7 @@ public class AboutActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
+//		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 

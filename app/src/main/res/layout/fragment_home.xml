@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:src="@drawable/ic_random"
-        android:tint="?attr/primaryBackgroundColor"
+        android:tint="@color/primaryBackgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -30,8 +30,8 @@
         android:importantForAutofill="no"
         android:inputType="text"
         android:padding="16dp"
-        android:textColor="?attr/primaryTextColor"
-        android:textColorHint="?attr/secondaryTextColor"
+        android:textColor="@color/primaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:text="@string/welcome_back"
-            android:textColor="?attr/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="18sp" />
 
         <TextView
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:text="@string/exclamation"
-            android:textColor="?attr/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -91,7 +91,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="@string/recent_activities"
-            android:textColor="?attr/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="@string/empty_activities"
-        android:textColor="?attr/primaryTextColor"
+        android:textColor="@color/primaryTextColor"
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"

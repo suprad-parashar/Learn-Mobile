@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/primaryBackgroundColor"
+    android:background="@color/primaryBackgroundColor"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -58,7 +58,7 @@
             <!--                    android:layout_height="wrap_content"-->
             <!--                    android:layout_margin="4dp"-->
             <!--                    android:text="@string/currently_in"-->
-            <!--                    android:textColor="?attr/primaryTextColor" />-->
+            <!--                    android:textColor="@color/primaryTextColor" />-->
 
             <!--                <TextView-->
             <!--                    android:id="@+id/user_currently_in_view_profile"-->
@@ -83,7 +83,7 @@
             <!--                    android:layout_height="wrap_content"-->
             <!--                    android:layout_margin="4dp"-->
             <!--                    android:text="@string/stream"-->
-            <!--                    android:textColor="?attr/primaryTextColor" />-->
+            <!--                    android:textColor="@color/primaryTextColor" />-->
 
             <!--                <TextView-->
             <!--                    android:id="@+id/stream_view_profile"-->
@@ -108,7 +108,7 @@
             <!--                    android:layout_height="wrap_content"-->
             <!--                    android:layout_margin="4dp"-->
             <!--                    android:text="@string/branch"-->
-            <!--                    android:textColor="?attr/primaryTextColor" />-->
+            <!--                    android:textColor="@color/primaryTextColor" />-->
 
             <!--                <TextView-->
             <!--                    android:id="@+id/branch_view_profile"-->
@@ -133,7 +133,7 @@
             <!--                    android:layout_height="wrap_content"-->
             <!--                    android:layout_margin="4dp"-->
             <!--                    android:text="@string/university"-->
-            <!--                    android:textColor="?attr/primaryTextColor" />-->
+            <!--                    android:textColor="@color/primaryTextColor" />-->
 
             <!--                <TextView-->
             <!--                    android:id="@+id/university_board_view_profile"-->
@@ -159,7 +159,7 @@
                     android:layout_margin="4dp"
                     android:labelFor="@id/resource_link"
                     android:text="@string/college_name"
-                    android:textColor="?attr/primaryTextColor" />
+                    android:textColor="@color/primaryTextColor" />
 
                 <TextView
                     android:id="@+id/college_view_profile"
@@ -185,7 +185,7 @@
             <!--                    android:layout_margin="4dp"-->
             <!--                    android:labelFor="@id/resource_link"-->
             <!--                    android:text="@string/semester"-->
-            <!--                    android:textColor="?attr/primaryTextColor" />-->
+            <!--                    android:textColor="@color/primaryTextColor" />-->
 
             <!--                <TextView-->
             <!--                    android:id="@+id/semester_view_profile"-->

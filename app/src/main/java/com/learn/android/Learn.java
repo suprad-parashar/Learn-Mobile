@@ -31,8 +31,6 @@ public class Learn extends Application {
 	public void onCreate() {
 		super.onCreate();
 
-		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
 		//Set Caching of Firebase Database Data.
 		FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
@@ -56,6 +54,7 @@ public class Learn extends Application {
 		if (!settings.contains("darkMode"))
 			settings.edit().putBoolean("darkMode", false).apply();
 		isDark = settings.getBoolean("darkMode", false);
+		AppCompatDelegate.setDefaultNightMode(isDark ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 	}
 
 	/**

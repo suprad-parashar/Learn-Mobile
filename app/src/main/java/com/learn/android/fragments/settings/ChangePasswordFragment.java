@@ -35,9 +35,9 @@ public class ChangePasswordFragment extends Fragment {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), Learn.isDark ? R.style.DarkMode : R.style.LightMode);
-		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
-		return localInflater.inflate(R.layout.fragment_change_password, container, false);
+//		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), Learn.isDark ? R.style.DarkMode : R.style.LightMode);
+//		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+		return inflater.inflate(R.layout.fragment_change_password, container, false);
 	}
 
 	@Override

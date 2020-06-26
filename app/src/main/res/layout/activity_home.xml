@@ -4,7 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/primaryBackgroundColor">
+    android:background="@color/primaryBackgroundColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,15 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            app:titleTextColor="?attr/primaryTextColor" />
+            app:titleTextColor="@color/primaryTextColor" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="?attr/UIElementBackgroundColor"
-            app:itemTextColor="?attr/primaryTextColor"
+            android:background="@color/primaryBackgroundColor"
             app:menu="@menu/bottom_nav_menu" />
 
         <fragment
@@ -42,8 +41,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemTextColor="?attr/primaryTextColor"
-        android:background="?attr/UIElementBackgroundColor"
         app:menu="@menu/drawer_menu">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +59,7 @@
                 android:focusable="true"
                 android:padding="16dp"
                 android:text="@string/settings"
-                android:textColor="?attr/primaryTextColor"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

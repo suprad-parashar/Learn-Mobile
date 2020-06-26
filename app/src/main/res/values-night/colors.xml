@@ -7,8 +7,8 @@
     <color name="colorAccent">#615CFD</color>
     <color name="lightest">#948FFF</color>
 
-    <color name="primaryBackgroundColor">#FFFFFF</color>
-    <color name="secondaryBackgroundColor">#D5D5D5</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#606060</color>
+    <color name="primaryBackgroundColor">#000000</color>
+    <color name="secondaryBackgroundColor">#333333</color>
+    <color name="primaryTextColor">#FFFFFF</color>
+    <color name="secondaryTextColor">#A5A5A5</color>
 </resources>

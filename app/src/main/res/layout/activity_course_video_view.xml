@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/primaryBackgroundColor"
+    android:background="@color/primaryBackgroundColor"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/primaryBackgroundColor"
-        app:titleTextColor="?attr/primaryTextColor" />
+        android:background="@color/primaryBackgroundColor"
+        app:titleTextColor="@color/primaryTextColor" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtube_player"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/rating"
             android:padding="8dp"
-            android:textColor="?attr/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="Python Documentation" />
@@ -43,7 +43,7 @@
             android:layout_below="@id/title"
             android:layout_toStartOf="@id/rating"
             android:padding="8dp"
-            android:textColor="?attr/secondaryTextColor"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="18sp"
             tools:text="SpeckBit" />
 
@@ -54,7 +54,7 @@
             android:layout_alignParentEnd="true"
             android:background="@color/colorAccent"
             android:padding="8dp"
-            android:textColor="?attr/primaryTextColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="24sp"
             tools:text="4.2" />
 

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/welcome"
-        android:textColor="?attr/primaryTextColor"
+        android:textColor="@color/primaryTextColor"
         android:textSize="24sp" />
 
     <ScrollView
@@ -32,7 +32,7 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:padding="16dp"
-                android:textColorHint="?attr/secondaryTextColor" />
+                android:textColorHint="@color/secondaryTextColor" />
 
             <EditText
                 android:id="@+id/password"
@@ -45,14 +45,14 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="16dp"
-                android:textColorHint="?attr/secondaryTextColor" />
+                android:textColorHint="@color/secondaryTextColor" />
 
             <TextView
                 android:id="@+id/forgot_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/forgot_password_reverse"
-                android:textColor="?attr/secondaryTextColor"
+                android:textColor="@color/secondaryTextColor"
                 android:textDirection="rtl" />
 
             <Button
@@ -73,7 +73,7 @@
                 android:layout_gravity="center"
                 android:padding="4dp"
                 android:text="@string/or_sign_in_with"
-                android:textColor="?attr/secondaryTextColor" />
+                android:textColor="@color/secondaryTextColor" />
 
             <ProgressBar
                 android:id="@+id/wait"

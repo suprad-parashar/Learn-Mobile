@@ -27,7 +27,7 @@ public class AuthActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
+//		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_auth);
 

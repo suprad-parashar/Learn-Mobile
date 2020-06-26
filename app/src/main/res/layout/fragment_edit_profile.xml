@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/primaryBackgroundColor"
+    android:background="@color/primaryBackgroundColor"
     android:orientation="vertical">
 
     <ProgressBar
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:textColor="?attr/primaryTextColor"
+        android:textColor="@color/primaryTextColor"
         android:padding="4dp"
         android:text="@string/change_photo"
         app:layout_constraintTop_toBottomOf="@id/profile_image" />
@@ -74,10 +74,10 @@
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
                     android:padding="12dp"
-                    android:textColor="?attr/primaryTextColor"
+                    android:textColor="@color/primaryTextColor"
                     android:paddingStart="16dp"
                     android:paddingEnd="8dp"
-                    android:textColorHint="?attr/primaryTextColor"
+                    android:textColorHint="@color/primaryTextColor"
                     app:layout_constraintTop_toBottomOf="@id/blank_name" />
 
                 <TextView
@@ -85,11 +85,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="?attr/primaryBackgroundColor"
+                    android:background="@color/primaryBackgroundColor"
                     android:labelFor="@id/name"
                     android:padding="4dp"
                     android:text="@string/name"
-                    android:textColor="?attr/primaryTextColor"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -326,9 +326,9 @@
                     android:inputType="textPersonName"
                     android:padding="12dp"
                     android:paddingStart="16dp"
-                    android:textColor="?attr/primaryTextColor"
+                    android:textColor="@color/primaryTextColor"
                     android:paddingEnd="8dp"
-                    android:textColorHint="?attr/primaryTextColor"
+                    android:textColorHint="@color/primaryTextColor"
                     app:layout_constraintTop_toBottomOf="@id/blank_institution" />
 
                 <TextView
@@ -336,11 +336,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="4dp"
-                    android:background="?attr/primaryBackgroundColor"
+                    android:background="@color/primaryBackgroundColor"
                     android:labelFor="@id/institution"
                     android:padding="4dp"
                     android:text="@string/college_name"
-                    android:textColor="?attr/primaryTextColor"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.app.TaskStackBuilder;
 import androidx.fragment.app.Fragment;
@@ -30,9 +31,9 @@ public class SettingsOverviewFragment extends Fragment {
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), Learn.isDark ? R.style.DarkMode : R.style.LightMode);
-		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
-		return localInflater.inflate(R.layout.fragment_settings_overview, container, false);
+//		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), Learn.isDark ? R.style.DarkMode : R.style.LightMode);
+//		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+		return inflater.inflate(R.layout.fragment_settings_overview, container, false);
 //		return inflater.inflate(R.layout.fragment_settings_overview, container, false);
 	}
 
@@ -73,7 +74,8 @@ public class SettingsOverviewFragment extends Fragment {
 		//Handle Dark Mode Selection.
 		darkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
 			Learn.setApplicationTheme(isChecked);
-			requireActivity().setTheme(isChecked ? R.style.DarkMode : R.style.LightMode);
+			AppCompatDelegate.setDefaultNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+//			requireActivity().setTheme(isChecked ? R.style.DarkMode : R.style.LightMode);
 			TaskStackBuilder.create(requireActivity())
 					.addNextIntent(new Intent(getActivity(), HomeActivity.class))
 					.addNextIntent(requireActivity().getIntent())
