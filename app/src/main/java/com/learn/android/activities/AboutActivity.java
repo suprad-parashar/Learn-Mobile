@@ -1,7 +1,9 @@
 package com.learn.android.activities;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -72,6 +74,14 @@ public class AboutActivity extends AppCompatActivity {
 					.setCancelable(true)
 					.setPositiveButton("Close", (dialog, which) -> dialog.dismiss());
 			builder.create().show();
+		} else if (item.getItemId() == R.id.terms_and_conditions_menu) {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("https://firebasestorage.googleapis.com/v0/b/learn-634be.appspot.com/o/Privacy%20Policies%20and%20T%26Cs%2FTC.html?alt=media&token=0ca0b178-1dca-4c2d-9440-07c5da1b96ae"));
+			startActivity(intent);
+		} else if (item.getItemId() == R.id.privacy_policy_menu) {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("https://firebasestorage.googleapis.com/v0/b/learn-634be.appspot.com/o/Privacy%20Policies%20and%20T%26Cs%2FPP.html?alt=media&token=a9841668-2719-4cd6-a740-be0e6755b0a9"));
+			startActivity(intent);
 		}
 		return true;
 	}
