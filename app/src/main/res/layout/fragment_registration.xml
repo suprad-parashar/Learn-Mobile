@@ -72,6 +72,25 @@
                 android:padding="16dp"
                 android:textColorHint="@color/secondaryTextColor" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/tc_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/tc_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/sign_up_button"
                 android:layout_width="match_parent"

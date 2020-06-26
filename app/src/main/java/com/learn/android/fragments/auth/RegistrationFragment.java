@@ -1,6 +1,8 @@
 package com.learn.android.fragments.auth;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +35,8 @@ public class RegistrationFragment extends Fragment {
 	EditText passwordEditText;
 	Button registerButton;
 	TextView signInButton;
+	AppCompatCheckBox checkBox;
+	TextView checkBoxTextView;
 
 	@Nullable
 	@Override
@@ -49,6 +55,18 @@ public class RegistrationFragment extends Fragment {
 		passwordEditText = view.findViewById(R.id.password);
 		registerButton = view.findViewById(R.id.sign_up_button);
 		signInButton = view.findViewById(R.id.sign_in_button);
+		checkBox = view.findViewById(R.id.tc_checkbox);
+		checkBoxTextView = view.findViewById(R.id.tc_textview);
+
+		//Set CheckBox Text
+		checkBoxTextView.setText(Html.fromHtml("I have read and agree to the " +
+				"<a href='https://firebasestorage.googleapis.com/v0/b/learn-634be.appspot.com/o/Privacy%20Policies%20and%20T%26Cs%2FTC.html?alt=media&token=0ca0b178-1dca-4c2d-9440-07c5da1b96ae'>" +
+				"Terms and Conditions</a>" +
+				" and " +
+				"<a href='https://firebasestorage.googleapis.com/v0/b/learn-634be.appspot.com/o/Privacy%20Policies%20and%20T%26Cs%2FPP.html?alt=media&token=a9841668-2719-4cd6-a740-be0e6755b0a9'>" +
+				"Privacy Policy</a>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+		checkBoxTextView.setClickable(true);
+		checkBoxTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
 		//Handle Register Button Clicks
 		registerButton.setOnClickListener(v -> {
@@ -81,6 +99,8 @@ public class RegistrationFragment extends Fragment {
 						passwordEditText.requestFocus();
 						break;
 				}
+			} else if (!checkBox.isChecked()) {
+				Toast.makeText(requireContext(), "Agree to the Terms and Conditions and Privacy Policy of Learn", Toast.LENGTH_SHORT).show();
 			} else {
 				//Create new user using Email and Password.
 				auth.createUserWithEmailAndPassword(email, password)
