@@ -17,7 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.learn.android.utils.NotificationReceiver;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "1. Added Points";
+	public static final String CHANGE_MESSAGE = "1. Added Terms and Conditions and Privacy Policy links in both About and Auth Page" +
+			"\n2. Added an FAQ Section" +
+			"\n3. Implemented Night Mode properly in Android" +
+			"\n4. Redesigned Pages.";
 
 	public static final String DAILY_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnDailyReminder";
 	public static final String SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnScheduledReminder";
