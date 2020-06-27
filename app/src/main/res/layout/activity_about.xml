@@ -10,9 +10,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@color/primaryTextColor"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/about" />
+        app:title="@string/about"
+        app:titleTextColor="@color/primaryTextColor" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,10 +29,10 @@
             <TextView
                 android:id="@+id/about_text"
                 android:layout_width="match_parent"
-                android:textColor="@color/primaryTextColor"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="@string/lorem"
+                android:text="@string/about_learn"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="18sp" />
 
             <TextView

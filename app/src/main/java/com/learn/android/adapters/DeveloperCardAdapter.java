@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.learn.android.R;
 
 public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdapter.DeveloperCardViewHolder> {
@@ -54,6 +55,13 @@ public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdap
 			"https://www.instagram.com/sandeep_n_s/"
 	};
 
+	//Links to Pictures of Developers
+	private String[] imageLinks = {
+			"https://firebasestorage.googleapis.com/v0/b/learn-634be.appspot.com/o/Profile%20Pictures%2FDevelopers%2FSuprad.jpg?alt=media&token=d3bc41e5-d295-41f8-8c9c-5cfae6af24ef",
+			"https://firebasestorage.googleapis.com/v0/b/learn-634be.appspot.com/o/Profile%20Pictures%2FDevelopers%2FSrivalli.jpeg?alt=media&token=82496aa4-07cc-4fe0-be98-e785eba1104b",
+			"https://firebasestorage.googleapis.com/v0/b/learn-634be.appspot.com/o/Profile%20Pictures%2FDevelopers%2FSandeep.jpg?alt=media&token=ed083124-58b4-4928-a258-b9deb6207401"
+	};
+
 	public DeveloperCardAdapter(Context context) {
 		this.context = context;
 	}
@@ -84,6 +92,10 @@ public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdap
 			intent.setData(Uri.parse(instagrams[position]));
 			context.startActivity(intent);
 		});
+		Glide.with(context)
+				.load(imageLinks[position])
+				.placeholder(R.drawable.ic_person)
+				.into(holder.image);
 	}
 
 	@Override
