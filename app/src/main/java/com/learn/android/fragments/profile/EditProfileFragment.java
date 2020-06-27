@@ -75,9 +75,9 @@ public class EditProfileFragment extends Fragment {
 
 	//Declare UI Variables.
 	private EditText userNameEditText, collegeNameEditText;
-	//	private Spinner currentlyIn, stream, branch, boardUniversity, semester;
-//	private TextView boardUniversityLabel;
 	CircleImageView profileImage;
+	//	private Spinner currentlyIn, stream, branch, boardUniversity, semester;
+	//	private TextView boardUniversityLabel;
 
 	//Initialise Data Variables.
 	Bitmap bitmap = null;
@@ -97,13 +97,13 @@ public class EditProfileFragment extends Fragment {
 		final ProgressBar wait = view.findViewById(R.id.wait);
 		userNameEditText = view.findViewById(R.id.name);
 		collegeNameEditText = view.findViewById(R.id.institution);
+		profileImage = view.findViewById(R.id.profile_image);
 //		currentlyIn = view.findViewById(R.id.currently_in);
 //		stream = view.findViewById(R.id.view_profile_stream);
 //		branch = view.findViewById(R.id.branch);
 //		boardUniversity = view.findViewById(R.id.board_university);
 //		boardUniversityLabel = view.findViewById(R.id.board_university_label);
 //		semester = view.findViewById(R.id.view_profile_semester);
-		profileImage = view.findViewById(R.id.profile_image);
 
 		//Set Progressbar.
 		wait.setVisibility(View.VISIBLE);
@@ -144,14 +144,14 @@ public class EditProfileFragment extends Fragment {
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+				collegeNameEditText.setText(dataSnapshot.child("institution").exists() ? (String) dataSnapshot.child("institution").getValue() : "");
+				wait.setVisibility(View.GONE);
 //				if (Objects.equals(dataSnapshot.child("type").getValue(), "Student")) {
 //					if (Objects.equals(dataSnapshot.child("stream").getValue(), "Engineering")) {
 //						branch.setSelection(dataSnapshot.child("branch").exists() ? branchEngineeringList.get(dataSnapshot.child("branch").getValue()) : 0);
 //						semester.setSelection(dataSnapshot.child("semester").exists() ? Integer.parseInt(((String) Objects.requireNonNull(dataSnapshot.child("semester").getValue())).split(" ")[1]) - 1 : 0);
 //					}
 //				}
-				collegeNameEditText.setText(dataSnapshot.child("institution").exists() ? (String) dataSnapshot.child("institution").getValue() : "");
-				wait.setVisibility(View.GONE);
 			}
 
 			@Override
@@ -248,18 +248,18 @@ public class EditProfileFragment extends Fragment {
 //		});
 	}
 
-	/**
-	 * Returns a List of Semesters.
-	 *
-	 * @param numberOfSemesters The number of Semesters to generate.
-	 * @return An Array of String containing Text Form of Semesters.
-	 */
-	private String[] getSemestersArray(int numberOfSemesters) {
-		String[] sems = new String[numberOfSemesters];
-		for (int i = 1; i <= numberOfSemesters; i++)
-			sems[i - 1] = "Semester " + i;
-		return sems;
-	}
+//	/**
+//	 * Returns a List of Semesters.
+//	 *
+//	 * @param numberOfSemesters The number of Semesters to generate.
+//	 * @return An Array of String containing Text Form of Semesters.
+//	 */
+//	private String[] getSemestersArray(int numberOfSemesters) {
+//		String[] sems = new String[numberOfSemesters];
+//		for (int i = 1; i <= numberOfSemesters; i++)
+//			sems[i - 1] = "Semester " + i;
+//		return sems;
+//	}
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {

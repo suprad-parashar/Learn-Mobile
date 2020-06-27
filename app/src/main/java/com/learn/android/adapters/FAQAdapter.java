@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class FAQAdapter extends BaseExpandableListAdapter {
 
+	//Declare Data Variables.
 	ArrayList<FAQ> faqs;
 	Context context;
 

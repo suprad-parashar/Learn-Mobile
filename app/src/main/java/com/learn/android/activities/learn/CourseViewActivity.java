@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.fragments.learn.CourseOverViewFragment;
 
@@ -20,7 +19,6 @@ public class CourseViewActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-//		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_course_view);
 

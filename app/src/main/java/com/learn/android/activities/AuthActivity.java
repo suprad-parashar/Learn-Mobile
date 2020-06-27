@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.fragments.auth.LoginFragment;
 
@@ -27,7 +26,6 @@ public class AuthActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
-//		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_auth);
 

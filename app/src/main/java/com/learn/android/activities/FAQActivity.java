@@ -21,7 +21,10 @@ import java.util.Objects;
 
 public class FAQActivity extends AppCompatActivity {
 
+	//Declare UI Variables.
 	ExpandableListView faqListView;
+
+	//Declare Data Variables.
 	private int lastPosition = -1;
 
 	@Override

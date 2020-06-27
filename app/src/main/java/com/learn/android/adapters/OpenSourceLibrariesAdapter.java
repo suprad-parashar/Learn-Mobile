@@ -11,10 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.objects.OpenSourceLibrary;
 

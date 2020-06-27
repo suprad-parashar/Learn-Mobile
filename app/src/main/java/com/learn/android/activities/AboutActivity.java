@@ -26,10 +26,8 @@ import com.learn.android.adapters.DeveloperCardAdapter;
 import java.util.Objects;
 
 public class AboutActivity extends AppCompatActivity {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-//		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 

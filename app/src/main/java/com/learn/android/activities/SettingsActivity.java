@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.learn.android.Learn;
 import com.learn.android.R;
 import com.learn.android.fragments.settings.SettingsOverviewFragment;
 
@@ -18,7 +17,6 @@ public class SettingsActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setTheme(Learn.isDark ? R.style.DarkMode : R.style.LightMode);
 		setContentView(R.layout.activity_settings);
 
 		//Set Toolbar
