@@ -125,7 +125,7 @@
                     android:layout_gravity="center"
                     android:padding="4dp"
                     android:text="@string/common_signin_button_text"
-                    android:textColor="@android:color/holo_orange_dark"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 

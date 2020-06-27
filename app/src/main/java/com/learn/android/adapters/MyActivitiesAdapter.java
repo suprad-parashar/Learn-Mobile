@@ -3,6 +3,7 @@ package com.learn.android.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,102 +53,112 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 		//Check if Data presentation is a list or card.
 		if (!isList)
 			holder.mainLayout.setMaxWidth(750);
-
-		holder.title.setText(getTitle(activity));
-		holder.date.setText(activity.getDate());
-		String buttonText;
-		switch (activity.getType()) {
-			case VIDEO:
-				buttonText = (activity.isDone()) ? "Watch Again" : "Resume";
-				holder.button.setOnClickListener(v -> {
-					final Intent intent = new Intent(context, CourseVideoViewActivity.class);
-					intent.putExtra("name", activity.getName());
-					intent.putExtra("link", activity.getLink());
-					intent.putExtra("from", activity.getFrom());
-					intent.putExtra("isPlaylist", activity.isPlaylist());
-					intent.putExtra("time", activity.getTime());
-					intent.putExtra("index", activity.getIndex());
-					intent.putExtra("reference", activity.getReference());
-					final ArrayList<String> videoNames = new ArrayList<>(), videoLinks = new ArrayList<>();
-					if (activity.isPlaylist()) {
-						FirebaseDatabase.getInstance()
-								.getReferenceFromUrl(activity.getReference())
-								.child("list")
-								.addListenerForSingleValueEvent(new ValueEventListener() {
-									@Override
-									public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-										for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-											videoNames.add(String.valueOf(snapshot.child("name").getValue()));
-											videoLinks.add(String.valueOf(snapshot.child("link").getValue()));
-										}
-										intent.putExtra("videoNames", videoNames);
-										intent.putExtra("videoLinks", videoLinks);
-										context.startActivity(intent);
-									}
-
-									@Override
-									public void onCancelled(@NonNull DatabaseError databaseError) {
-
-									}
-								});
-					} else {
-						FirebaseDatabase.getInstance().getReference()
-								.child("users")
-								.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-								.child("data")
-								.child("points")
-								.addListenerForSingleValueEvent(new ValueEventListener() {
-									@Override
-									public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-										long points = (long) dataSnapshot.getValue();
-										dataSnapshot.getRef().setValue(points + 5);
-									}
-
-									@Override
-									public void onCancelled(@NonNull DatabaseError databaseError) {
-
-									}
-								});
-						intent.putExtra("videoNames", videoNames);
-						intent.putExtra("videoLinks", videoLinks);
-						context.startActivity(intent);
-					}
-				});
-				break;
-			case DOCUMENT:
-				buttonText = "Read";
-				holder.button.setOnClickListener(v -> {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setData(Uri.parse(activity.getLink()));
-					context.startActivity(intent);
-				});
-				break;
-			case COURSE:
-				buttonText = "Go to Course";
-				holder.button.setOnClickListener(v -> {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setData(Uri.parse(activity.getLink()));
-					context.startActivity(intent);
-				});
-				break;
-			case PROJECT:
-				buttonText = "View Project";
-				holder.button.setOnClickListener(v -> {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setData(Uri.parse(activity.getLink()));
-					context.startActivity(intent);
-				});
-				break;
-			default:
-				buttonText = "Go to Link";
-				holder.button.setOnClickListener(v -> {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setData(Uri.parse(activity.getLink()));
-					context.startActivity(intent);
-				});
-				break;
+		else {
+			ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			params.setMargins(16, 16, 16, 16);
+			holder.mainLayout.setLayoutParams(params);
 		}
-		holder.button.setText(buttonText);
+
+		if (activity == null) {
+			Log.e("ALPHA", "ROMEO");
+		} else {
+
+			holder.title.setText(getTitle(activity));
+			holder.date.setText(activity.getDate());
+			String buttonText;
+			switch (activity.getType()) {
+				case VIDEO:
+					buttonText = (activity.isDone()) ? "Watch Again" : "Resume";
+					holder.button.setOnClickListener(v -> {
+						final Intent intent = new Intent(context, CourseVideoViewActivity.class);
+						intent.putExtra("name", activity.getName());
+						intent.putExtra("link", activity.getLink());
+						intent.putExtra("from", activity.getFrom());
+						intent.putExtra("isPlaylist", activity.isPlaylist());
+						intent.putExtra("time", activity.getTime());
+						intent.putExtra("index", activity.getIndex());
+						intent.putExtra("reference", activity.getReference());
+						final ArrayList<String> videoNames = new ArrayList<>(), videoLinks = new ArrayList<>();
+						if (activity.isPlaylist()) {
+							FirebaseDatabase.getInstance()
+									.getReferenceFromUrl(activity.getReference())
+									.child("list")
+									.addListenerForSingleValueEvent(new ValueEventListener() {
+										@Override
+										public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+											for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+												videoNames.add(String.valueOf(snapshot.child("name").getValue()));
+												videoLinks.add(String.valueOf(snapshot.child("link").getValue()));
+											}
+											intent.putExtra("videoNames", videoNames);
+											intent.putExtra("videoLinks", videoLinks);
+											context.startActivity(intent);
+										}
+
+										@Override
+										public void onCancelled(@NonNull DatabaseError databaseError) {
+
+										}
+									});
+						} else {
+							FirebaseDatabase.getInstance().getReference()
+									.child("users")
+									.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+									.child("data")
+									.child("points")
+									.addListenerForSingleValueEvent(new ValueEventListener() {
+										@Override
+										public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+											long points = (long) dataSnapshot.getValue();
+											dataSnapshot.getRef().setValue(points + 5);
+										}
+
+										@Override
+										public void onCancelled(@NonNull DatabaseError databaseError) {
+
+										}
+									});
+							intent.putExtra("videoNames", videoNames);
+							intent.putExtra("videoLinks", videoLinks);
+							context.startActivity(intent);
+						}
+					});
+					break;
+				case DOCUMENT:
+					buttonText = "Read";
+					holder.button.setOnClickListener(v -> {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(activity.getLink()));
+						context.startActivity(intent);
+					});
+					break;
+				case COURSE:
+					buttonText = "Go to Course";
+					holder.button.setOnClickListener(v -> {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(activity.getLink()));
+						context.startActivity(intent);
+					});
+					break;
+				case PROJECT:
+					buttonText = "View Project";
+					holder.button.setOnClickListener(v -> {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(activity.getLink()));
+						context.startActivity(intent);
+					});
+					break;
+				default:
+					buttonText = "Go to Link";
+					holder.button.setOnClickListener(v -> {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(activity.getLink()));
+						context.startActivity(intent);
+					});
+					break;
+			}
+			holder.button.setText(buttonText);
+		}
 	}
 
 	@Override

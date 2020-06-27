@@ -91,6 +91,13 @@
                 android:contentDescription="@string/google_sign_in_button"
                 android:src="@drawable/ic_google_logo_color" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/new_user" />
+
             <Button
                 android:id="@+id/sign_up_button"
                 android:layout_width="match_parent"
