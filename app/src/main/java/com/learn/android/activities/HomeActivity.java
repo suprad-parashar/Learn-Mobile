@@ -59,8 +59,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		appBarConfiguration = new AppBarConfiguration.Builder(
 				R.id.navigation_home,
 				R.id.navigation_learn,
-				R.id.navigation_social,
-				R.id.navigation_tools,
 				R.id.navigation_profile
 		).setDrawerLayout(drawerLayout).build();
 		navController = Navigation.findNavController(this, R.id.nav_host_fragment);
