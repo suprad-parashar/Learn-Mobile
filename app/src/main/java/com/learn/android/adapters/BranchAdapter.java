@@ -46,7 +46,7 @@ public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.BranchHold
 		holder.branch.setText(branches.get(position).first);
 		Glide.with(context)
 				.load(branches.get(position).second)
-				.placeholder(R.drawable.button_filled)
+				.placeholder(R.drawable.logo_square)
 				.fitCenter()
 				.into(holder.image);
 		holder.itemView.setOnClickListener(v -> {

@@ -94,7 +94,7 @@ public class DeveloperCardAdapter extends RecyclerView.Adapter<DeveloperCardAdap
 		});
 		Glide.with(context)
 				.load(imageLinks[position])
-				.placeholder(R.drawable.ic_person)
+				.placeholder(R.drawable.logo_round)
 				.into(holder.image);
 	}
 

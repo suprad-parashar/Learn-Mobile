@@ -44,7 +44,7 @@ public class DomainAdapter extends RecyclerView.Adapter<DomainAdapter.DomainHold
 		holder.domain.setText(domains.get(position).first);
 		Glide.with(context)
 				.load(domains.get(position).second)
-				.placeholder(R.drawable.button_filled)
+				.placeholder(R.drawable.logo_square)
 				.fitCenter()
 				.into(holder.image);
 		holder.itemView.setOnClickListener(v -> fragmentManager
