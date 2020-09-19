@@ -68,7 +68,12 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 			String buttonText;
 			switch (activity.getType()) {
 				case VIDEO:
-					buttonText = (activity.isDone()) ? "Watch Again" : "Resume";
+					if (activity.isDone()) {
+						buttonText = "Watch Again";
+						holder.button.setBackground(context.getDrawable(R.drawable.button_outline));
+					} else {
+						buttonText = "Resume";
+					}
 					holder.button.setOnClickListener(v -> {
 						final Intent intent = new Intent(context, CourseVideoViewActivity.class);
 						intent.putExtra("name", activity.getName());
