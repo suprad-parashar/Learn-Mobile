@@ -6,7 +6,7 @@
     <item
         android:id="@+id/resource_share_item"
         android:title="@string/share" />
-    <item
-        android:id="@+id/resource_remind_item"
-        android:title="@string/set_reminder" />
+<!--    <item-->
+<!--        android:id="@+id/resource_remind_item"-->
+<!--        android:title="@string/set_reminder" />-->
 </menu>

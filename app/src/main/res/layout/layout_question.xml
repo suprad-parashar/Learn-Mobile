@@ -17,7 +17,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="-3dp"
         tools:text="What are brains?" />
 
     <ImageView
