@@ -23,11 +23,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.learn.android.R;
@@ -47,9 +42,6 @@ public class ProfileFragment extends Fragment {
 	private FirebaseAuth auth = FirebaseAuth.getInstance();
 	private FirebaseUser user = auth.getCurrentUser();
 
-	//Declare UI Variables.
-	private TextView pointsTextView;
-	private ProgressBar wait;
 	private ImageView profileImage;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,12 +56,14 @@ public class ProfileFragment extends Fragment {
 
 		//Initialise UI Variables.
 		final String[] PROFILE_LINKS_LIST = getResources().getStringArray(R.array.profile_links);
-		wait = view.findViewById(R.id.wait);
+		//Declare UI Variables.
+		//	private TextView pointsTextView;
+//		ProgressBar wait = view.findViewById(R.id.wait);
 
 		//Declare UI Variables.
 		TextView nameTextView = view.findViewById(R.id.profile_user_name);
 		TextView emailTextView = view.findViewById(R.id.profile_user_email);
-		pointsTextView = view.findViewById(R.id.profile_user_bp);
+//		pointsTextView = view.findViewById(R.id.profile_user_bp);
 		ImageButton settings = view.findViewById(R.id.settings);
 		ListView profileLinks = view.findViewById(R.id.profile_links);
 		profileImage = view.findViewById(R.id.profile_image);
@@ -103,29 +97,29 @@ public class ProfileFragment extends Fragment {
 		settings.setOnClickListener(v -> startActivity(new Intent(requireActivity(), SettingsActivity.class)));
 
 		//Set ProgressBar
-		wait.setVisibility(View.VISIBLE);
+//		wait.setVisibility(View.VISIBLE);
 
 		//Set User Data.
 		nameTextView.setText(user.getDisplayName());
 		emailTextView.setText(user.getEmail());
 
 		//Fetch User Data from Firebase Database.
-		FirebaseDatabase database = FirebaseDatabase.getInstance();
-		DatabaseReference reference = database.getReference().child("users").child(user.getUid()).child("data");
-		reference.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				long points = (long) dataSnapshot.child("points").getValue();
-				String pointsText = points + " Brains";
-				pointsTextView.setText(pointsText);
-				wait.setVisibility(View.GONE);
-			}
-
-			@Override
-			public void onCancelled(@NonNull DatabaseError databaseError) {
-				wait.setVisibility(View.GONE);
-			}
-		});
+//		FirebaseDatabase database = FirebaseDatabase.getInstance();
+//		DatabaseReference reference = database.getReference().child("users").child(user.getUid()).child("data");
+//		reference.addListenerForSingleValueEvent(new ValueEventListener() {
+//			@Override
+//			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//				long points = (long) dataSnapshot.child("points").getValue();
+//				String pointsText = points + " Brains";
+//				pointsTextView.setText(pointsText);
+//				wait.setVisibility(View.GONE);
+//			}
+//
+//			@Override
+//			public void onCancelled(@NonNull DatabaseError databaseError) {
+//				wait.setVisibility(View.GONE);
+//			}
+//		});
 
 		//Setup Profile Links.
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), R.layout.layout_profile_settings, R.id.setting, PROFILE_LINKS_LIST);

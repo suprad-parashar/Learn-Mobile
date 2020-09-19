@@ -262,19 +262,19 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 				Log.e("Database Error", databaseError.toString());
 			}
 		});
-		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("points");
-		reference.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				long points = (long) dataSnapshot.getValue();
-				reference.setValue(points + extraPoints);
-			}
-
-			@Override
-			public void onCancelled(@NonNull DatabaseError databaseError) {
-
-			}
-		});
+//		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("points");
+//		reference.addListenerForSingleValueEvent(new ValueEventListener() {
+//			@Override
+//			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//				long points = (long) dataSnapshot.getValue();
+//				reference.setValue(points + extraPoints);
+//			}
+//
+//			@Override
+//			public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//			}
+//		});
 	}
 
 	/**
