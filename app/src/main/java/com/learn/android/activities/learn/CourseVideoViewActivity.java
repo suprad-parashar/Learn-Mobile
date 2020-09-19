@@ -29,6 +29,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -176,7 +178,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 					if (Objects.equals(snapshot.getKey(), user.getUid()))
 						ratingBar.setRating((long) snapshot.getValue());
 				}
-				ratingTextView.setText(String.valueOf(ratingTotal / count));
+				ratingTextView.setText(String.valueOf(round(ratingTotal / count, 1)));
 			}
 
 			@Override
@@ -305,5 +307,12 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 	public void onBackPressed() {
 		updateActivity((int) Math.ceil(time / 150));
 		super.onBackPressed();
+	}
+
+	public static double round(double value, int places) {
+		if (places < 0) throw new IllegalArgumentException();
+		BigDecimal bd = BigDecimal.valueOf(value);
+		bd = bd.setScale(places, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 }
