@@ -19,7 +19,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="@string/user_profile_image"
+            android:padding="24dp"
             android:src="@drawable/logo_round"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +35,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/developer_image"
             tools:text="Developer" />
@@ -60,6 +62,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="8dp"
+                android:padding="8dp"
                 android:contentDescription="@string/github"
                 android:src="@drawable/ic_logo_github" />
 
@@ -68,12 +71,14 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="8dp"
+                android:padding="8dp"
                 android:contentDescription="@string/linkedin"
                 android:src="@drawable/ic_logo_linkedin" />
 
             <ImageView
                 android:id="@+id/instagram_link_developer"
                 android:layout_width="50dp"
+                android:padding="8dp"
                 android:layout_height="50dp"
                 android:layout_margin="8dp"
                 android:contentDescription="@string/instagram"

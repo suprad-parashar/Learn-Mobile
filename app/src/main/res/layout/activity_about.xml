@@ -30,7 +30,7 @@
                 android:id="@+id/about_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="16dp"
                 android:text="@string/about_learn"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp" />
