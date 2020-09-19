@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.learn.android.R;
@@ -62,6 +63,11 @@ public class FAQAdapter extends BaseExpandableListAdapter {
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 		convertView = LayoutInflater.from(context).inflate(R.layout.layout_question, parent, false);
 		TextView question = convertView.findViewById(R.id.question);
+		ImageView dropDown = convertView.findViewById(R.id.drop_down);
+		if (isExpanded)
+			dropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_up));
+		else
+			dropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_down));
 		question.setText(faqs.get(groupPosition).getQuestion());
 		return convertView;
 	}
