@@ -63,6 +63,7 @@ public class DisplayCoursesTemplateFragment extends Fragment {
 					courses.add(String.valueOf(snapshot.getValue()));
 				Collections.sort(courses);
 				listView.setAdapter(new CourseAdapter(requireContext(), courses, domain, branch));
+				listView.setFastScrollEnabled(true);
 			}
 
 			@Override

@@ -29,8 +29,8 @@ public class RegistrationFragment extends Fragment {
 	FirebaseAuth auth = FirebaseAuth.getInstance();
 
 	//Declare UI Variables
-	EditText firstNameEditText;
-	EditText lastNameEditText;
+	EditText nameEditText;
+	EditText confirmPasswordEditText;
 	EditText emailEditText;
 	EditText passwordEditText;
 	Button registerButton;
@@ -49,8 +49,8 @@ public class RegistrationFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		//Initialise Views.
-		firstNameEditText = view.findViewById(R.id.first_name);
-		lastNameEditText = view.findViewById(R.id.last_name);
+		nameEditText = view.findViewById(R.id.name);
+		confirmPasswordEditText = view.findViewById(R.id.confirm_password_edit_text);
 		emailEditText = view.findViewById(R.id.email);
 		passwordEditText = view.findViewById(R.id.password);
 		registerButton = view.findViewById(R.id.sign_up_button);
@@ -70,17 +70,14 @@ public class RegistrationFragment extends Fragment {
 
 		//Handle Register Button Clicks
 		registerButton.setOnClickListener(v -> {
-			final String firstName = firstNameEditText.getText().toString().trim();
-			final String lastName = lastNameEditText.getText().toString().trim();
+			final String name = nameEditText.getText().toString().trim();
 			final String email = emailEditText.getText().toString().trim();
 			final String password = passwordEditText.getText().toString();
+			final String confirmPassword = confirmPasswordEditText.getText().toString();
 			int value;
-			if (firstName.equals("")) {
-				firstNameEditText.setError("Please Enter your Name");
-				firstNameEditText.requestFocus();
-			} else if (lastName.equals("")) {
-				lastNameEditText.setError("Please Enter a last Name");
-				lastNameEditText.requestFocus();
+			if (name.equals("")) {
+				nameEditText.setError("Please Enter your Name");
+				nameEditText.requestFocus();
 			} else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 				emailEditText.setError("Invalid Email Address");
 				emailEditText.requestFocus();
@@ -99,6 +96,9 @@ public class RegistrationFragment extends Fragment {
 						passwordEditText.requestFocus();
 						break;
 				}
+			} else if (!password.equals(confirmPassword)) {
+				confirmPasswordEditText.setError("Passwords do not match");
+				confirmPasswordEditText.requestFocus();
 			} else if (!checkBox.isChecked()) {
 				Toast.makeText(requireContext(), "Agree to the Terms and Conditions and Privacy Policy of Learn", Toast.LENGTH_SHORT).show();
 			} else {
@@ -111,7 +111,7 @@ public class RegistrationFragment extends Fragment {
 
 								//Update Name
 								UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-										.setDisplayName(firstName + " " + lastName).build();
+										.setDisplayName(name).build();
 								user.updateProfile(profileUpdates);
 
 								user.sendEmailVerification();

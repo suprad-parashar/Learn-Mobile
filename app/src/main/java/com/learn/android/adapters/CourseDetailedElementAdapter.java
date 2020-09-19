@@ -44,6 +44,7 @@ import com.learn.android.objects.CourseElement;
 import com.learn.android.utils.NotificationReceiver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -219,9 +220,15 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 			});
 			popup.show();
 		});
+		HashMap<Type, String> map = new HashMap<>();
+		map.put(Type.VIDEO, "Video");
+		map.put(Type.DOCUMENT, "Document");
+		map.put(Type.COURSE, "Course");
+		map.put(Type.PROJECT, "Project");
 
 		//Populate Data
 		holder.name.setText(element.getName());
+		holder.type.setText(map.get(element.getType()));
 		holder.rating.setText(String.valueOf(element.getRating()));
 		holder.from.setText(element.getFrom());
 		holder.itemView.setOnClickListener(v -> {
@@ -278,7 +285,7 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 	}
 
 	public static class ElementViewHolder extends RecyclerView.ViewHolder {
-		TextView name, rating, from, noPrerequisites, prerequisitesText, options;
+		TextView name, rating, from, noPrerequisites, prerequisitesText, options, type;
 		RecyclerView prerequisites;
 		ImageView icon;
 
@@ -292,6 +299,7 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 			from = itemView.findViewById(R.id.from);
 			icon = itemView.findViewById(R.id.image);
 			options = itemView.findViewById(R.id.options);
+			type = itemView.findViewById(R.id.type);
 		}
 	}
 }
