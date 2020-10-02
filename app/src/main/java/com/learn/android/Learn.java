@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.learn.android.utils.NotificationReceiver;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "Fixed bugs";
+	public static final String CHANGE_MESSAGE = "Removed Tab View and Bug Fixes";
 
 	public static final String DAILY_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnDailyReminder";
 	public static final String SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnScheduledReminder";
