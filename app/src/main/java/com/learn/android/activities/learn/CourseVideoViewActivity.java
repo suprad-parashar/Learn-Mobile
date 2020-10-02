@@ -85,11 +85,16 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		reference = getIntent().getStringExtra("reference");
 
 		//Add Playlist numbers.
-		assert videoNames != null;
-		int size = videoNames.size();
-		for (int i = 0; i < size; i++) {
-			String updatedName = (i + 1) + ". " + videoNames.get(i);
-			videoNames.set(i, updatedName);
+//		assert videoNames != null;
+		try {
+			assert videoNames != null;
+			int size = videoNames.size();
+			for (int i = 0; i < size; i++) {
+				String updatedName = (i + 1) + ". " + videoNames.get(i);
+				videoNames.set(i, updatedName);
+			}
+		} catch (NullPointerException ignored) {
+
 		}
 
 		//Set Reference
