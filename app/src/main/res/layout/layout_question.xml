@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/question"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:padding="16dp"
-    android:textColor="@color/primaryTextColor"
-    android:textSize="18sp"
-    android:textStyle="bold" />
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_down"
+        android:padding="8dp"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="What are brains?" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:id="@+id/drop_down"
+        android:layout_height="50dp"
+        android:tint="@color/colorPrimary"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_drop_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/indicator" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

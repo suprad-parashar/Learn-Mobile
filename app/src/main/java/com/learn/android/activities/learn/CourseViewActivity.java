@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.learn.android.R;
+import com.learn.android.fragments.learn.CourseDetailedElementFragment;
 import com.learn.android.fragments.learn.CourseOverViewFragment;
 
 import java.util.Objects;
@@ -30,7 +31,7 @@ public class CourseViewActivity extends AppCompatActivity {
 		//Show Course Overview.
 		getSupportFragmentManager()
 				.beginTransaction()
-				.replace(R.id.course_view_fragment, new CourseOverViewFragment(title, domain, branch))
+				.replace(R.id.course_view_fragment, new CourseDetailedElementFragment(title, domain, branch))
 				.commit();
 
 		//Setup Toolbar.

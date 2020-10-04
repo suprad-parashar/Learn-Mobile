@@ -2,6 +2,7 @@ package com.learn.android.fragments.learn;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ import com.learn.android.adapters.CourseDetailedElementAdapter;
 import com.learn.android.objects.CourseElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class CourseDetailedElementFragment extends Fragment {
 
@@ -99,96 +102,39 @@ public class CourseDetailedElementFragment extends Fragment {
 		});
 
 		//Populate Data.
-		switch (CourseViewActivity.type) {
-			case VIDEO:
-				reference.child("Videos").addListenerForSingleValueEvent(new ValueEventListener() {
-					@Override
-					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-						for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-							CourseElement element = getCourseElement(snapshot, Type.VIDEO);
+//		CourseViewActivity.type = Type.VIDEO;
+		HashMap<String, Type> map = new HashMap<>();
+		map.put("Videos", Type.VIDEO);
+		map.put("Documents", Type.DOCUMENT);
+		map.put("Courses", Type.COURSE);
+		map.put("Projects", Type.PROJECT);
+
+		reference.addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				for (DataSnapshot child: snapshot.getChildren()) {
+					if (!Objects.equals(child.getKey(), "image")) {
+						Log.e("MAIN", Objects.requireNonNull(child.getKey()));
+						for (DataSnapshot dataSnapshot : child.getChildren()) {
+							Log.e("SUB", Objects.requireNonNull(dataSnapshot.getKey()));
+							CourseElement element = getCourseElement(dataSnapshot, map.get(child.getKey()));
 							courseElements.add(element);
 						}
-						if (courseElements.size() == 0) {
-							emptyView.setVisibility(View.VISIBLE);
-							detailsListView.setVisibility(View.GONE);
-						} else {
-							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
-						}
 					}
+				}
+				if (courseElements.size() == 0) {
+					emptyView.setVisibility(View.VISIBLE);
+					detailsListView.setVisibility(View.GONE);
+				} else {
+					detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
+				}
+			}
 
-					@Override
-					public void onCancelled(@NonNull DatabaseError databaseError) {
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
 
-					}
-				});
-				break;
-			case DOCUMENT:
-				reference.child("Documents").addListenerForSingleValueEvent(new ValueEventListener() {
-					@Override
-					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-						for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-							CourseElement element = getCourseElement(snapshot, Type.DOCUMENT);
-							courseElements.add(element);
-						}
-						if (courseElements.size() == 0) {
-							emptyView.setVisibility(View.VISIBLE);
-							detailsListView.setVisibility(View.GONE);
-						} else {
-							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
-						}
-					}
-
-					@Override
-					public void onCancelled(@NonNull DatabaseError databaseError) {
-
-					}
-				});
-				break;
-			case COURSE:
-				reference.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
-					@Override
-					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-						for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-							CourseElement element = getCourseElement(snapshot, Type.COURSE);
-							courseElements.add(element);
-						}
-						if (courseElements.size() == 0) {
-							emptyView.setVisibility(View.VISIBLE);
-							detailsListView.setVisibility(View.GONE);
-						} else {
-							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
-						}
-					}
-
-					@Override
-					public void onCancelled(@NonNull DatabaseError databaseError) {
-
-					}
-				});
-				break;
-			case PROJECT:
-				reference.child("Projects").addListenerForSingleValueEvent(new ValueEventListener() {
-					@Override
-					public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-						for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-							CourseElement element = getCourseElement(snapshot, Type.PROJECT);
-							courseElements.add(element);
-						}
-						if (courseElements.size() == 0) {
-							emptyView.setVisibility(View.VISIBLE);
-							detailsListView.setVisibility(View.GONE);
-						} else {
-							detailsListView.setAdapter(new CourseDetailedElementAdapter(requireActivity(), courseElements, domain, branch));
-						}
-					}
-
-					@Override
-					public void onCancelled(@NonNull DatabaseError databaseError) {
-
-					}
-				});
-				break;
-		}
+			}
+		});
 
 		addResourceButton.setOnClickListener(v -> {
 			Intent intent = new Intent(requireContext(), AddResourceActivity.class);

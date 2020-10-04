@@ -9,10 +9,10 @@
         <item android:title="@string/other">
             <menu>
                 <group android:checkableBehavior="single">
-                    <item
-                        android:id="@+id/navigation_tools"
-                        android:icon="@drawable/ic_tools"
-                        android:title="@string/menu_tools" />
+                    <!--                    <item-->
+                    <!--                        android:id="@+id/navigation_tools"-->
+                    <!--                        android:icon="@drawable/ic_tools"-->
+                    <!--                        android:title="@string/menu_tools" />-->
                     <item
                         android:id="@+id/navigation_profile"
                         android:icon="@drawable/ic_profile"

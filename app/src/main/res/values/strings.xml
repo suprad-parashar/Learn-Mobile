@@ -139,6 +139,8 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="about_learn">Learn aims to provide curated educational resources, made available by various educators and content creators around the world, across various domains, to students. We at Learn believe that we must learn concepts for our better understanding and skill development and not just study them for the sake of marks. Learn provides a platform for students to access various resources such as Videos, Courses, etc. Let\'s learn something new every day.</string>
     <string name="new_user">New User?</string>
+    <string name="lets_learn">Let\'s Learn something today</string>
+    <string name="indicator">indicator</string>
 
     <string-array name="branch_science">
         <item>PCM + Biology</item>

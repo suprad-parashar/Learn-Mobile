@@ -17,10 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.learn.android.utils.NotificationReceiver;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "1. Added Terms and Conditions and Privacy Policy links in both About and Auth Page" +
-			"\n2. Added an FAQ Section" +
-			"\n3. Implemented Night Mode properly in Android" +
-			"\n4. Redesigned Pages.";
+	public static final String CHANGE_MESSAGE = "Removed Tab View and Bug Fixes";
 
 	public static final String DAILY_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnDailyReminder";
 	public static final String SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnScheduledReminder";
@@ -49,9 +46,9 @@ public class Learn extends Application {
 		}
 
 		//Create Notification Channels.
-		createNotificationChannel("Daily Reminder", "Daily Reminders to help you learn something new everyday", DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
-		createNotificationChannel("Reminders", "Scheduled Reminders set by you for learning something new", SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID);
-		sendDailyNotifications();
+//		createNotificationChannel("Daily Reminder", "Daily Reminders to help you learn something new everyday", DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
+//		createNotificationChannel("Reminders", "Scheduled Reminders set by you for learning something new", SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID);
+//		sendDailyNotifications();
 
 		//Dark Mode
 		if (!settings.contains("darkMode"))

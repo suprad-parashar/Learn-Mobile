@@ -3,6 +3,7 @@ package com.learn.android.activities.learn;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,17 +17,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
+import com.learn.android.adapters.CourseAdapter;
 import com.learn.android.adapters.CoursesDataViewPagerAdapter;
 import com.learn.android.fragments.learn.DisplayCoursesTemplateFragment;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class ViewCoursesDataActivity extends AppCompatActivity {
 
 	//Declare UI Variables.
-	ViewPager pager;
-	TabLayout tabLayout;
+	ListView listView;
 	Toolbar toolbar;
+
+	//Declare Firebase Variables
+	DatabaseReference reference;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,31 +51,29 @@ public class ViewCoursesDataActivity extends AppCompatActivity {
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(name);
 
-		//Initialise UI Variables.
-		pager = findViewById(R.id.pager);
-		tabLayout = findViewById(R.id.tab_layout);
+		//Setup Recycler View.
+		listView = findViewById(R.id.courses_list);
 
-		//Setup Tabs and Courses.
-		final CoursesDataViewPagerAdapter adapter = new CoursesDataViewPagerAdapter(getSupportFragmentManager(), 100);
+		//Add Data.
 		assert referencePath != null;
 		assert name != null;
-		final DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl(referencePath).child(name);
+		reference = FirebaseDatabase.getInstance().getReferenceFromUrl(referencePath).child(name);
 		reference.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-					String heading = snapshot.getKey();
-					assert heading != null;
-					if (!heading.equals("image"))
-						adapter.addFragment(new DisplayCoursesTemplateFragment(reference.child(heading), domain, branch), heading);
+				ArrayList<String> courses = new ArrayList<>();
+				for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+					for (DataSnapshot course : snapshot.getChildren())
+						courses.add(String.valueOf(course.getValue()));
 				}
-				pager.setAdapter(adapter);
-				tabLayout.setupWithViewPager(pager);
+				Collections.sort(courses);
+				listView.setAdapter(new CourseAdapter(ViewCoursesDataActivity.this, courses, domain, branch));
+				listView.setFastScrollEnabled(true);
 			}
 
 			@Override
 			public void onCancelled(@NonNull DatabaseError databaseError) {
-				Log.e("Database Error", databaseError.toString());
+
 			}
 		});
 	}

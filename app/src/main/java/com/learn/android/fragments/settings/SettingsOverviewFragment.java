@@ -2,7 +2,6 @@ package com.learn.android.fragments.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ public class SettingsOverviewFragment extends Fragment {
 
 	//Declare UI Variables.
 	Switch darkMode;
-	TextView changePassword, openSourceLibraries, reminders;
+	TextView changePassword, openSourceLibraries;
 
 	@Nullable
 	@Override
@@ -38,22 +37,22 @@ public class SettingsOverviewFragment extends Fragment {
 		darkMode = view.findViewById(R.id.dark_mode);
 		changePassword = view.findViewById(R.id.change_password);
 		openSourceLibraries = view.findViewById(R.id.osl);
-		reminders = view.findViewById(R.id.toggle_reminders);
+//		reminders = view.findViewById(R.id.toggle_reminders);
 
 		//Handle Reminder Clicks
-		reminders.setOnClickListener(v -> {
-			Intent intent = new Intent();
-			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-				intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-				intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().getPackageName());
-				intent.putExtra(Settings.EXTRA_CHANNEL_ID, Learn.DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
-				startActivity(intent);
-			} else {
-				intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-				intent.putExtra("app_package", requireContext().getPackageName());
-				intent.putExtra("app_uid", requireContext().getApplicationInfo().uid);
-			}
-		});
+//		reminders.setOnClickListener(v -> {
+//			Intent intent = new Intent();
+//			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//				intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+//				intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().getPackageName());
+//				intent.putExtra(Settings.EXTRA_CHANNEL_ID, Learn.DAILY_REMINDER__NOTIFICATION_CHANNEL_ID);
+//				startActivity(intent);
+//			} else {
+//				intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+//				intent.putExtra("app_package", requireContext().getPackageName());
+//				intent.putExtra("app_uid", requireContext().getApplicationInfo().uid);
+//			}
+//		});
 
 		//Handle Change Password.
 		changePassword.setOnClickListener(v -> getParentFragmentManager()

@@ -51,11 +51,13 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 		final Activity activity = activities.get(position);
 
 		//Check if Data presentation is a list or card.
-		if (!isList)
-			holder.mainLayout.setMaxWidth(750);
+		if (!isList) {
+			holder.mainLayout.setLayoutParams(new ViewGroup.LayoutParams(750, ViewGroup.LayoutParams.MATCH_PARENT));
+			holder.mainLayout.setPadding(16, 0, 16, 0);
+		}
 		else {
 			ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-			params.setMargins(16, 16, 16, 16);
+			params.setMargins(32, 16, 32, 16);
 			holder.mainLayout.setLayoutParams(params);
 		}
 
@@ -68,7 +70,12 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 			String buttonText;
 			switch (activity.getType()) {
 				case VIDEO:
-					buttonText = (activity.isDone()) ? "Watch Again" : "Resume";
+					if (activity.isDone()) {
+						buttonText = "Watch Again";
+						holder.button.setBackground(context.getDrawable(R.drawable.button_outline));
+					} else {
+						buttonText = "Resume";
+					}
 					holder.button.setOnClickListener(v -> {
 						final Intent intent = new Intent(context, CourseVideoViewActivity.class);
 						intent.putExtra("name", activity.getName());

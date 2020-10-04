@@ -3,6 +3,8 @@ package com.learn.android.objects;
 import com.google.firebase.database.DatabaseReference;
 import com.learn.android.activities.learn.Type;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 /**
@@ -88,7 +90,7 @@ public class CourseElement {
 		double rating = 0;
 		for (int r : ratings)
 			rating += r;
-		return rating / ratings.length;
+		return round(rating / ratings.length, 1);
 	}
 
 	public void setRatings(int[] ratings) {
@@ -111,5 +113,12 @@ public class CourseElement {
 
 	public void setPrerequisites(String[] prerequisites) {
 		this.prerequisites = prerequisites;
+	}
+
+	public static double round(double value, int places) {
+		if (places < 0) throw new IllegalArgumentException();
+		BigDecimal bd = BigDecimal.valueOf(value);
+		bd = bd.setScale(places, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 }

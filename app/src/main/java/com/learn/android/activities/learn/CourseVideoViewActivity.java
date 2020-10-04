@@ -29,6 +29,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -81,6 +83,19 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		final ArrayList<String> videoNames = getIntent().getStringArrayListExtra("videoNames");
 		final ArrayList<String> videoLinks = getIntent().getStringArrayListExtra("videoLinks");
 		reference = getIntent().getStringExtra("reference");
+
+		//Add Playlist numbers.
+//		assert videoNames != null;
+		try {
+			assert videoNames != null;
+			int size = videoNames.size();
+			for (int i = 0; i < size; i++) {
+				String updatedName = (i + 1) + ". " + videoNames.get(i);
+				videoNames.set(i, updatedName);
+			}
+		} catch (NullPointerException ignored) {
+
+		}
 
 		//Set Reference
 		assert reference != null;
@@ -176,7 +191,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 					if (Objects.equals(snapshot.getKey(), user.getUid()))
 						ratingBar.setRating((long) snapshot.getValue());
 				}
-				ratingTextView.setText(String.valueOf(ratingTotal / count));
+				ratingTextView.setText(String.valueOf(round(ratingTotal / count, 1)));
 			}
 
 			@Override
@@ -221,9 +236,10 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 				boolean found = false;
-				for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+				long n = dataSnapshot.getChildrenCount();
+				for (int i = 1; i < 3; i++) {
 					//Update Activity.
-					Activity activity = snapshot.getValue(Activity.class);
+					Activity activity = dataSnapshot.child(String.valueOf(n - i)).getValue(Activity.class);
 					assert activity != null;
 					if (!activity.getName().equals(name))
 						continue;
@@ -235,7 +251,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 					SimpleDateFormat format = new SimpleDateFormat("d MMM, yyyy", Locale.getDefault());
 					String date = format.format(new Date());
 					activity.setDate(date);
-					activityReference.child(Objects.requireNonNull(snapshot.getKey())).setValue(activity);
+					activityReference.child(Objects.requireNonNull(dataSnapshot.child(String.valueOf(n - i)).getKey())).setValue(activity);
 				}
 				if (!found) {
 					//Create new Activity.
@@ -262,19 +278,19 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 				Log.e("Database Error", databaseError.toString());
 			}
 		});
-		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("points");
-		reference.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				long points = (long) dataSnapshot.getValue();
-				reference.setValue(points + extraPoints);
-			}
-
-			@Override
-			public void onCancelled(@NonNull DatabaseError databaseError) {
-
-			}
-		});
+//		DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("data").child("points");
+//		reference.addListenerForSingleValueEvent(new ValueEventListener() {
+//			@Override
+//			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//				long points = (long) dataSnapshot.getValue();
+//				reference.setValue(points + extraPoints);
+//			}
+//
+//			@Override
+//			public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//			}
+//		});
 	}
 
 	/**
@@ -305,5 +321,12 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 	public void onBackPressed() {
 		updateActivity((int) Math.ceil(time / 150));
 		super.onBackPressed();
+	}
+
+	public static double round(double value, int places) {
+		if (places < 0) throw new IllegalArgumentException();
+		BigDecimal bd = BigDecimal.valueOf(value);
+		bd = bd.setScale(places, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 }

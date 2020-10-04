@@ -17,17 +17,17 @@
         android:label="@string/title_learn"
         tools:layout="@layout/fragment_learn" />
 
-    <fragment
-        android:id="@+id/navigation_social"
-        android:name="com.learn.android.fragments.social.SocialFragment"
-        android:label="@string/title_social"
-        tools:layout="@layout/fragment_social" />
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_social"-->
+    <!--        android:name="com.learn.android.fragments.social.SocialFragment"-->
+    <!--        android:label="@string/title_social"-->
+    <!--        tools:layout="@layout/fragment_social" />-->
 
-    <fragment
-        android:id="@+id/navigation_tools"
-        android:name="com.learn.android.fragments.tools.ToolsFragment"
-        android:label="@string/title_tools"
-        tools:layout="@layout/fragment_tools" />
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_tools"-->
+    <!--        android:name="com.learn.android.fragments.tools.ToolsFragment"-->
+    <!--        android:label="@string/title_tools"-->
+    <!--        tools:layout="@layout/fragment_tools" />-->
 
     <fragment
         android:id="@+id/navigation_profile"
