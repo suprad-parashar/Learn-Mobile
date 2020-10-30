@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Learn extends Application {
-	public static final String CHANGE_MESSAGE = "Removed Tab View and Bug Fixes";
+	public static final String CHANGE_MESSAGE = "Welcome to the First Version of Learn!";
 
 	public static final String DAILY_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnDailyReminder";
 	public static final String SCHEDULED_REMINDER__NOTIFICATION_CHANNEL_ID = "LearnScheduledReminder";
