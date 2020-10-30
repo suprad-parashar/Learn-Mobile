@@ -1,27 +1,15 @@
 package com.learn.android.adapters;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.DatePickerDialog;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
 import android.net.Uri;
-import android.os.Build;
-import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,11 +29,9 @@ import com.learn.android.R;
 import com.learn.android.activities.learn.CourseVideoViewActivity;
 import com.learn.android.activities.learn.Type;
 import com.learn.android.objects.CourseElement;
-import com.learn.android.utils.NotificationReceiver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Objects;
 
 public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDetailedElementAdapter.ElementViewHolder> {
@@ -99,8 +85,12 @@ public class CourseDetailedElementAdapter extends RecyclerView.Adapter<CourseDet
 					Intent sendIntent = new Intent();
 					sendIntent.setAction(Intent.ACTION_SEND);
 
+					String[] parts = element.getReference().toString().split("/");
+					String index = parts[parts.length - 1];
+					String course = parts[parts.length - 3];
+					String link = "https://learningforever.herokuapp.com/course/" + course + "/video/" + index;
 					String shareMessage = "Hey there! I am learning " + element.getName() + " from " + element.getFrom() + " on Learn!" +
-							"\nURL: " + element.getLink() +
+							"\nURL: " + link +
 							"\nWhy don't you join me on Learn!";
 					sendIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 					sendIntent.setType("text/plain");

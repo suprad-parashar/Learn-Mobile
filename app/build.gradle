@@ -59,7 +59,7 @@ dependencies {
     implementation 'com.karumi:dexter:6.1.2'
 
     //Firebase Gradle
-    implementation 'com.google.firebase:firebase-database:19.4.0'
+    implementation 'com.google.firebase:firebase-database:19.5.0'
     implementation 'com.google.firebase:firebase-auth:19.4.0'
     implementation 'com.google.firebase:firebase-storage:19.2.0'
 }

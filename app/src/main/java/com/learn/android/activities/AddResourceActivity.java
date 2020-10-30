@@ -3,6 +3,7 @@ package com.learn.android.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.URLUtil;
@@ -67,11 +68,9 @@ public class AddResourceActivity extends AppCompatActivity {
 		final String domain = getIntent().getStringExtra("domain");
 		final String branch = getIntent().getStringExtra("branch");
 		final String course = getIntent().getStringExtra("course");
-		String type = getIntent().getStringExtra("type");
 
 		//Setup Type Spinner
 		typeSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.layout_resource_spinner, R.id.resource, Type.values()));
-		typeSpinner.setSelection(Type.valueOf(type).ordinal());
 
 		//Populate Domains
 		final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("domain");
@@ -83,7 +82,7 @@ public class AddResourceActivity extends AppCompatActivity {
 					domains.add(snapshot.getKey());
 				Collections.sort(domains);
 				domainSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.layout_resource_spinner, R.id.resource, domains));
-				domainSpinner.setSelection(domains.indexOf(domain));
+//				domainSpinner.setSelection(domains.indexOf(domain));
 			}
 
 			@Override
@@ -105,9 +104,9 @@ public class AddResourceActivity extends AppCompatActivity {
 							branches.add(snapshot.getKey());
 						branches.remove("image");
 						Collections.sort(branches);
-						if (domainSelected.equals(domain))
-							branchSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.layout_resource_spinner, R.id.resource, branches));
-						branchSpinner.setSelection(branches.indexOf(branch));
+						Log.e("BRANCHES", branches.toString());
+						branchSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.layout_resource_spinner, R.id.resource, branches));
+						branchSpinner.setSelection(0);
 					}
 
 					@Override
@@ -138,8 +137,7 @@ public class AddResourceActivity extends AppCompatActivity {
 								courses.add(String.valueOf(snapshot.getValue()));
 						Collections.sort(courses);
 						courseSpinner.setAdapter(new ArrayAdapter<>(AddResourceActivity.this, R.layout.layout_resource_spinner, R.id.resource, courses));
-						if (branchSelected.equals(branch))
-							courseSpinner.setSelection(courses.indexOf(course));
+						courseSpinner.setSelection(0);
 						loading.setVisibility(View.GONE);
 					}
 

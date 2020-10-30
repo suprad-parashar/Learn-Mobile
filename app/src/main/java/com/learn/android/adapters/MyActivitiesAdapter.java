@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,7 +73,7 @@ public class MyActivitiesAdapter extends RecyclerView.Adapter<MyActivitiesAdapte
 				case VIDEO:
 					if (activity.isDone()) {
 						buttonText = "Watch Again";
-						holder.button.setBackground(context.getDrawable(R.drawable.button_outline));
+						holder.button.setBackground(ContextCompat.getDrawable(context, R.drawable.button_outline));
 					} else {
 						buttonText = "Resume";
 					}

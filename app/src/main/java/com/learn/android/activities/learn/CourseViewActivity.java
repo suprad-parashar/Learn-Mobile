@@ -1,14 +1,17 @@
 package com.learn.android.activities.learn;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.learn.android.R;
+import com.learn.android.activities.AddResourceActivity;
 import com.learn.android.fragments.learn.CourseDetailedElementFragment;
-import com.learn.android.fragments.learn.CourseOverViewFragment;
 
 import java.util.Objects;
 
@@ -45,7 +48,20 @@ public class CourseViewActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
 			onBackPressed();
+		} else if (item.getItemId() == R.id.add_resource_menu) {
+			Intent intent = new Intent(CourseViewActivity.this, AddResourceActivity.class);
+			intent.putExtra("domain", domain);
+			intent.putExtra("branch", branch);
+			intent.putExtra("course", title);
+			startActivity(intent);
 		}
+		return true;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.add_resource_menu, menu);
 		return true;
 	}
 }

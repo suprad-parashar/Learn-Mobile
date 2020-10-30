@@ -1,5 +1,6 @@
 package com.learn.android.fragments.learn;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -49,7 +50,12 @@ public class DomainFragment extends Fragment {
 		loading.setVisibility(View.VISIBLE);
 
 		//Setup Recycler View.
-		GridLayoutManager manager = new GridLayoutManager(requireContext(), 2);
+		GridLayoutManager manager;
+		if (requireActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+			manager = new GridLayoutManager(requireContext(), 2);
+		} else {
+			manager = new GridLayoutManager(requireContext(), 3);
+		}
 		manager.setOrientation(RecyclerView.VERTICAL);
 		domainView.setLayoutManager(manager);
 

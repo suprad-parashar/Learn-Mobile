@@ -8,6 +8,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.learn.android.R;
 import com.learn.android.objects.FAQ;
 
@@ -65,9 +67,9 @@ public class FAQAdapter extends BaseExpandableListAdapter {
 		TextView question = convertView.findViewById(R.id.question);
 		ImageView dropDown = convertView.findViewById(R.id.drop_down);
 		if (isExpanded)
-			dropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_up));
+			dropDown.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_drop_up));
 		else
-			dropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_down));
+			dropDown.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_drop_down));
 		question.setText(faqs.get(groupPosition).getQuestion());
 		return convertView;
 	}

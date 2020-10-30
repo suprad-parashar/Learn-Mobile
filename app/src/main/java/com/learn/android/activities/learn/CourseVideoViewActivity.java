@@ -114,7 +114,6 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 				//Setup Playlist
 				if (isPlaylist) {
 					videosPlaylist.setVisibility(View.VISIBLE);
-					assert videoNames != null;
 					nameTextView.setText(videoNames.get(videoIndex));
 					//Setup Playlist Data.
 					videosPlaylist.setAdapter(new ArrayAdapter<>(CourseVideoViewActivity.this, R.layout.layout_video_playlist, R.id.video, videoNames));
@@ -208,6 +207,10 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 			Intent sendIntent = new Intent();
 			sendIntent.setAction(Intent.ACTION_SEND);
 
+			String[] parts = reference.split("/");
+			String index = parts[parts.length - 1];
+			String course = parts[parts.length - 3];
+			String link = "https://learningforever.herokuapp.com/course/" + course + "/video/" + index;
 			String shareMessage = "Hey there! I am learning " + name + " from " + from + " on Learn!" +
 					"\nURL: " + link +
 					"\nWhy don't you join me on Learn!";
@@ -325,8 +328,12 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 
 	public static double round(double value, int places) {
 		if (places < 0) throw new IllegalArgumentException();
-		BigDecimal bd = BigDecimal.valueOf(value);
-		bd = bd.setScale(places, RoundingMode.HALF_UP);
-		return bd.doubleValue();
+		try {
+			BigDecimal bd = BigDecimal.valueOf(value);
+			bd = bd.setScale(places, RoundingMode.HALF_UP);
+			return bd.doubleValue();
+		} catch (NumberFormatException ignored){
+			return 4.0;
+		}
 	}
 }

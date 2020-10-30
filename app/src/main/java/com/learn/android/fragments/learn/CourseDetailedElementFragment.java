@@ -141,7 +141,6 @@ public class CourseDetailedElementFragment extends Fragment {
 			intent.putExtra("domain", domain);
 			intent.putExtra("branch", branch);
 			intent.putExtra("course", title);
-			intent.putExtra("type", CourseViewActivity.type.toString());
 			startActivity(intent);
 		});
 	}

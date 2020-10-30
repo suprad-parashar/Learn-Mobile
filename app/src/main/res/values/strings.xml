@@ -93,7 +93,6 @@
     <string name="account_already">Already have an Account?</string>
     <string name="no_resources_available">No Resources Available😭</string>
     <string name="help_message_resources">Have any good resource to share with fellow students? Help us!</string>
-    <string name="add_resource">Add Resource</string>
     <string name="title">Title</string>
     <string name="domain">Domain</string>
     <string name="type">Type</string>
@@ -101,7 +100,7 @@
     <string name="from">From</string>
     <string name="course">Course</string>
     <string name="what_learn_today">What do you want to learn today?</string>
-    <string name="welcome_back">Welcome Back, </string>
+    <string name="welcome_back">Welcome, </string>
     <string name="exclamation">!</string>
     <string name="recent_activities">Recent Activities</string>
     <string name="change_photo">Change Photo</string>
@@ -141,6 +140,7 @@
     <string name="new_user">New User?</string>
     <string name="lets_learn">Let\'s Learn something today</string>
     <string name="indicator">indicator</string>
+    <string name="add_resource">Add Resource</string>
 
     <string-array name="branch_science">
         <item>PCM + Biology</item>

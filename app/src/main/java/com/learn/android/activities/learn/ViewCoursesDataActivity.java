@@ -1,25 +1,24 @@
 package com.learn.android.activities.learn;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.learn.android.R;
+import com.learn.android.activities.AddResourceActivity;
 import com.learn.android.adapters.CourseAdapter;
-import com.learn.android.adapters.CoursesDataViewPagerAdapter;
-import com.learn.android.fragments.learn.DisplayCoursesTemplateFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,7 +81,20 @@ public class ViewCoursesDataActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
 			onBackPressed();
+		} else if (item.getItemId() == R.id.add_resource_menu) {
+			Intent intent = new Intent(ViewCoursesDataActivity.this, AddResourceActivity.class);
+			intent.putExtra("domain", "Engineering");
+			intent.putExtra("branch", "Computer Science and Engineering");
+			intent.putExtra("course", "Algorithms");
+			startActivity(intent);
 		}
+		return true;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.add_resource_menu, menu);
 		return true;
 	}
 }

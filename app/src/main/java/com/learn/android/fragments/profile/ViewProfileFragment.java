@@ -34,7 +34,6 @@ public class ViewProfileFragment extends Fragment {
 
 	//Initialise UI Variables.
 	private TextView collegeName;
-	private TextView type;//, semester;
 	//	private TextView currentlyIn, stream, branch, boardUniversity;
 
 	@Nullable
@@ -50,7 +49,6 @@ public class ViewProfileFragment extends Fragment {
 		final ProgressBar wait = view.findViewById(R.id.wait_view_profile);
 		TextView userName = view.findViewById(R.id.user_name_view_profile);
 		collegeName = view.findViewById(R.id.college_view_profile);
-		type = view.findViewById(R.id.user_type_view_profile);
 //		currentlyIn = view.findViewById(R.id.user_currently_in_view_profile);
 //		stream = view.findViewById(R.id.stream_view_profile);
 //		branch = view.findViewById(R.id.branch_view_profile);
@@ -67,7 +65,6 @@ public class ViewProfileFragment extends Fragment {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 				collegeName.setText(getDataFromFirebase(dataSnapshot, "institution"));
-				type.setText(getDataFromFirebase(dataSnapshot, "type"));
 				wait.setVisibility(View.GONE);
 //				currentlyIn.setText(getDataFromFirebase(dataSnapshot, "currently_in"));
 //				stream.setText(getDataFromFirebase(dataSnapshot, "stream"));
