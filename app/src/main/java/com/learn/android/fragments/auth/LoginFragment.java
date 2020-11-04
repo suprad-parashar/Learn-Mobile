@@ -179,6 +179,7 @@ public class LoginFragment extends Fragment {
 				firebaseAuthWithGoogle(account);
 			} catch (ApiException e) {
 				Toast.makeText(requireActivity(), "Authentication Failed.", Toast.LENGTH_LONG).show();
+				e.printStackTrace();
 			}
 		}
 	}
