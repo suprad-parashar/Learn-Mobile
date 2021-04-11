@@ -31,6 +31,7 @@ import com.learn.android.adapters.CourseDetailedElementAdapter;
 import com.learn.android.objects.CourseElement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -117,6 +118,7 @@ public class CourseDetailedElementFragment extends Fragment {
 						Log.e("MAIN", Objects.requireNonNull(child.getKey()));
 						for (DataSnapshot dataSnapshot : child.getChildren()) {
 							Log.e("SUB", Objects.requireNonNull(dataSnapshot.getKey()));
+							Log.e("TYPE", child.getKey());
 							CourseElement element = getCourseElement(dataSnapshot, map.get(child.getKey()));
 							courseElements.add(element);
 						}
@@ -182,7 +184,11 @@ public class CourseDetailedElementFragment extends Fragment {
 		int[] ratings = new int[(int) snapshot.child("rating").getChildrenCount()];
 		int i = 0;
 		for (DataSnapshot innerSnapshot : snapshot.child("rating").getChildren()) {
-			ratings[i++] = Integer.parseInt(String.valueOf(innerSnapshot.getValue()));
+			try {
+				ratings[i++] = Integer.parseInt(String.valueOf(innerSnapshot.getValue()));
+			} catch (NumberFormatException e) {
+				ratings[--i] = 4;
+			}
 		}
 		element.setRatings(ratings);
 		element.setReference(snapshot.getRef());

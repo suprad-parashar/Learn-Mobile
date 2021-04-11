@@ -49,6 +49,8 @@
 
             <TextView
                 android:id="@+id/forgot_password"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/forgot_password_reverse"
@@ -58,6 +60,8 @@
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/button_outline"
@@ -103,6 +107,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/button_filled"
                 android:text="@string/sign_up"
                 android:textAllCaps="false"

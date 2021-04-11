@@ -42,6 +42,7 @@ public class AddResourceActivity extends AppCompatActivity {
 	Spinner domainSpinner, branchSpinner, courseSpinner, typeSpinner;
 	ProgressBar loading;
 	Button addResourceButton;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -68,29 +66,25 @@ public class ProfileFragment extends Fragment {
 		profileImage = view.findViewById(R.id.profile_image);
 
 		//Set Profile Image
-		try {
-			File file = new File(requireContext().getFilesDir(), "profile.jpg");
-			Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-			profileImage.setImageBitmap(bitmap);
-		} catch (FileNotFoundException ignored) {
+//		try {
+//			File file = new File(requireContext().getFilesDir(), "profile.jpg");
+//			Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+//			profileImage.setImageBitmap(bitmap);
+//		} catch (FileNotFoundException ignored) {
+//
+//		} finally {
+		final File file = new File(requireContext().getFilesDir(), "profile.jpg");
+		StorageReference profilePictureReference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
+		profilePictureReference.getFile(file)
+				.addOnSuccessListener(taskSnapshot -> {
+					try {
+						Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+						profileImage.setImageBitmap(bitmap);
+					} catch (FileNotFoundException ignored) {
 
-		} finally {
-			final File file = new File(requireContext().getFilesDir(), "profile.jpg");
-			StorageReference profilePictureReference = FirebaseStorage.getInstance().getReference().child("Profile Pictures").child(user.getUid() + ".jpg");
-			profilePictureReference.getFile(file)
-					.addOnSuccessListener(taskSnapshot -> {
-						try {
-							Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-							profileImage.setImageBitmap(bitmap);
-						} catch (FileNotFoundException ignored) {
-
-						}
-					})
-					.addOnFailureListener(e1 -> {
-						Toast.makeText(requireContext(), "An error occurred while loading the profile picture", Toast.LENGTH_SHORT).show();
-						Log.e("Failure Error", e1.toString());
-					});
-		}
+					}
+				});
+//		}
 
 		//Handle Settings Click.
 		settings.setOnClickListener(v -> startActivity(new Intent(requireActivity(), SettingsActivity.class)));

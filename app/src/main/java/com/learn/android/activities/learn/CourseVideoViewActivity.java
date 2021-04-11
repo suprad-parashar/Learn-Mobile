@@ -65,6 +65,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_course_video_view);
 
 		//Initialise UI Variables
+
 		YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player);
 		final TextView nameTextView = findViewById(R.id.title);
 		TextView fromTextView = findViewById(R.id.from);
@@ -241,20 +242,22 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 				boolean found = false;
 				long n = dataSnapshot.getChildrenCount();
 				for (int i = 1; i < 3; i++) {
-					//Update Activity.
-					Activity activity = dataSnapshot.child(String.valueOf(n - i)).getValue(Activity.class);
-					assert activity != null;
-					if (!activity.getName().equals(name))
-						continue;
-					found = true;
-					activity.setDone(time >= duration - 90);
-					activity.setTime(time);
-					if (activity.isPlaylist())
-						activity.setIndex(videoIndex);
-					SimpleDateFormat format = new SimpleDateFormat("d MMM, yyyy", Locale.getDefault());
-					String date = format.format(new Date());
-					activity.setDate(date);
-					activityReference.child(Objects.requireNonNull(dataSnapshot.child(String.valueOf(n - i)).getKey())).setValue(activity);
+					if (n - i >= 0) {
+						//Update Activity.
+						Activity activity = dataSnapshot.child(String.valueOf(n - i)).getValue(Activity.class);
+						assert activity != null;
+						if (!activity.getName().equals(name))
+							continue;
+						found = true;
+						activity.setDone(time >= duration - 90);
+						activity.setTime(time);
+						if (activity.isPlaylist())
+							activity.setIndex(videoIndex);
+						SimpleDateFormat format = new SimpleDateFormat("d MMM, yyyy", Locale.getDefault());
+						String date = format.format(new Date());
+						activity.setDate(date);
+						activityReference.child(Objects.requireNonNull(dataSnapshot.child(String.valueOf(n - i)).getKey())).setValue(activity);
+					}
 				}
 				if (!found) {
 					//Create new Activity.
