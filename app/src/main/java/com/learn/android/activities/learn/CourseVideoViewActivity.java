@@ -69,7 +69,7 @@ public class CourseVideoViewActivity extends AppCompatActivity {
 		YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player);
 		final TextView nameTextView = findViewById(R.id.title);
 		TextView fromTextView = findViewById(R.id.from);
-		final TextView ratingTextView = findViewById(R.id.rating);
+		final TextView ratingTextView = findViewById(R.id.rating);	
 		ratingBar = findViewById(R.id.rating_bar);
 		ImageView shareButton = findViewById(R.id.share);
 		final ListView videosPlaylist = findViewById(R.id.videos_playlist);

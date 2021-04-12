@@ -1,4 +1,9 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+ext {
+    var = 'D:\\Personal\\KeyStore\\Learn.jks'
+    var1 = 'Suprad@787723LRN'
+    var2 = 'Learn'
+    var3 = 'Suprad@787723LRN'
+}// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     repositories {

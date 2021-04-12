@@ -2,19 +2,29 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        Sign {
+            storeFile file('D:\\Personal\\KeyStore\\Signing Key.jks')
+            storePassword 'Suprad@787723'
+            keyAlias 'Signing Key'
+            keyPassword 'Suprad@787723'
+        }
+    }
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.android.learn"
+        applicationId 'com.learn.android'
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.Sign
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.Sign
         }
     }
     compileOptions {
